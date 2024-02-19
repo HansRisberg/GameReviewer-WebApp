@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <InvariantGlobalization>false</InvariantGlobalization>
     <RootNamespace>GameReviewer_WebApp</RootNamespace>
   </PropertyGroup>
 
@@ -18,6 +18,10 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameReviewer.DataAccess\GameReviewer.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

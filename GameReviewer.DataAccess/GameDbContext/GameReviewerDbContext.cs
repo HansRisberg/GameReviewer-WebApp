@@ -7,6 +7,9 @@ namespace GameReviewer.DataAccess.GameDbContext
 {
     public class GameReviewerDbContext : DbContext
     {
+        public GameReviewerDbContext(DbContextOptions<GameReviewerDbContext> options) : base(options)
+        {
+        }
         public DbSet<Game> Games => Set<Game>();
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<GameCategory> GameCategories => Set<GameCategory>();
@@ -16,9 +19,11 @@ namespace GameReviewer.DataAccess.GameDbContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                @"Server = (localdb)\MSSQLLocalDB; " +
-            "Database = GameReviewerDB; " +
-                "Trusted_Connection = True;");
+                 @"Server = (localdb)\MSSQLLocalDB; " +
+                 "Database = GameReviewerDBWebApp; " +
+                "Trusted_Connection = True;",
+                 //  b => b.MigrationsAssembly("GameReviewer-WebApp")); // Specify the migrations assembly here
+                 b => b.MigrationsAssembly("GameReviewer.DataAccess")); // Specify the migrations assembly here
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
