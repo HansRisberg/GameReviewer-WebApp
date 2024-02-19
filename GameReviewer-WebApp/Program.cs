@@ -8,7 +8,10 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-
+        builder.Services.AddDbContext<GameReviewerDbContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+        });
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -34,22 +37,6 @@ internal class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
-        // Apply pending migrations
-        using (var scope = app.Services.CreateScope())
-        {
-            var services = scope.ServiceProvider;
-            try
-            {
-                var dbContext = services.GetRequiredService<GameReviewerDbContext>();
-                dbContext.Database.Migrate();
-            }
-            catch (Exception ex)
-            {
-                // Handle exception as needed
-                Console.WriteLine(ex.Message);
-            }
-        }
 
         app.MapControllers();
 

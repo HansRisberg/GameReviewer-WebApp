@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="DTOs\" />
     <Folder Include="IRepositories\" />
     <Folder Include="Repositories\" />

@@ -12,6 +12,7 @@ namespace GameReviewer.DataAccess.Models
         public Reviewer? Reviewer { get; set; }
 
         public string ReviewContent { get; set; } = string.Empty;
+        public DateTime? CreatedAt { get; set; }
         // Other review-related properties...
 
         // Date, rating, or other review-specific properties can be added here.

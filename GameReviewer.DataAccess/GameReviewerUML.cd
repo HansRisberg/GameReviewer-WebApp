@@ -34,9 +34,18 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="GameReviewer.DataAccess.Models.GameReview">
-    <Position X="2.25" Y="2.75" Width="1.5" />
+    <Position X="0.75" Y="3.5" Width="1.5" />
+    <AssociationLine Name="Game" Type="GameReviewer.DataAccess.Models.Game" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="3.985" />
+        <Point X="3.108" Y="3.985" />
+        <Point X="3.108" Y="3.587" />
+        <Point X="5" Y="3.587" />
+        <Point X="5" Y="2.93" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAAEAAAAQEAgAAQAAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAAAACEAAAAQEAgAAQAAAAAEAAAAAAA=</HashCode>
       <FileName>Models\GameReview.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -45,7 +54,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="GameReviewer.DataAccess.Models.Reviewer">
-    <Position X="5" Y="5.5" Width="1.5" />
+    <Position X="4.25" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAQAQAACAAAAAAAAAEQAAAAAA=</HashCode>
       <FileName>Models\Reviewer.cs</FileName>
@@ -55,7 +64,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Enum Name="GameReviewer.DataAccess.Models.PGRating">
-    <Position X="12.25" Y="1.75" Width="1.5" />
+    <Position X="1.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAACAIAAAA=</HashCode>
       <FileName>Models\PGRating.cs</FileName>

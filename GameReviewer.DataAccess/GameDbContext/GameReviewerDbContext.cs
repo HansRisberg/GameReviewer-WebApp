@@ -22,7 +22,6 @@ namespace GameReviewer.DataAccess.GameDbContext
                  @"Server = (localdb)\MSSQLLocalDB; " +
                  "Database = GameReviewerDBWebApp; " +
                 "Trusted_Connection = True;",
-                 //  b => b.MigrationsAssembly("GameReviewer-WebApp")); // Specify the migrations assembly here
                  b => b.MigrationsAssembly("GameReviewer.DataAccess")); // Specify the migrations assembly here
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
