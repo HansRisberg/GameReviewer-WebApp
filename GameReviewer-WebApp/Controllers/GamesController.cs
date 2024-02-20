@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using GameReviewer.DataAccess.GameDbContext;
+using GameReviewer.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GameReviewer.DataAccess.GameDbContext;
-using GameReviewer.DataAccess.Models;
 
 namespace GameReviewer_WebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GamesController : ControllerBase
+    public class GamesController : Controller
     {
         private readonly GameReviewerDbContext _context;
 
