@@ -15,13 +15,29 @@ namespace GameReviewer_WebApp.Controllers
         {
             _context = context;
         }
-
-        // GET: api/Games
+        [HttpGet("pgratings")] //Do I need this? 
+        public ActionResult<IEnumerable<string>> GetAvailablePGRatings()
+        {
+            var availablePGRatings = Enum.GetNames(typeof(PGRating));
+            return Ok(availablePGRatings);
+        }
+        //GET: api/Games
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
             return await _context.Games.ToListAsync();
         }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Game>>> GetGames()
+        //{
+        //    var games = await _context.Games.ToListAsync();
+
+        //    // Include available PG ratings in the response
+        //    var pgRatings = Enum.GetValues(typeof(PGRating)).Cast<PGRating>().ToList();
+        //    var response = new { Games = games, AvailablePGRatings = pgRatings };
+
+        //    return Ok(response);
+        //}
 
         // GET: api/Games/5
         [HttpGet("{id}")]
