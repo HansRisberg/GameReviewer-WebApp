@@ -1,3 +1,4 @@
+using GameReviewer.DataAccess;
 using GameReviewer.DataAccess.GameDbContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        SeedData.Initialize();
         // Add services to the container.
         builder.Services.AddDbContext<GameReviewerDbContext>(options =>
         {

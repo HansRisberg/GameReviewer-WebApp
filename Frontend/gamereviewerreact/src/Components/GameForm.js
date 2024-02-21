@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GameForm = ({ onAddGame }) => {
+const GameForm = ({ onGameAdded }) => {
   const [title, setTitle] = useState('');
 
   const handleSubmit = (e) => {
@@ -12,7 +12,7 @@ const GameForm = ({ onAddGame }) => {
     const newGame = { title };
 
     // Invoke the callback function to add the new game
-    onAddGame(newGame);
+    onGameAdded(newGame);
 
     // Clear the form
     setTitle('');

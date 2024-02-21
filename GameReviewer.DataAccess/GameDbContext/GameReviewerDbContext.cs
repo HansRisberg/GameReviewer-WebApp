@@ -7,6 +7,13 @@ namespace GameReviewer.DataAccess.GameDbContext
 {
     public class GameReviewerDbContext : DbContext
     {
+        /// <summary>
+        /// A constructor for SeedData to work.
+        /// </summary>
+        public GameReviewerDbContext()
+        {
+
+        }
         public GameReviewerDbContext(DbContextOptions<GameReviewerDbContext> options) : base(options)
         {
         }

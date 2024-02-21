@@ -20,24 +20,22 @@ const GameList = () => {
 
   const handleAddGame = async (newGame) => {
     try {
-      // Call the createGame function from your API to add the new game
       const response = await createGame(newGame);
-      // Update the games state with the newly added game
-      setGames([...games, response.data]);
+      setGames((prevGames) => [...prevGames, response.data]);
     } catch (error) {
       console.error('Error adding game:', error);
     }
   };
 
   return (
-    <div>
+    <div> 
       <h1>Game List</h1>
       <ul>
-        {games.map((game) => (
-          <li key={game.id}>{game.title}</li>
+        {games.map((Game, index) => (
+          <li key={index}>{Game.title}</li>
         ))}
       </ul>
-      <GameForm onAddGame={handleAddGame} />
+      <GameForm onGameAdded={handleAddGame} />
     </div>
   );
 };
