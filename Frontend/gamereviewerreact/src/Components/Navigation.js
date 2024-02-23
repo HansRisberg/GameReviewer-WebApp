@@ -11,10 +11,10 @@ const Navigation = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/games">Games</Link>
+          <Link to="/gamesview">Games</Link>
         </li>
         <li>
-          <Link to="/reviews">Reviews</Link>
+          <Link to="/reviewsview">Reviews</Link>
         </li>
         {/* Add more links as needed */}
       </ul>
