@@ -9,8 +9,7 @@ const api = axios.create({
 export const getGame = (id) => api.get(`/games/${id}`);
 export const getGames = () => api.get('/games');
 export const createGame = (newGame) => api.post('/games', newGame);
-export const getAvailablePGRatings = () => api.get('/games/pgratings');
-export const getAvailableCategories = () => api.get('/categories');
+export const getCategories = () =>api.get('/categories');
 // Add more API calls as needed
 
 export default api;

@@ -11,7 +11,7 @@ const GamesView = () => {
       try {
         const response = await axios.get('https://localhost:7168/api/Games/');
         console.log('API Response:', response.data);
-        setGames(response.data);
+        setGames(response.data["$values"]);
       } catch (error) {
         console.error('Error fetching games:', error);
       }

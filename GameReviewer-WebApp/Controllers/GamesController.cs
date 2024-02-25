@@ -27,23 +27,13 @@ namespace GameReviewer_WebApp.Controllers
         {
             return await _context.Games.ToListAsync();
         }
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Game>>> GetGames()
-        //{
-        //    var games = await _context.Games.ToListAsync();
-
-        //    // Include available PG ratings in the response
-        //    var pgRatings = Enum.GetValues(typeof(PGRating)).Cast<PGRating>().ToList();
-        //    var response = new { Games = games, AvailablePGRatings = pgRatings };
-
-        //    return Ok(response);
-        //}
-
-        // GET: api/Games/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> GetGame(int id)
         {
-            var game = await _context.Games.FindAsync(id);
+            var game = await _context.Games
+                .Include(g => g.GameCategories)
+                .ThenInclude(gc => gc.Category)
+                .FirstOrDefaultAsync(g => g.GameId == id);
 
             if (game == null)
             {
@@ -52,6 +42,21 @@ namespace GameReviewer_WebApp.Controllers
 
             return game;
         }
+
+
+        //GET: api/Games/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Game>> GetGame(int id)
+        //{
+        //    var game = await _context.Games.FindAsync(id);
+
+        //    if (game == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return game;
+        //}
 
         // PUT: api/Games/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
