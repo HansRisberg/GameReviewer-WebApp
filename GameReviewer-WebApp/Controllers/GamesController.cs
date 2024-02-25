@@ -35,30 +35,7 @@ namespace GameReviewer_WebApp.Controllers {
 
             return Ok(game);
         }
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Game>> GetGame(int id) {
-        //    var game = await _context.Games
-        //        .Include(g => g.GameCategories)
-        //        .ThenInclude(gc => gc.Category)
-        //        .FirstOrDefaultAsync(g => g.GameId == id);
 
-        //    if (game == null) {
-        //        return NotFound();
-        //    }
-
-        //    // Accessing the Name property of the Category associated with the Game
-        //    string categoryName = game.GameCategories?.FirstOrDefault()?.Category?.Name;
-
-        //    // You can add more properties from the Game class as needed
-        //    var response = new {
-        //        game.GameId,
-        //        game.Title,
-        //        CategoryName = categoryName
-        //        // Add other properties you want from the Game class
-        //    };
-
-        //    return Ok(response);
-        //}
 
         // PUT: api/Games/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
