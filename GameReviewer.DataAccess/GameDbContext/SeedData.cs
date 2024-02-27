@@ -17,7 +17,7 @@ namespace GameReviewer.DataAccess
             // Add more categories as needed
         };
 
-            var games = new List<Game>
+            var games = new List<Game> //legg til dice dream og vis banaz.
         {
             new Game { Title = "Warhammer 40k, Darktide", ReleaseDate = new DateTime(2022, 1, 1), PGRating = PGRating.G },
             new Game { Title = "Baldurs Gate 3", ReleaseDate = new DateTime(2022, 2, 1), PGRating = PGRating.R13},
