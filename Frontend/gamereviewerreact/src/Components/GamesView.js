@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+// A component which gets the list of games in the database and creates a link per item in the list.
+// Each link opens another view that renders the GameDetail compontent. 
 const GamesView = () => {
   const [games, setGames] = useState([]);
 

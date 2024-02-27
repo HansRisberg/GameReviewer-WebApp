@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// A simple navbar to navigate the site. 
 const Navigation = () => {
   return (
     <nav>
