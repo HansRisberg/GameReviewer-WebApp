@@ -22,7 +22,7 @@ namespace GameReviewer.DataAccess
         {
             new Game { Title = "Warhammer 40k, Darktide", ReleaseDate = new DateTime(2022, 1, 1), PGRating = PGRating.G },
             new Game { Title = "Baldurs Gate 3", ReleaseDate = new DateTime(2022, 2, 1), PGRating = PGRating.R13},
-            new Game { Title = "Dice Dreams", ReleaseDate = new DateTime(2024, 1, 5), PGRating = PGRating.G }
+            
             // Add more games as needed
         };
 
@@ -45,7 +45,7 @@ namespace GameReviewer.DataAccess
             new GameCategory { Game = games[0], Category = categories[0] },
             new GameCategory { Game = games[0], Category = categories[1] },
             new GameCategory { Game = games[1], Category = categories[2] },
-            new GameCategory { Game = games[2], Category = categories[3] }
+            
             // Add more game categories as needed
         };
 
