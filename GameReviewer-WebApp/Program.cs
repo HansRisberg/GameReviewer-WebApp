@@ -89,6 +89,7 @@ internal class Program
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
         builder.Services.AddEndpointsApiExplorer();

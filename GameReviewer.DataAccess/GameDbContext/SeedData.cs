@@ -14,13 +14,15 @@ namespace GameReviewer.DataAccess
             new Category { Name = "Action" },
             new Category { Name = "Adventure" },
             new Category { Name = "Role-Playing" },
+            new Category { Name = "Strategy"}
             // Add more categories as needed
         };
 
-            var games = new List<Game> //legg til dice dream og vis banaz.
+            var games = new List<Game> //legg til dice dreams og vis banaz.
         {
             new Game { Title = "Warhammer 40k, Darktide", ReleaseDate = new DateTime(2022, 1, 1), PGRating = PGRating.G },
             new Game { Title = "Baldurs Gate 3", ReleaseDate = new DateTime(2022, 2, 1), PGRating = PGRating.R13},
+            new Game { Title = "Dice Dreams", ReleaseDate = new DateTime(2024, 1, 5), PGRating = PGRating.G }
             // Add more games as needed
         };
 
@@ -43,6 +45,7 @@ namespace GameReviewer.DataAccess
             new GameCategory { Game = games[0], Category = categories[0] },
             new GameCategory { Game = games[0], Category = categories[1] },
             new GameCategory { Game = games[1], Category = categories[2] },
+            new GameCategory { Game = games[2], Category = categories[3] }
             // Add more game categories as needed
         };
 

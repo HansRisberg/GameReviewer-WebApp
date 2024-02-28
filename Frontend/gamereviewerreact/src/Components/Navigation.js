@@ -17,6 +17,9 @@ const Navigation = () => {
         <li>
           <Link to="/reviewsview">Reviews</Link>
         </li>
+        <li>
+          <Link to="/addgameview">Add Game</Link>
+        </li>
         {/* Add more links as needed */}
       </ul>
     </nav>
