@@ -1,4 +1,5 @@
-﻿using GameReviewer.DataAccess.GameDbContext;
+﻿using GameReviewer.DataAccess.DTOs;
+using GameReviewer.DataAccess.GameDbContext;
 using GameReviewer.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace GameReviewer_WebApp.Controllers
         public async Task<ActionResult<Game>> GetGame(int id)
         {
             var game = await _context.Games
-                .Include(g => g.GameCategories)
+                .Include(g => g.GameCategories!) // ignoring nullable warning
                 .ThenInclude(gc => gc.Category)
                 .FirstOrDefaultAsync(g => g.GameId == id);
 
@@ -75,36 +76,56 @@ namespace GameReviewer_WebApp.Controllers
             return NoContent();
         }
 
-        // POST: api/Games
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Game>> PostGame(Game game)
-        {
-            _context.Games.Add(game);
-
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetGame", new { id = game.GameId }, game);
-        }
-
+        ////POST: api/Games
+        ////To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPost]
         //public async Task<ActionResult<Game>> PostGame(Game game)
         //{
-        //    // Create or retrieve the category based on game.GameCategories
-        //    game.GameCategories = new List<GameCategory>
-        //{
-        //    new GameCategory
-        //    {
-        //        Category = new Category { Name = game.GameCategories.First().Category.Name }
-        //    }
-        //};
-
         //    _context.Games.Add(game);
+
         //    await _context.SaveChangesAsync();
 
         //    return CreatedAtAction("GetGame", new { id = game.GameId }, game);
         //}
+        [HttpPost("add-game")]
+        public IActionResult AddGame([FromBody] GameInputDTO gameInput)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            // Create game entity
+            var game = new Game
+            {
+                Title = gameInput.Title,
+                ReleaseDate = gameInput.ReleaseDate,
+                PGRating = gameInput.PGRating
+            };
+
+            // Check if the category already exists
+            var category = _context.Categories.FirstOrDefault(c => c.Name == gameInput.CategoryName);
+
+            if (category == null)
+            {
+                // If category does not exist, create it
+                category = new Category { Name = gameInput.CategoryName };
+            }
+
+            // Create game category
+            var gameCategory = new GameCategory
+            {
+                Game = game,
+                Category = category
+            };
+
+            // Save to the database
+            _context.Games.Add(game);
+            _context.GameCategories.Add(gameCategory);
+            _context.SaveChanges();
+
+            return Ok("Game added successfully");
+        }
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         // DELETE: api/Games/5
