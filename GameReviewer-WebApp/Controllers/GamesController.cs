@@ -16,7 +16,8 @@ namespace GameReviewer_WebApp.Controllers
         {
             _context = context;
         }
-        [HttpGet("pgratings")] //Do I need this? 
+        //TODO: Check if you need this method, if not then delete.
+        [HttpGet("pgratings")]
         public ActionResult<IEnumerable<string>> GetAvailablePGRatings()
         {
             var availablePGRatings = Enum.GetNames(typeof(PGRating));
@@ -28,6 +29,11 @@ namespace GameReviewer_WebApp.Controllers
         {
             return await _context.Games.ToListAsync();
         }
+        /// <summary>
+        /// This Get method by Id is for the clickable links in the GameListView.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> GetGame(int id)
         {
@@ -76,17 +82,11 @@ namespace GameReviewer_WebApp.Controllers
             return NoContent();
         }
 
-        ////POST: api/Games
-        ////To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Game>> PostGame(Game game)
-        //{
-        //    _context.Games.Add(game);
-
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetGame", new { id = game.GameId }, game);
-        //}
+        /// <summary>
+        /// This Post method accepts input from a form in frontend and adds the game to the database. 
+        /// </summary>
+        /// <param name="gameInput"></param>
+        /// <returns></returns>
         [HttpPost("add-game")]
         public IActionResult AddGame([FromBody] GameInputDTO gameInput)
         {
