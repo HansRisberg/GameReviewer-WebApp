@@ -26,6 +26,8 @@ namespace GameReviewer.DataAccess
                 db.ResetIdentityStartingValue("Reviewers");
 
                 db.SaveChanges();
+
+
             }
         }
 

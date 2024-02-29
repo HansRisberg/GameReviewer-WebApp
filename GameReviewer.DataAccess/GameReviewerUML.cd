@@ -31,6 +31,7 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Game" />
+      <Property Name="Category" />
     </ShowAsAssociation>
   </Class>
   <Class Name="GameReviewer.DataAccess.Models.GameReview">
