@@ -1,9 +1,15 @@
-// Home.js
+// Home.js (VIEW)
 
 import React from 'react';
+import GameCarousel from '../Components/GameCarousel';
+
 
 const Home = () => {
-  return <div>Welcome to the Game Review Website!</div>;
+  return (
+    <div>
+      <GameCarousel /> {/* Render the component here */}
+    </div>
+  );
 };
 
 export default Home;
