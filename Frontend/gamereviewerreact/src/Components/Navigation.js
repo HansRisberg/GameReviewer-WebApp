@@ -1,33 +1,3 @@
-// // Navigation.js
-
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-
-// // A simple navbar to navigate the site. 
-// const Navigation = () => {
-//   return (
-//     <nav>
-//       <ul>
-//         <li>
-//           <Link to="/">Home</Link>
-//         </li>
-//         <li>
-//           <Link to="/gamesview">Games</Link>
-//         </li>
-//         <li>
-//           <Link to="/reviewsview">Reviews</Link>
-//         </li>
-//         <li>
-//           <Link to="/addgameview">Add Game</Link>
-//         </li>
-//         {/* Add more links as needed */}
-//       </ul>
-//     </nav>
-//   );
-// };
-
-// export default Navigation;
-
 // Navigation.js
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
