@@ -6,7 +6,7 @@ const Navigation = () => {
   const location = useLocation();
 
   return (
-    <nav style={{ backgroundColor: 'black' }}>
+    <nav style={{ position: 'sticky', top: 0, backgroundColor: 'black', zIndex: 1000 }}>
       <ul style={{ display: 'flex', justifyContent: 'space-around', listStyle: 'none' }}>
         <li style={{ display: location.pathname === '/' ? 'none' : 'block' }}>
           <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>

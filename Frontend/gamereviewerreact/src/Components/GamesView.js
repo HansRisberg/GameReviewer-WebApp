@@ -1,10 +1,8 @@
 // GamesView.js
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-// A component which gets the list of games in the database and creates a link per item in the list.
-// Each link opens another view that renders the GameDetail compontent. 
 const GamesView = () => {
   const [games, setGames] = useState([]);
 
@@ -13,7 +11,10 @@ const GamesView = () => {
       try {
         const response = await axios.get('https://localhost:7168/api/Games/');
         console.log('API Response:', response.data);
-        setGames(response.data["$values"]);
+        
+        // Sort the games alphabetically based on the title
+        const sortedGames = response.data["$values"].sort((a, b) => a.title.localeCompare(b.title));
+        setGames(sortedGames);
       } catch (error) {
         console.error('Error fetching games:', error);
       }
@@ -39,3 +40,4 @@ const GamesView = () => {
 };
 
 export default GamesView;
+
