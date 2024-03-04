@@ -1,1 +1,57 @@
-Imagine you're an old man and you need help washing
+Timeframe
+• To be agreed upon between participant and Academic work.
+• Suggestion: Minimum 1 week / 5 days. Depending on the planned content, could be
+extended to 2-3 weeks.
+Coding languages & tools needed
+• GitHub
+• Fitting IDEs for your chosen languages.
+• A back-end language you have learned: C#, Java, ...
+• Some front-end languages you have learned: HTML & CSS + TypeScript/JavaScript + possibly
+a framework like React, Vue or Angular.
+• SQL database.
+• OR/M framework fit for language and database.
+• Unit test framework.
+
+Task checklist
+• Project and code should be managed through GitHub. (Important, do not skip this step!)
+• Use the back end & front-end languages taught at your program.
+• Include a front-end framework (the one used in your program, for example React) if you feel
+this will enhance your project and webpage.
+• Use an OR/M to integrate a database with your back-end.
+• Integrate at least 1 third-party API in your project (for example: google maps).
+• User test your GUI.
+• Unit test your business logic and back-end code. Example: In a unit test (technically an
+"integration test"), use an OR/M method to add a row to a table in the DB. Then fetch the
+row and compare the result's contents to your expected contents. Following the same setup,
+test your business logic and other database CRUD (create, read, update, delete) operations
+as well.
+• Add a short, written description or list of what you have done in your project and why.
+• Your hand-in will be presented for and evaluated by one of your program teachers (or
+another experienced developer).
+
+Task description
+Develop a webpage. The webpage should have functionality that includes collecting user input,
+storing it in an SQL database and retrieving it on the user's request. Think user experience and
+usability. The operations you implement should make sense for your chosen domain.
+You are free to choose what domain you want to work on. Some examples: Fictional online shop,
+course-and-student register, a self-made blogging system, a company web-page... your choice!
+
+NOTE #1: It should model a well-known domain, so the person evaluating the hand-in has a general
+idea of what to expect and how it should work.
+NOTE #2: If you follow a guide/tutorial, make sure you deviate from it: Make several adjustments
+and implementations with your own design.
+Remember the timeframe you agree with Academic Work on (5 days or more) and figure out the
+amount of content and details from there. Some guidelines on what to include:
+• Web-UI that allows the user to choose actions. Think about UX, create meaningful
+operations.
+• You can choose most of the content yourself, but make sure you cover all of CRUD:
+o Create (input data)
+o Read (retrieve data, special request on this one: good search functionality)
+o Update (alter data)
+o Delete (remove data)
+• Several database tables, including at least one M:M relationship (with M:M connection-table
+if needed).
+• Follow clean code design! (Refactor as appropriate during your work.)
+• Try to incorporate some advanced techniques you have learned. For example:
+Multithreading ("async") is a nice feature!
+Remember the goal of the exercise: To strengthen your developer skills and your CV. 😊

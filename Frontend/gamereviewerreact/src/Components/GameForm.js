@@ -1,5 +1,7 @@
+//#region Pre-material UI code 
 // import React, { useState } from 'react';
 // import { createGame } from '../Services/Api';
+// KEEP THIS CODE SNIPPET IF YOU WANT TO REVERT TO PRE-MATERIAL UI.
 
 // const GameForm = () => {
 //   const [title, setTitle] = useState('');
@@ -74,7 +76,7 @@
 // };
 
 // export default GameForm;
-
+//#endregion
 
 // GameForm.js
 
