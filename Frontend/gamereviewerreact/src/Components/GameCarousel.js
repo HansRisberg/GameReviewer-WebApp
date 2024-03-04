@@ -9,19 +9,19 @@ const gamesData = [
 ];
 
 const GameCarousel = () => {
-  return (
-    <Carousel cycleNavigation>
-      {gamesData.map((game) => (
-        <Paper key={game.title}>
-          {/* Remove the Typography component to hide the title */}
-          {/* <Typography variant="h5">{game.title}</Typography> */}
-          <img src={game.imageUrl} alt={game.title} style={{ width: '100%', height: 'auto' }} />
-        </Paper>
-      ))}
-    </Carousel>
-  );
-};
-
-export default GameCarousel;
+    return (
+      <div style={{ marginTop: '-40px' , position: 'relative', zIndex: '-1' }}> {/* Apply negative margin for overlap */}
+        <Carousel cycleNavigation>
+          {gamesData.map((game) => (
+            <Paper key={game.title}>
+              <img src={game.imageUrl} alt={game.title} style={{ width: '100%', height: 'auto' }} />
+            </Paper>
+          ))}
+        </Carousel>
+      </div>
+    );
+  };
+  
+  export default GameCarousel;
 
   
