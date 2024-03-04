@@ -32,6 +32,7 @@ export const StyledTextField = styled('input')(({ theme }) => ({
 }));
 
 export const StyledButton = styled('button')(({ theme }) => ({  
+  backgroundColor: theme.palette.primary.main,
   color: theme.palette.common.white,
   padding: theme.spacing(1.5),
   borderRadius: theme.shape.borderRadius,
