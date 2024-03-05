@@ -15,7 +15,10 @@ namespace GameReviewer_WebApp.Controllers
         {
             _context = context;
         }
-
+        /// <summary>
+        /// This Get method is used to sort the list of games from a category dropdown menu in frontend. 
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Categories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
@@ -25,7 +28,7 @@ namespace GameReviewer_WebApp.Controllers
                 .ThenInclude(gc => gc.Game)
                 .ToListAsync();
 
-            // Optionally, you can shape the result to include only the necessary data
+            // Optionally, we can shape the result to include only the necessary data
             var shapedCategories = categories.Select(c => new Category
             {
                 CategoryId = c.CategoryId,

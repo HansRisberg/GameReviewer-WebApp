@@ -23,6 +23,10 @@ namespace GameReviewer_WebApp.Controllers
             var availablePGRatings = Enum.GetNames(typeof(PGRating));
             return Ok(availablePGRatings);
         }
+        /// <summary>
+        /// This Get method is used to render a list of games. 
+        /// </summary>
+        /// <returns></returns>
         //GET: api/Games
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
@@ -39,6 +43,7 @@ namespace GameReviewer_WebApp.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        //GET: api/Game{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> GetGame(int id)
         {
