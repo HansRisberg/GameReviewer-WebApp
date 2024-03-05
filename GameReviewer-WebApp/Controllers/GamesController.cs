@@ -105,14 +105,6 @@ namespace GameReviewer_WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            // Create game entity
-            var game = new Game
-            {
-                Title = gameInput.Title,
-                ReleaseDate = gameInput.ReleaseDate,
-                PGRating = gameInput.PGRating
-            };
-
             // Check if the category already exists
             var category = _context.Categories.FirstOrDefault(c => c.Name == gameInput.CategoryName);
 
@@ -120,22 +112,34 @@ namespace GameReviewer_WebApp.Controllers
             {
                 // If category does not exist, create it
                 category = new Category { Name = gameInput.CategoryName };
+                _context.Categories.Add(category); // Add the new category to the context
             }
 
-            // Create game category
-            var gameCategory = new GameCategory
+            // Create game entity
+            var game = new Game
             {
-                Game = game,
+                Title = gameInput.Title,
+                ReleaseDate = gameInput.ReleaseDate,
+                PGRating = gameInput.PGRating,
+                GameCategories = new List<GameCategory> // Ensure GameCategories is initialized
+        {
+            new GameCategory
+            {
                 Category = category
+            }
+        }
+                // Add other properties if needed
             };
 
             // Save to the database
             _context.Games.Add(game);
-            _context.GameCategories.Add(gameCategory);
             _context.SaveChanges();
 
             return Ok("Game added successfully");
         }
+
+
+
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         // DELETE: api/Games/5

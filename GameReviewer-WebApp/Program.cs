@@ -12,11 +12,11 @@ internal class Program
 
         SeedData.Initialize();
 
-        // Add services to the container.
-        builder.Services.AddDbContext<GameReviewerDbContext>(options =>
-        {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-        });
+        //// Add services to the container.
+        //builder.Services.AddDbContext<GameReviewerDbContext>(options =>
+        //{
+        //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+        //});
 
         // Configure CORS
         builder.Services.AddCors(options =>
