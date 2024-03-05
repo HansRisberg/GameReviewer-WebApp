@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using GameReviewer.DataAccess.GameDbContext;
+using GameReviewer.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GameReviewer.DataAccess.GameDbContext;
-using GameReviewer.DataAccess.Models;
 
 namespace GameReviewer_WebApp.Controllers
 {
@@ -25,8 +20,28 @@ namespace GameReviewer_WebApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            var categories = await _context.Categories
+                .Include(c => c.GameCategories!)
+                .ThenInclude(gc => gc.Game)
+                .ToListAsync();
+
+            // Optionally, you can shape the result to include only the necessary data
+            var shapedCategories = categories.Select(c => new Category
+            {
+                CategoryId = c.CategoryId,
+                Name = c.Name,
+                // Other properties you want to include...
+                GameCategories = c.GameCategories.Select(gc => new GameCategory
+                {
+                    // Include only the necessary properties from GameCategory...
+                    GameId = gc.GameId,
+                    CategoryId = gc.CategoryId
+                }).ToList()
+            }).ToList();
+
+            return shapedCategories;
         }
+
 
         // GET: api/Categories/5
         [HttpGet("{id}")]

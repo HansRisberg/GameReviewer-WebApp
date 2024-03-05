@@ -27,7 +27,12 @@ namespace GameReviewer_WebApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
-            return await _context.Games.ToListAsync();
+            var games = await _context.Games
+                .Include(g => g.GameCategories!)
+                    .ThenInclude(gc => gc.Category)
+                .ToListAsync();
+
+            return games;
         }
         /// <summary>
         /// This Get method by Id is for the clickable links in the GameListView.
