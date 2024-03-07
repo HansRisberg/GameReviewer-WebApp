@@ -6,9 +6,9 @@ import fetchYouTubeTrailer from '../Services/youtubeApi';
 
 const GameDetail = () => {
   const [game, setGame] = useState([]);
-  const [trailerId, setTrailerId] = useState(null);
+const [trailerId, setTrailerId] = useState(null);
   const { id } = useParams();
-  
+
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY || 'defaultApiKey';
 
   useEffect(() => {

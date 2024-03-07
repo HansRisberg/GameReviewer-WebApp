@@ -6,11 +6,10 @@ const api = axios.create({
   baseURL: BASE_URL,
 });
 //Exporting the CRUD opperations need for the different components. 
-export const getGame = (id) => api.get(`/games/${id}`);
-export const getGames = () => api.get('/games');
-//export const createGame = (newGame) => api.post('/games', newGame); //Not in use atm
-export const createGame = (newGame) => api.post('/games/add-game', newGame);
-export const getCategories = () =>api.get('/categories'); // Not in use atm
+export const getGame = (id) => api.get(`/games/${id}`);                      //GameDetail.js
+export const getGames = () => api.get('/games');                             //GameListComponent.js
+export const createGame = (newGame) => api.post('/games/add-game', newGame); //GameForm.js
+export const getCategories = () =>api.get('/categories');                    //GmaeCategoryComponent.js
 // Add more API calls as needed
 
 export default api;
