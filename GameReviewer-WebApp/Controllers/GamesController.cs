@@ -3,6 +3,7 @@ using GameReviewer.DataAccess.GameDbContext;
 using GameReviewer.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GameReviewer_WebApp.Controllers
 {
@@ -29,15 +30,34 @@ namespace GameReviewer_WebApp.Controllers
         /// <returns></returns>
         //GET: api/Games
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
+        public async Task<ActionResult<IEnumerable<GameDTO>>> GetGames()
         {
             var games = await _context.Games
-                .Include(g => g.GameCategories!)
+                .Include(g => g.GameCategories)
                     .ThenInclude(gc => gc.Category)
                 .ToListAsync();
 
-            return games;
+            var gameDtos = games.Select(game => new GameDTO
+            {
+                GameId = game.GameId,
+                Title = game.Title,
+                ReleaseDate = game.ReleaseDate,
+                PgRating = game.PGRating.ToString(),  // Convert enum to string
+                Categories = game.GameCategories.Select(gc => gc.Category.Name).ToList()
+            });
+
+            return Ok(gameDtos);
         }
+
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Game>>> GetGames()
+        //{
+        //    var games = await _context.Games
+        //        .Include(g => g.GameCategories)
+        //        .ToListAsync();
+
+        //    return games;
+        //}
         /// <summary>
         /// This Get method by Id is for the clickable links in the GameListView.
         /// </summary>
@@ -105,13 +125,8 @@ namespace GameReviewer_WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            // Create game entity
-            var game = new Game
-            {
-                Title = gameInput.Title,
-                ReleaseDate = gameInput.ReleaseDate,
-                PGRating = gameInput.PGRating
-            };
+            // Log values for debugging
+            Console.WriteLine($"Received Game Input: {JsonConvert.SerializeObject(gameInput)}");
 
             // Check if the category already exists
             var category = _context.Categories.FirstOrDefault(c => c.Name == gameInput.CategoryName);
@@ -120,22 +135,60 @@ namespace GameReviewer_WebApp.Controllers
             {
                 // If category does not exist, create it
                 category = new Category { Name = gameInput.CategoryName };
+                _context.Categories.Add(category); // Add the new category to the context
+                _context.SaveChanges(); // Save changes to get the generated CategoryId
+
+                // Log the newly created category for debugging
+                Console.WriteLine($"New Category Created: {JsonConvert.SerializeObject(category)}");
+            }
+            else
+            {
+                // Log existing category for debugging
+                Console.WriteLine($"Existing Category Found: {JsonConvert.SerializeObject(category)}");
             }
 
-            // Create game category
-            var gameCategory = new GameCategory
+            // Create game entity without setting GameId manually
+            var game = new Game
             {
-                Game = game,
+                Title = gameInput.Title,
+                ReleaseDate = gameInput.ReleaseDate,
+                PGRating = gameInput.PGRating,
+                GameCategories = new List<GameCategory>
+        {
+            new GameCategory
+            {
                 Category = category
+            }
+        }
+                // Add other properties if needed
             };
 
-            // Save to the database
-            _context.Games.Add(game);
-            _context.GameCategories.Add(gameCategory);
-            _context.SaveChanges();
+            // Log the new game for debugging
+            Console.WriteLine($"New Game Created: {JsonConvert.SerializeObject(game)}");
 
-            return Ok("Game added successfully");
+            try
+            {
+                // Save the new game to the database
+                _context.Games.Add(game);
+                _context.SaveChanges();
+
+                // Log success message for debugging
+                Console.WriteLine("Game added successfully");
+
+                return Ok("Game added successfully");
+            }
+            catch (Exception ex)
+            {
+                // Log exception details for debugging
+                Console.WriteLine($"Error adding game: {ex.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
         }
+
+
+
+
+
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         // DELETE: api/Games/5
