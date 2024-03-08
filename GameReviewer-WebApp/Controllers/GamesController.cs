@@ -63,19 +63,6 @@ namespace GameReviewer_WebApp.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         //GET: api/Game{id}
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Game>> GetGame(int id) {
-        //    var game = await _context.Games
-        //        .Include(g => g.GameCategories!) // ignoring nullable warning
-        //        .ThenInclude(gc => gc.Category)
-        //        .FirstOrDefaultAsync(g => g.GameId == id);
-
-        //    if (game == null) {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(game);
-        //}
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> GetGame(int id)
         {

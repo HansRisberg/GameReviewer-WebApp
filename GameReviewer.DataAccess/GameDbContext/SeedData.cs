@@ -36,6 +36,7 @@ namespace GameReviewer.DataAccess
             var gameReviews = new List<GameReview>
         {
             new GameReview { Game = games[0], Reviewer = reviewers[0], ReviewContent = "Great game!" },
+            new GameReview { Game = games[0], Reviewer = reviewers[1], ReviewContent = "Great game, PS: John is an idiot!" },
             new GameReview { Game = games[1], Reviewer = reviewers[1], ReviewContent = "Enjoyed playing it." },
             // Add more game reviews as needed
         };
