@@ -34,14 +34,14 @@ namespace GameReviewer_WebApp.Controllers
         public async Task<ActionResult<IEnumerable<GameDTO>>> GetGames([FromQuery] string category = "All categories")
         {
             var queryable = _context.Games
-                .Include(g => g.GameCategories)
-                .ThenInclude(gc => gc.Category)
+                .Include(g => g.GameGenres)
+                .ThenInclude(gc => gc.Genre)
                 .AsQueryable();
 
             if (category != "All categories")
             {
                 // Filter games based on the specified category
-                queryable = queryable.Where(g => g.GameCategories.Any(gc => gc.Category.Name == category));
+                queryable = queryable.Where(g => g.GameGenres.Any(gc => gc.Genre.Name == category));
             }
 
             var games = await queryable.ToListAsync();
@@ -52,7 +52,7 @@ namespace GameReviewer_WebApp.Controllers
                 Title = game.Title,
                 ReleaseDate = game.ReleaseDate,
                 PgRating = game.PGRating.ToString(),
-                Categories = game.GameCategories.Select(gc => gc.Category.Name).ToList()
+                Categories = game.GameGenres.Select(gc => gc.Genre.Name).ToList()
             });
 
             return Ok(gameDtos);
@@ -67,8 +67,8 @@ namespace GameReviewer_WebApp.Controllers
         public async Task<ActionResult<Game>> GetGame(int id)
         {
             var game = await _context.Games
-                .Include(g => g.GameCategories)
-                    .ThenInclude(gc => gc.Category)
+                .Include(g => g.GameGenres)
+                    .ThenInclude(gc => gc.Genre)
                 .Include(g => g.GameReviews)
                     .ThenInclude(gr => gr.Reviewer)
                 .FirstOrDefaultAsync(g => g.GameId == id);
@@ -129,23 +129,23 @@ namespace GameReviewer_WebApp.Controllers
                 Title = gameInput.Title,
                 ReleaseDate = gameInput.ReleaseDate,
                 PGRating = gameInput.PGRating,
-                GameCategories = new List<GameGenre>()
+                GameGenres = new List<GameGenre>()
             };
 
-            foreach (var categoryName in gameInput.Categories)
+            foreach (var genreName in gameInput.Genres) // Updated variable name
             {
-                // Assuming the categories provided already exist in the database
-                var category = _context.Genres.FirstOrDefault(c => c.Name == categoryName);
+                // Assuming the genres provided already exist in the database
+                var genre = _context.Genres.FirstOrDefault(g => g.Name == genreName); // Updated variable name
 
-                if (category != null)
+                if (genre != null)
                 {
-                    // Add the category to the game
-                    game.GameCategories.Add(new GameGenre { Category = category });
+                    // Add the genre to the game
+                    game.GameGenres.Add(new GameGenre { Genre = genre }); // Updated variable name
                 }
-                // Log a warning if the category is not found (this can be adjusted based on your needs)
+                // Log a warning if the genre is not found (this can be adjusted based on your needs)
                 else
                 {
-                    Console.WriteLine($"Warning: Category '{categoryName}' not found in the database.");
+                    Console.WriteLine($"Warning: Genre '{genreName}' not found in the database."); // Updated variable name
                 }
             }
 
@@ -170,6 +170,7 @@ namespace GameReviewer_WebApp.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
 
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

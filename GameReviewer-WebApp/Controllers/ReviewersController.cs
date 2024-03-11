@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using GameReviewer.DataAccess.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using GameReviewer.DataAccess.GameDbContext;
-using GameReviewer.DataAccess.Models;
 
 namespace GameReviewer_WebApp.Controllers
 {
@@ -14,95 +8,63 @@ namespace GameReviewer_WebApp.Controllers
     [ApiController]
     public class ReviewersController : ControllerBase
     {
-        private readonly GameReviewerDbContext _context;
+        private readonly UserManager<Reviewer> userManager;
+        private readonly SignInManager<Reviewer> signInManager;
 
-        public ReviewersController(GameReviewerDbContext context)
+        public ReviewersController(UserManager<Reviewer> userManager, SignInManager<Reviewer> signInManager)
         {
-            _context = context;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
-        // GET: api/Reviewers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Reviewer>>> GetReviewers()
+        public IActionResult Register()
         {
-            return await _context.Reviewers.ToListAsync();
+            return Ok();
         }
 
-        // GET: api/Reviewers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Reviewer>> GetReviewer(int id)
-        {
-            var reviewer = await _context.Reviewers.FindAsync(id);
-
-            if (reviewer == null)
-            {
-                return NotFound();
-            }
-
-            return reviewer;
-        }
-
-        // PUT: api/Reviewers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutReviewer(int id, Reviewer reviewer)
-        {
-            if (id != reviewer.ReviewerId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(reviewer).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReviewerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Reviewers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Reviewer>> PostReviewer(Reviewer reviewer)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            _context.Reviewers.Add(reviewer);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetReviewer", new { id = reviewer.ReviewerId }, reviewer);
-        }
-
-        // DELETE: api/Reviewers/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReviewer(int id)
-        {
-            var reviewer = await _context.Reviewers.FindAsync(id);
-            if (reviewer == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                var user = new Reviewer
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Name = model.Name,
+                    // Other properties...
+                };
+
+                var result = await userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    // Automatically sign in the user after registration
+                    await signInManager.SignInAsync(user, isPersistent: false);
+
+                    // You can customize the response data here
+                    var responseData = new
+                    {
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        Name = user.Name
+                        // Add other properties you want to include in the response
+                    };
+
+                    // Return a 200 OK response with the meaningful data
+                    return Ok(responseData);
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
 
-            _context.Reviewers.Remove(reviewer);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool ReviewerExists(int id)
-        {
-            return _context.Reviewers.Any(e => e.ReviewerId == id);
+            // Return a 400 Bad Request response with the validation errors
+            return BadRequest(ModelState);
         }
     }
 }

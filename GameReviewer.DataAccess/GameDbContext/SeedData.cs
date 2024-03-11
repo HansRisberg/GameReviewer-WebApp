@@ -43,9 +43,9 @@ namespace GameReviewer.DataAccess
 
             var gameCategories = new List<GameGenre>
         {
-            new GameGenre { Game = games[0], Category = categories[0] },
-            new GameGenre { Game = games[0], Category = categories[1] },
-            new GameGenre { Game = games[1], Category = categories[2] },
+            new GameGenre { Game = games[0], Genre = categories[0] },
+            new GameGenre { Game = games[0], Genre = categories[1] },
+            new GameGenre { Game = games[1], Genre = categories[2] },
             
             // Add more game categories as needed
         };

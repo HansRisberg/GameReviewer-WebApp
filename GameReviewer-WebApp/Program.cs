@@ -1,8 +1,9 @@
-
 using GameReviewer.DataAccess;
 using GameReviewer.DataAccess.GameDbContext;
+using GameReviewer.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+
 
 internal class Program
 {
@@ -11,12 +12,6 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         SeedData.Initialize();
-
-        //// Add services to the container.
-        //builder.Services.AddDbContext<GameReviewerDbContext>(options =>
-        //{
-        //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-        //});
 
         // Configure CORS
         builder.Services.AddCors(options =>
@@ -32,7 +27,6 @@ internal class Program
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
         builder.Services.AddEndpointsApiExplorer();
@@ -47,6 +41,10 @@ internal class Program
                 "Trusted_Connection=True;");
         });
 
+        // Configure Identity
+        builder.Services.AddDefaultIdentity<Reviewer>(options => options.SignIn.RequireConfirmedAccount = false)
+            .AddEntityFrameworkStores<GameReviewerDbContext>();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -59,10 +57,9 @@ internal class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseAuthentication(); // Add this line to enable authentication
         app.UseAuthorization();
         app.MapControllers();
         app.Run();
-
-
     }
 }

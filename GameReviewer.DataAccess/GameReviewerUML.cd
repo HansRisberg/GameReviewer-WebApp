@@ -1,37 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="GameReviewer.DataAccess.Models.Category">
-    <Position X="9.75" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>Models\Category.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="GameCategories" />
-    </ShowAsCollectionAssociation>
-  </Class>
   <Class Name="GameReviewer.DataAccess.Models.Game">
     <Position X="4.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAEAAAAEAAAAAAAAAgAAAAAAAQQAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAIAEAAAAEAAAAAAAAAgAAAAIAAQAAAAAA=</HashCode>
       <FileName>Models\Game.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PGRating" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="GameCategories" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="GameReviewer.DataAccess.Models.GameCategory">
-    <Position X="7.75" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAEAAAAAEAgAAAAAAAAAAAAACAA=</HashCode>
-      <FileName>Models\GameCategory.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Game" />
-      <Property Name="Category" />
     </ShowAsAssociation>
   </Class>
   <Class Name="GameReviewer.DataAccess.Models.GameReview">
@@ -42,7 +18,7 @@
         <Point X="3.108" Y="3.985" />
         <Point X="3.108" Y="3.587" />
         <Point X="5" Y="3.587" />
-        <Point X="5" Y="2.93" />
+        <Point X="5" Y="3.122" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -57,12 +33,26 @@
   <Class Name="GameReviewer.DataAccess.Models.Reviewer">
     <Position X="4" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAQAACAAAAAAAAAEQAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAEQAAAAAA=</HashCode>
       <FileName>Models\Reviewer.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="GameReviews" />
     </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="GameReviewer.DataAccess.Models.Genre">
+    <Position X="10.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Models\Genre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameReviewer.DataAccess.Models.GameGenre">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAMAAAAAEAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GameGenre.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Enum Name="GameReviewer.DataAccess.Models.PGRating">
     <Position X="1.5" Y="0.5" Width="1.5" />

@@ -8,7 +8,7 @@ namespace GameReviewer.DataAccess.Models
         public Game? Game { get; set; }
 
         public int GenreId { get; set; }
-        public Genre? Category { get; set; }
+        public Genre? Genre { get; set; }
 
         // Other properties related to the association...
 
@@ -19,11 +19,11 @@ namespace GameReviewer.DataAccess.Models
 
             modelBuilder.Entity<GameGenre>()
                 .HasOne(gc => gc.Game)
-                .WithMany(g => g.GameCategories)
+                .WithMany(g => g.GameGenres)
                 .HasForeignKey(gc => gc.GameId);
 
             modelBuilder.Entity<GameGenre>()
-                .HasOne(gc => gc.Category)
+                .HasOne(gc => gc.Genre)
                 .WithMany(c => c.GameGenre)
                 .HasForeignKey(gc => gc.GenreId);
 

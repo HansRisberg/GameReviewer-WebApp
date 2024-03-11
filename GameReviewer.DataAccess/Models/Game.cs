@@ -10,6 +10,6 @@
         // Other properties...
 
         public ICollection<GameReview>? GameReviews { get; set; }
-        public ICollection<GameGenre>? GameCategories { get; set; }
+        public ICollection<GameGenre>? GameGenres { get; set; }
     }
 }
