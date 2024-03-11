@@ -112,78 +112,6 @@ namespace GameReviewer_WebApp.Controllers
             return NoContent();
         }
 
-        /// <summary>
-        /// This Post method accepts input from a form in frontend and adds the game to the database. 
-        /// </summary>
-        /// <param name="gameInput"></param>
-        /// <returns></returns>
-        //[HttpPost("add-game")]
-        //public IActionResult AddGame([FromBody] GameInputDTO gameInput)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    // Log values for debugging
-        //    Console.WriteLine($"Received Game Input: {JsonConvert.SerializeObject(gameInput)}");
-
-        //    // Check if the category already exists
-        //    var category = _context.Categories.FirstOrDefault(c => c.Name == gameInput.CategoryName);
-
-        //    if (category == null)
-        //    {
-        //        // If category does not exist, create it
-        //        category = new Category { Name = gameInput.CategoryName };
-        //        _context.Categories.Add(category); // Add the new category to the context
-        //        _context.SaveChanges(); // Save changes to get the generated CategoryId
-
-        //        // Log the newly created category for debugging
-        //        Console.WriteLine($"New Category Created: {JsonConvert.SerializeObject(category)}");
-        //    }
-        //    else
-        //    {
-        //        // Log existing category for debugging
-        //        Console.WriteLine($"Existing Category Found: {JsonConvert.SerializeObject(category)}");
-        //    }
-
-        //    // Create game entity without setting GameId manually
-        //    var game = new Game
-        //    {
-        //        Title = gameInput.Title,
-        //        ReleaseDate = gameInput.ReleaseDate,
-        //        PGRating = gameInput.PGRating,
-        //        GameCategories = new List<GameCategory>
-        //{
-        //    new GameCategory
-        //    {
-        //        Category = category
-        //    }
-        //}
-        //        // Add other properties if needed
-        //    };
-
-        //    // Log the new game for debugging
-        //    Console.WriteLine($"New Game Created: {JsonConvert.SerializeObject(game)}");
-
-        //    try
-        //    {
-        //        // Save the new game to the database
-        //        _context.Games.Add(game);
-        //        _context.SaveChanges();
-
-        //        // Log success message for debugging
-        //        Console.WriteLine("Game added successfully");
-
-        //        return Ok("Game added successfully");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log exception details for debugging
-        //        Console.WriteLine($"Error adding game: {ex.Message}");
-        //        return StatusCode(500, "Internal Server Error");
-        //    }
-        //}
         [HttpPost("add-game")]
         public IActionResult AddGame([FromBody] GameInputDTO gameInput)
         {
@@ -201,18 +129,18 @@ namespace GameReviewer_WebApp.Controllers
                 Title = gameInput.Title,
                 ReleaseDate = gameInput.ReleaseDate,
                 PGRating = gameInput.PGRating,
-                GameCategories = new List<GameCategory>()
+                GameCategories = new List<GameGenre>()
             };
 
             foreach (var categoryName in gameInput.Categories)
             {
                 // Assuming the categories provided already exist in the database
-                var category = _context.Categories.FirstOrDefault(c => c.Name == categoryName);
+                var category = _context.Genres.FirstOrDefault(c => c.Name == categoryName);
 
                 if (category != null)
                 {
                     // Add the category to the game
-                    game.GameCategories.Add(new GameCategory { Category = category });
+                    game.GameCategories.Add(new GameGenre { Category = category });
                 }
                 // Log a warning if the category is not found (this can be adjusted based on your needs)
                 else
