@@ -4,10 +4,10 @@ namespace GameReviewer.DataAccess.DTOs
 {
     public class GameInputDTO
     {
-
-        public required string Title { get; set; }
+        public string Title { get; set; }
         public DateTime ReleaseDate { get; set; }
         public PGRating PGRating { get; set; }
-        public string CategoryName { get; set; } = "Other";
+        public List<string> Categories { get; set; } = new List<string> { "Other" }; // Default to "Other" if no categories provided
     }
+
 }
