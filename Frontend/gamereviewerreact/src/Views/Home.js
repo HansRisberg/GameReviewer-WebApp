@@ -2,14 +2,15 @@
 
 import React from 'react';
 import GameCarousel from '../Components/GameCarousel';
+import RegistrationForm from '../Components/RegistrationForm';
 
-
-const Home = () => {
+const home = () => {
   return (
     <div>
+      <RegistrationForm />
       <GameCarousel /> {/* Render the component here */}
     </div>
   );
 };
 
-export default Home;
+export default home;
