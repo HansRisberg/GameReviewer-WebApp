@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const GamesListComponent = ({ selectedCategory }) => {
+const GamesListComponent = ({ selectedGenre }) => {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = selectedCategory === 'All categories'
+        const url = selectedGenre === 'All genres'
           ? 'https://localhost:7168/api/Games/'
-          : `https://localhost:7168/api/Games?category=${encodeURIComponent(selectedCategory)}`;
+          : `https://localhost:7168/api/Games?genre=${encodeURIComponent(selectedGenre)}`;
 
         console.log('API Request URL:', url);
 
@@ -36,7 +36,7 @@ const GamesListComponent = ({ selectedCategory }) => {
     };
 
     fetchData();
-  }, [selectedCategory]);
+  }, [selectedGenre]);
 
   return (
     <div>

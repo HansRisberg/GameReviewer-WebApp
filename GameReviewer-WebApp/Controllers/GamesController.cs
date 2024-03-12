@@ -31,17 +31,17 @@ namespace GameReviewer_WebApp.Controllers
         /// <returns></returns>
         //GET: api/Games
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GameDTO>>> GetGames([FromQuery] string category = "All categories")
+        public async Task<ActionResult<IEnumerable<GameDTO>>> GetGames([FromQuery] string genre = "All genres")
         {
             var queryable = _context.Games
                 .Include(g => g.GameGenres)
                 .ThenInclude(gc => gc.Genre)
                 .AsQueryable();
 
-            if (category != "All categories")
+            if (genre != "All genres")
             {
-                // Filter games based on the specified category
-                queryable = queryable.Where(g => g.GameGenres.Any(gc => gc.Genre.Name == category));
+                // Filter games based on the specified genre
+                queryable = queryable.Where(g => g.GameGenres.Any(gc => gc.Genre.Name == genre));
             }
 
             var games = await queryable.ToListAsync();

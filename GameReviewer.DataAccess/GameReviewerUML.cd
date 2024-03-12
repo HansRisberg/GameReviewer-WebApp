@@ -9,16 +9,20 @@
     <ShowAsAssociation>
       <Property Name="PGRating" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="GameReviews" />
+      <Property Name="GameGenres" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="GameReviewer.DataAccess.Models.GameReview">
-    <Position X="0.5" Y="3.5" Width="1.5" />
+    <Position X="0.75" Y="4.5" Width="1.5" />
     <AssociationLine Name="Game" Type="GameReviewer.DataAccess.Models.Game" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2" Y="3.985" />
-        <Point X="3.108" Y="3.985" />
+        <Point X="2.25" Y="4.985" />
+        <Point X="3.108" Y="4.985" />
         <Point X="3.108" Y="3.587" />
         <Point X="5" Y="3.587" />
-        <Point X="5" Y="3.122" />
+        <Point X="5" Y="2.738" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -31,7 +35,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="GameReviewer.DataAccess.Models.Reviewer">
-    <Position X="4" Y="5.75" Width="1.5" />
+    <Position X="4.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAEQAAAAAA=</HashCode>
       <FileName>Models\Reviewer.cs</FileName>
@@ -46,13 +50,31 @@
       <HashCode>AAAAAAAAAAAAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Models\Genre.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="GameGenre" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="GameReviewer.DataAccess.Models.GameGenre">
-    <Position X="6.75" Y="3.5" Width="1.5" />
+    <Position X="7.5" Y="2.75" Width="1.5" />
+    <AssociationLine Name="Game" Type="GameReviewer.DataAccess.Models.Game" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.5" Y="3.168" />
+        <Point X="6.866" Y="3.168" />
+        <Point X="6.866" Y="2.88" />
+        <Point X="6.639" Y="2.88" />
+        <Point X="6.639" Y="2.542" />
+        <Point X="6.25" Y="2.542" />
+        <Point X="6.25" Y="2.562" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAIAAAAAMAAAAAEAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\GameGenre.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Genre" />
+      <Property Name="Game" />
+    </ShowAsAssociation>
   </Class>
   <Enum Name="GameReviewer.DataAccess.Models.PGRating">
     <Position X="1.5" Y="0.5" Width="1.5" />
