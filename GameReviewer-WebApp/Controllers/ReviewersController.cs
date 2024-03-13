@@ -1,4 +1,5 @@
-﻿using GameReviewer.DataAccess.Models;
+﻿using GameReviewer.DataAccess.DTOs;
+using GameReviewer.DataAccess.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]")]
 public class AccountController : ControllerBase
 {
-    private readonly UserManager<Reviewer> userManager;
-    private readonly SignInManager<Reviewer> signInManager;
+    private readonly UserManager<Reviewer> _userManager;
+    private readonly SignInManager<Reviewer> _signInManager;
 
     public AccountController(UserManager<Reviewer> userManager, SignInManager<Reviewer> signInManager)
     {
-        this.userManager = userManager;
-        this.signInManager = signInManager;
+        _userManager = userManager;
+        _signInManager = signInManager;
     }
 
     [HttpPost("register")]
@@ -28,20 +29,20 @@ public class AccountController : ControllerBase
                 // Other properties...
             };
 
-            var result = await userManager.CreateAsync(user, registerRequest.Password);
+            var result = await _userManager.CreateAsync(user, registerRequest.Password);
 
             if (result.Succeeded)
             {
                 // Automatically sign in the user after registration
-                await signInManager.SignInAsync(user, isPersistent: false);
+                await _signInManager.SignInAsync(user, isPersistent: false);
 
                 // You can customize the response data here
                 var responseData = new
                 {
                     UserId = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Name = user.Name
+                    user.UserName,
+                    user.Email,
+                    user.Name
                     // Add other properties you want to include in the response
                 };
 

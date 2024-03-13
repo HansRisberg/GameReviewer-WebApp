@@ -13,8 +13,8 @@ const GameForm = () => {
   const [title, setTitle] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
   const [selectedPgRating, setSelectedPgRating] = useState('');
-  const [selectedGenres, setSelectedGenres] = useState([]); // Updated state name
-  const [genres, setGenres] = useState([]); // Updated state name
+  const [selectedGenres, setSelectedGenres] = useState([]); 
+  const [genres, setGenres] = useState([]); 
 
   useEffect(() => {
     const fetchGenres = async () => {
