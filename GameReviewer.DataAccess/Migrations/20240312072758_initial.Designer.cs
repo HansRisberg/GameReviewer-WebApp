@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameReviewer.DataAccess.Migrations
 {
     [DbContext(typeof(GameReviewerDbContext))]
-    [Migration("20240305115821_ChangesInGameCategoryModel")]
-    partial class ChangesInGameCategoryModel
+    [Migration("20240312072758_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,23 +67,15 @@ namespace GameReviewer.DataAccess.Migrations
 
             modelBuilder.Entity("GameReviewer.DataAccess.Models.GameCategory", b =>
                 {
-                    b.Property<int>("GameCategoryId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("GameId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GameCategoryId"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameCategoryId");
+                    b.HasKey("GameId", "CategoryId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("GameId");
 
                     b.ToTable("GameCategories");
                 });

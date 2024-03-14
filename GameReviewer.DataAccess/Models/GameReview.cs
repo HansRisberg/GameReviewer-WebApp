@@ -8,7 +8,7 @@ namespace GameReviewer.DataAccess.Models
         public int GameId { get; set; }
         public Game? Game { get; set; }
 
-        public int ReviewerId { get; set; }
+        public string ReviewerId { get; set; }
         public Reviewer? Reviewer { get; set; }
 
         public string ReviewContent { get; set; } = string.Empty;

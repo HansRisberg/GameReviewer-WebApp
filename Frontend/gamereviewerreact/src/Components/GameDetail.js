@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import fetchYouTubeTrailer from '../Services/youtubeApi'; 
+import fetchYouTubeTrailer from '../Services/youtubeApi';
 
 const GameDetail = () => {
   const [game, setGame] = useState([]);
@@ -16,24 +16,23 @@ const GameDetail = () => {
         const gameResponse = await axios.get(`https://localhost:7168/api/Games/${id}`);
         console.log('Game Detail Response:', gameResponse.data);
         setGame(gameResponse.data);
-  
-        // Log the categories data
-        console.log('Game Categories:', gameResponse.data.gameCategories);
-        console.log('Game Categories Values:', gameResponse.data.gameCategories.$values);
-  
+
+        // Log the genres data
+        console.log('Game Genres:', gameResponse.data.gameGenres);
+        console.log('Game Genres Values:', gameResponse.data.gameGenres.$values);
+
         // Fetch YouTube trailer for the game
         const videoId = await fetchYouTubeTrailer(gameResponse.data.title, apiKey);
         setTrailerId(videoId);
       } catch (error) {
-        console.error(`Error fetching game details or categories for ID ${id}:`, error);
+        console.error(`Error fetching game details or genres for ID ${id}:`, error);
       }
     };
-  
+
     if (id) {
       fetchData();
     }
   }, [id, apiKey]);
-  
 
   if (!game) {
     return <div>Loading...</div>;
@@ -46,9 +45,9 @@ const GameDetail = () => {
     <div>
       <h2>{game.title}</h2>
       <p>ID: {game.gameId}</p>
-      <p>Categories: {game.gameCategories && game.gameCategories.$values
-        ? game.gameCategories.$values.map(category => category.category ? category.category.name : 'Unknown').join(', ')
-        : 'No categories'}</p>
+      <p>Genres: {game.gameGenres && game.gameGenres.$values
+        ? game.gameGenres.$values.map(genre => genre.genre ? genre.genre.name : 'Unknown').join(', ')
+        : 'No genres'}</p>
 
       <p>Release Date: {formattedReleaseDate}</p>
 
@@ -80,4 +79,3 @@ const GameDetail = () => {
 };
 
 export default GameDetail;
-

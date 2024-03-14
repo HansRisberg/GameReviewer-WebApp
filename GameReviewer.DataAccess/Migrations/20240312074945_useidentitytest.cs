@@ -5,7 +5,7 @@
 namespace GameReviewer.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class thridCreate : Migration
+    public partial class useidentitytest : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

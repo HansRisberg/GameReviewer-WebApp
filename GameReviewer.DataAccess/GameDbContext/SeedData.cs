@@ -9,12 +9,12 @@ namespace GameReviewer.DataAccess
         public static void Initialize()
         {
             // Seed data for the categories, games, reviewers, game reviews, and game categories
-            var categories = new List<Category>
+            var categories = new List<Genre>
         {
-            new Category { Name = "Action" },
-            new Category { Name = "Adventure" },
-            new Category { Name = "Role-Playing" },
-            new Category { Name = "Strategy"}
+            new Genre { Name = "Action" },
+            new Genre { Name = "Adventure" },
+            new Genre { Name = "Role-Playing" },
+            new Genre { Name = "Strategy"}
             // Add more categories as needed
         };
 
@@ -28,8 +28,8 @@ namespace GameReviewer.DataAccess
 
             var reviewers = new List<Reviewer>
         {
-            new Reviewer { Name = "John Doe", EMail = "john@example.com", PhoneNumber = "123-456-7890" },
-            new Reviewer { Name = "Jane Doe", EMail = "jane@example.com", PhoneNumber = "987-654-3210" },
+            new Reviewer { Name = "John Doe", PhoneNumber = "123-456-7890" },
+            new Reviewer { Name = "Jane Doe", PhoneNumber = "987-654-3210" },
             // Add more reviewers as needed
         };
 
@@ -41,11 +41,11 @@ namespace GameReviewer.DataAccess
             // Add more game reviews as needed
         };
 
-            var gameCategories = new List<GameCategory>
+            var gameCategories = new List<GameGenre>
         {
-            new GameCategory { Game = games[0], Category = categories[0] },
-            new GameCategory { Game = games[0], Category = categories[1] },
-            new GameCategory { Game = games[1], Category = categories[2] },
+            new GameGenre { Game = games[0], Genre = categories[0] },
+            new GameGenre { Game = games[0], Genre = categories[1] },
+            new GameGenre { Game = games[1], Genre = categories[2] },
             
             // Add more game categories as needed
         };
@@ -54,11 +54,11 @@ namespace GameReviewer.DataAccess
             using (var db = new GameReviewerDbContext())
             {
                 EfMethods.ClearAllData(); //Remeber to remove later, this is just for testing purposes
-                db.Categories.AddRange(categories);
+                db.Genres.AddRange(categories);
                 db.Games.AddRange(games);
                 db.Reviewers.AddRange(reviewers);
                 db.GameReviews.AddRange(gameReviews);
-                db.GameCategories.AddRange(gameCategories);
+                db.GameGenres.AddRange(gameCategories);
 
                 // Restart IDENTITY counting at 1 for tables with auto-incrementing PKs
                 db.ResetIdentityStartingValue("Games");
