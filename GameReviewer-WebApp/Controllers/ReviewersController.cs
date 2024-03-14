@@ -23,7 +23,7 @@ public class AccountController : ControllerBase
         {
             var user = new Reviewer
             {
-                UserName = registerRequest.Email,
+                UserName = registerRequest.Email, //Add an actual username or use email as login name? 
                 Email = registerRequest.Email,
                 Name = registerRequest.Name,
                 // Other properties...
@@ -36,7 +36,7 @@ public class AccountController : ControllerBase
                 // Automatically sign in the user after registration
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
-                // You can customize the response data here
+                // Customize the response data here
                 var responseData = new
                 {
                     UserId = user.Id,

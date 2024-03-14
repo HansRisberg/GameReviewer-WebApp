@@ -68,9 +68,9 @@ namespace GameReviewer_WebApp.Controllers
         {
             var game = await _context.Games
                 .Include(g => g.GameGenres)
-                    .ThenInclude(gc => gc.Genre)
+                .ThenInclude(gc => gc.Genre)
                 .Include(g => g.GameReviews)
-                    .ThenInclude(gr => gr.Reviewer)
+                .ThenInclude(gr => gr.Reviewer)
                 .FirstOrDefaultAsync(g => g.GameId == id);
 
             if (game == null)
@@ -111,7 +111,12 @@ namespace GameReviewer_WebApp.Controllers
 
             return NoContent();
         }
-
+        /// <summary>
+        /// Adds a game to the database. Currently it needs refactoring, we no longer allow the user to type 
+        /// the category input. It is choosen from a multiselect dropdown menu in frontend based on the db
+        /// </summary>
+        /// <param name="gameInput"></param>
+        /// <returns></returns>
         [HttpPost("add-game")]
         public IActionResult AddGame([FromBody] GameInputDTO gameInput)
         {
