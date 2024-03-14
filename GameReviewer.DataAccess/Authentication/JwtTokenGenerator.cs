@@ -10,10 +10,6 @@ namespace GameReviewer.DataAccess.Authentication
     {
         private readonly string _jwtSecret;
 
-        //public JwtTokenGenerator(string jwtSecret)
-        //{
-        //    _jwtSecret = jwtSecret;
-        //}
         public JwtTokenGenerator(IConfiguration configuration)
         {
             _jwtSecret = configuration["Jwt:SecretKey"];
