@@ -1,4 +1,4 @@
-Using asp.net core with entity framework core, .NET v.8
+Using asp.net core web api with entity framework core, .NET v.8
 React.js with axios and material UI in Frontend
 
 In GameDetail.js I have a hidden api key: 
