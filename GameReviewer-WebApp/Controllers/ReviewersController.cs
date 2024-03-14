@@ -1,4 +1,5 @@
-﻿using GameReviewer.DataAccess.DTOs;
+﻿using GameReviewer.DataAccess.Authentication;
+using GameReviewer.DataAccess.DTOs;
 using GameReviewer.DataAccess.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,13 @@ public class AccountController : ControllerBase
 {
     private readonly UserManager<Reviewer> _userManager;
     private readonly SignInManager<Reviewer> _signInManager;
+    private readonly JwtTokenGenerator _jwtTokenGenerator;
 
-    public AccountController(UserManager<Reviewer> userManager, SignInManager<Reviewer> signInManager)
+    public AccountController(UserManager<Reviewer> userManager, SignInManager<Reviewer> signInManager, JwtTokenGenerator jwtTokenGenerator)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _jwtTokenGenerator = jwtTokenGenerator;
     }
 
     [HttpPost("register")]
@@ -58,5 +61,20 @@ public class AccountController : ControllerBase
 
         // Return a 400 Bad Request response with the validation errors
         return BadRequest(ModelState);
+    }
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequestDTO loginRequest)
+    {
+        var result = await _signInManager.PasswordSignInAsync(loginRequest.Email, loginRequest.Password, false, false);
+
+        if (result.Succeeded)
+        {
+            // Generate and return JWT token
+            var token = _jwtTokenGenerator.GenerateJwtToken(loginRequest.Email);
+
+            return Ok(new { token });
+        }
+
+        return Unauthorized();
     }
 }

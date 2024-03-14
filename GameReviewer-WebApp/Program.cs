@@ -1,8 +1,7 @@
-using GameReviewer.DataAccess;
+using GameReviewer.DataAccess.Authentication;
 using GameReviewer.DataAccess.GameDbContext;
 using GameReviewer.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 
 internal class Program
@@ -10,8 +9,6 @@ internal class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
-        SeedData.Initialize();
 
         // Configure CORS
         builder.Services.AddCors(options =>
@@ -26,8 +23,8 @@ internal class Program
         builder.Services.AddControllers()
             .AddJsonOptions(options =>
             {
-                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
             });
 
         builder.Services.AddEndpointsApiExplorer();
@@ -45,6 +42,12 @@ internal class Program
         // Configure Identity
         builder.Services.AddDefaultIdentity<Reviewer>(options => options.SignIn.RequireConfirmedAccount = false)
             .AddEntityFrameworkStores<GameReviewerDbContext>();
+
+        // Retrieve jwtSecret from configuration
+        var jwtSecret = builder.Configuration.GetSection("Jwt")["SecretKey"];
+
+        // Register JwtTokenGenerator with jwtSecret value
+        builder.Services.AddScoped<JwtTokenGenerator>(_ => new JwtTokenGenerator(builder.Configuration));
 
         var app = builder.Build();
 

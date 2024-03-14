@@ -11,6 +11,8 @@ export const getGames = () => api.get('/games');                                
 export const createGame = (newGame) => api.post('/games/add-game', newGame);     //GameForm.js
 export const getGenres = () =>api.get('/genres');                                //GameCategoryComponent.js
 export const createUser = (userData) => api.post('/account/register', userData); // RegistrationForm
+export const loginUser = (loginData) => api.post('/account/login', loginData);   // LoginForm
+
 
 // Add more API calls as needed
 

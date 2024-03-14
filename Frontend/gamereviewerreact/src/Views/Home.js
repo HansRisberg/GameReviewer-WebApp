@@ -2,6 +2,7 @@
 
 import React from 'react';
 import GameCarousel from '../Components/GameCarousel';
+import LoginForm from '../Components/LoginForm';
 
 
 const home = () => {
@@ -9,6 +10,7 @@ const home = () => {
     <div>
       
       <GameCarousel /> {/* Render the component here */}
+      <LoginForm />
     </div>
   );
 };
