@@ -21,14 +21,14 @@ namespace GameReviewer_WebApp.Controllers {
             return Ok(availablePGRatings);
         }
         /// <summary>
-        /// This Get method is used to render a list of games. 
+        /// This Get method is used to render a list of games based on the query parameter. 
         /// </summary>
         /// <returns></returns>
         //GET: api/Games
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GameDTO>>> GetGames([FromQuery] string category = "All categories") {
             var queryable = _context.Games
-                .Include(g => g.GameCategories)
+                .Include(g => g.GameCategories!) // ignoring nullable warning 
                 .ThenInclude(gc => gc.Category)
                 .AsQueryable();
 
@@ -44,7 +44,7 @@ namespace GameReviewer_WebApp.Controllers {
                 Title = game.Title,
                 ReleaseDate = game.ReleaseDate,
                 PgRating = game.PGRating.ToString(),
-                Categories = game.GameCategories.Select(gc => gc.Category.Name).ToList()
+                Categories = game.GameCategories!.Select(gc => gc.Category.Name).ToList() // ignoring nullable warning
             });
 
             return Ok(gameDtos);
