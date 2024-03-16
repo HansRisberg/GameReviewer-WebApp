@@ -1,18 +1,18 @@
+using GameReviewer.DataAccess;
 using GameReviewer.DataAccess.Authentication;
 using GameReviewer.DataAccess.GameDbContext;
 using GameReviewer.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
 
-internal class Program
-{
-    public static void Main(string[] args)
-    {
+internal class Program {
+    public static void Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
 
+        SeedData.Initialize();
+
         // Configure CORS
-        builder.Services.AddCors(options =>
-        {
+        builder.Services.AddCors(options => {
             options.AddPolicy("AllowAny",
                 builder => builder
                     .AllowAnyOrigin()
@@ -21,8 +21,7 @@ internal class Program
         });
 
         builder.Services.AddControllers()
-            .AddJsonOptions(options =>
-            {
+            .AddJsonOptions(options => {
                 options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
                 options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
             });
@@ -31,8 +30,7 @@ internal class Program
         builder.Services.AddSwaggerGen();
 
         // Add the DbContext to the DI container
-        builder.Services.AddDbContext<GameReviewerDbContext>(options =>
-        {
+        builder.Services.AddDbContext<GameReviewerDbContext>(options => {
             options.UseSqlServer(
                 @"Server=(localdb)\MSSQLLocalDB;" +
                 "Database=GameReviewerDBWebApp;" +
@@ -54,8 +52,7 @@ internal class Program
         // Configure the HTTP request pipeline.
         app.UseCors("AllowAny");
 
-        if (app.Environment.IsDevelopment())
-        {
+        if (app.Environment.IsDevelopment()) {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
