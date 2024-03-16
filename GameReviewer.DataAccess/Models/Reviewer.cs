@@ -1,10 +1,11 @@
-﻿namespace GameReviewer.DataAccess.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace GameReviewer.DataAccess.Models
 {
-    public class Reviewer
+    public class Reviewer : IdentityUser
     {
         public int ReviewerId { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string EMail { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         // Other properties....
 

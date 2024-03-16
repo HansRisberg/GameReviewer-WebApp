@@ -4,6 +4,7 @@ using GameReviewer.DataAccess.GameDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameReviewer.DataAccess.Migrations
 {
     [DbContext(typeof(GameReviewerDbContext))]
-    partial class GameReviewerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240311105402_IdentitySetupTest")]
+    partial class IdentitySetupTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,20 +320,20 @@ namespace GameReviewer.DataAccess.Migrations
             modelBuilder.Entity("GameReviewer.DataAccess.Models.GameGenre", b =>
                 {
                     b.HasOne("GameReviewer.DataAccess.Models.Game", "Game")
-                        .WithMany("GameGenres")
+                        .WithMany("GameCategories")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameReviewer.DataAccess.Models.Genre", "Genre")
+                    b.HasOne("GameReviewer.DataAccess.Models.Genre", "Category")
                         .WithMany("GameGenre")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Game");
+                    b.Navigation("Category");
 
-                    b.Navigation("Genre");
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("GameReviewer.DataAccess.Models.GameReview", b =>
@@ -405,7 +408,7 @@ namespace GameReviewer.DataAccess.Migrations
 
             modelBuilder.Entity("GameReviewer.DataAccess.Models.Game", b =>
                 {
-                    b.Navigation("GameGenres");
+                    b.Navigation("GameCategories");
 
                     b.Navigation("GameReviews");
                 });

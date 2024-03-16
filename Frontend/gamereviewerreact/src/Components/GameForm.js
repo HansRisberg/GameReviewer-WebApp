@@ -1,19 +1,41 @@
-import React, { useState } from 'react';
-import { createGame } from '../Services/Api';
+import React, { useState, useEffect } from 'react';
+import { createGame, getGenres } from '../Services/Api'; // Updated import
 import { FormControl, MenuItem } from '@mui/material';
-import { StyledFormContainer, StyledLabel, StyledTextField, StyledButton, StyledSelect } from '../Styles/GameFormStyles'; 
+import {
+  StyledFormContainer,
+  StyledLabel,
+  StyledTextField,
+  StyledButton,
+  StyledSelect,
+} from '../Styles/GameFormStyles';
 
 const GameForm = () => {
   const [title, setTitle] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
   const [selectedPgRating, setSelectedPgRating] = useState('');
-  const [categoryName, setCategoryName] = useState('');
+  const [selectedGenres, setSelectedGenres] = useState([]); 
+  const [genres, setGenres] = useState([]); 
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const response = await getGenres(); // Updated function name
+        const genresData = response.data?.$values || [];
+        console.log('Fetched Genres:', genresData); // Updated log message
+        setGenres(genresData);
+      } catch (error) {
+        console.error('Error fetching genres:', error); // Updated log message
+      }
+    };
+
+    fetchGenres();
+  }, []);
 
   const handleAddGame = async (e) => {
     e.preventDefault();
 
-    if (!title.trim()) {
-      alert('Game Title is required');
+    if (!title.trim() || selectedGenres.length === 0) { // Updated variable name
+      alert('Game Title and at least one Genre are required'); // Updated alert message
       return;
     }
 
@@ -21,7 +43,7 @@ const GameForm = () => {
       title: title,
       releaseDate: releaseDate,
       pgRating: selectedPgRating,
-      categoryName: categoryName,
+      genres: selectedGenres, // Updated variable name
     };
 
     try {
@@ -30,7 +52,7 @@ const GameForm = () => {
       setTitle('');
       setReleaseDate('');
       setSelectedPgRating('');
-      setCategoryName('');
+      setSelectedGenres([]); // Updated variable name
     } catch (error) {
       console.error('Error adding game:', error);
     }
@@ -75,12 +97,18 @@ const GameForm = () => {
         </FormControl>
 
         <FormControl fullWidth>
-          <StyledLabel>Category Name</StyledLabel>
-          <StyledTextField
-            type="text"
-            value={categoryName}
-            onChange={(e) => setCategoryName(e.target.value)}
-          />
+          <StyledLabel>Genres</StyledLabel> {/* Updated label */}
+          <StyledSelect
+            multiple
+            value={selectedGenres} // Updated variable name
+            onChange={(e) => setSelectedGenres(e.target.value)} // Updated variable name
+          >
+            {genres.map((genre) => ( // Updated variable name
+              <MenuItem key={genre.genreId} value={genre.name}> {/* Updated variable name */}
+                {genre.name} {/* Updated variable name */}
+              </MenuItem>
+            ))}
+          </StyledSelect>
         </FormControl>
 
         <StyledButton type="submit">Add Game</StyledButton>
@@ -90,7 +118,3 @@ const GameForm = () => {
 };
 
 export default GameForm;
-
-
-
-

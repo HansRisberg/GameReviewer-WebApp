@@ -14,14 +14,14 @@ namespace GameReviewer.DataAccess
                 //TODO: See if you can get Cascading delete to work. For now this works to remove all data.
                 db.RemoveRange(db.Games);
                 db.RemoveRange(db.Reviewers);
-                db.RemoveRange(db.Categories);
-                db.RemoveRange(db.GameCategories);
+                db.RemoveRange(db.Genres);
+                db.RemoveRange(db.GameGenres);
                 db.RemoveRange(db.GameReviews);
 
                 // Restart IDENTITY counting at 1 for tables with auto-incrementing PKs
                 db.ResetIdentityStartingValue("Games");
-                db.ResetIdentityStartingValue("Categories");
-                db.ResetIdentityStartingValue("GameCategories");
+                db.ResetIdentityStartingValue("Genres");
+                db.ResetIdentityStartingValue("GameGenres");
                 db.ResetIdentityStartingValue("GameReviews");
                 db.ResetIdentityStartingValue("Reviewers");
 

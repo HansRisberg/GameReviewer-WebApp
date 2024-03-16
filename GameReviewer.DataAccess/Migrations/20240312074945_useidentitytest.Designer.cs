@@ -4,6 +4,7 @@ using GameReviewer.DataAccess.GameDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameReviewer.DataAccess.Migrations
 {
     [DbContext(typeof(GameReviewerDbContext))]
-    partial class GameReviewerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240312074945_useidentitytest")]
+    partial class useidentitytest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

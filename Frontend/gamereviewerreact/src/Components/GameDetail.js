@@ -1,12 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import fetchYouTubeTrailer from '../Services/youtubeApi';  
+import fetchYouTubeTrailer from '../Services/youtubeApi';
 
 const GameDetail = () => {
   const [game, setGame] = useState([]);
-const [trailerId, setTrailerId] = useState(null);
+  const [trailerId, setTrailerId] = useState(null);
   const { id } = useParams();
 
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY || 'defaultApiKey';
@@ -18,11 +17,15 @@ const [trailerId, setTrailerId] = useState(null);
         console.log('Game Detail Response:', gameResponse.data);
         setGame(gameResponse.data);
 
+        // Log the genres data
+        console.log('Game Genres:', gameResponse.data.gameGenres);
+        console.log('Game Genres Values:', gameResponse.data.gameGenres.$values);
+
         // Fetch YouTube trailer for the game
         const videoId = await fetchYouTubeTrailer(gameResponse.data.title, apiKey);
         setTrailerId(videoId);
       } catch (error) {
-        console.error(`Error fetching game details or categories for ID ${id}:`, error);
+        console.error(`Error fetching game details or genres for ID ${id}:`, error);
       }
     };
 
@@ -35,14 +38,29 @@ const [trailerId, setTrailerId] = useState(null);
     return <div>Loading...</div>;
   }
 
+  // Format the ReleaseDate to display only day-month-year
+  const formattedReleaseDate = new Date(game.releaseDate).toLocaleDateString('en-GB');
+
   return (
     <div>
       <h2>{game.title}</h2>
       <p>ID: {game.gameId}</p>
-      <p>Categories: {game.gameCategories && game.gameCategories.$values
-          ? game.gameCategories.$values.map(category => category.category.name).join(', ')
-          : 'No categories'}</p>
-      <p>Release Date: {game.releaseDate}</p>
+      <p>Genres: {game.gameGenres && game.gameGenres.$values
+        ? game.gameGenres.$values.map(genre => genre.genre ? genre.genre.name : 'Unknown').join(', ')
+        : 'No genres'}</p>
+
+      <p>Release Date: {formattedReleaseDate}</p>
+
+      {/* Display Reviews */}
+      <h3>Reviews:</h3>
+      {game.gameReviews && game.gameReviews.$values.map(review => (
+        <div key={review.gameReviewId}>
+          <p>Reviewer: {review.reviewer.name}</p>
+          <p>Email: {review.reviewer.eMail}</p>
+          <p>Comment: {review.reviewContent}</p>
+          {/* Add more details as needed */}
+        </div>
+      ))}
 
       {/* Embed YouTube trailer if available */}
       {trailerId && (

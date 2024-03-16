@@ -5,18 +5,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-namespace GameReviewer_WebApp.Controllers {
+namespace GameReviewer_WebApp.Controllers
+{
     [Route("api/[controller]")]
     [ApiController]
-    public class GamesController : Controller {
+    public class GamesController : Controller
+    {
         private readonly GameReviewerDbContext _context;
 
-        public GamesController(GameReviewerDbContext context) {
+        public GamesController(GameReviewerDbContext context)
+        {
             _context = context;
         }
         //TODO: Check if you need this method, if not then delete.
         [HttpGet("pgratings")]
-        public ActionResult<IEnumerable<string>> GetAvailablePGRatings() {
+        public ActionResult<IEnumerable<string>> GetAvailablePGRatings()
+        {
+
             var availablePGRatings = Enum.GetNames(typeof(PGRating));
             return Ok(availablePGRatings);
         }
@@ -26,25 +31,28 @@ namespace GameReviewer_WebApp.Controllers {
         /// <returns></returns>
         //GET: api/Games
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GameDTO>>> GetGames([FromQuery] string category = "All categories") {
+        public async Task<ActionResult<IEnumerable<GameDTO>>> GetGames([FromQuery] string genre = "All genres")
+        {
             var queryable = _context.Games
-                .Include(g => g.GameCategories!) // ignoring nullable warning 
-                .ThenInclude(gc => gc.Category)
+                .Include(g => g.GameGenres)
+                .ThenInclude(gc => gc.Genre)
                 .AsQueryable();
 
-            if (category != "All categories") {
-                // Filter games based on the specified category
-                queryable = queryable.Where(g => g.GameCategories.Any(gc => gc.Category.Name == category));
+            if (genre != "All genres")
+            {
+                // Filter games based on the specified genre
+                queryable = queryable.Where(g => g.GameGenres.Any(gc => gc.Genre.Name == genre));
             }
 
             var games = await queryable.ToListAsync();
 
-            var gameDtos = games.Select(game => new GameDTO {
+            var gameDtos = games.Select(game => new GameDTO
+            {
                 GameId = game.GameId,
                 Title = game.Title,
                 ReleaseDate = game.ReleaseDate,
                 PgRating = game.PGRating.ToString(),
-                Categories = game.GameCategories!.Select(gc => gc.Category.Name).ToList() // ignoring nullable warning
+                Categories = game.GameGenres.Select(gc => gc.Genre.Name).ToList()
             });
 
             return Ok(gameDtos);
@@ -56,93 +64,101 @@ namespace GameReviewer_WebApp.Controllers {
         /// <returns></returns>
         //GET: api/Game{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Game>> GetGame(int id) {
+        public async Task<ActionResult<Game>> GetGame(int id)
+        {
             var game = await _context.Games
-                .Include(g => g.GameCategories!) // ignoring nullable warning
-                .ThenInclude(gc => gc.Category)
+                .Include(g => g.GameGenres)
+                .ThenInclude(gc => gc.Genre)
+                .Include(g => g.GameReviews)
+                .ThenInclude(gr => gr.Reviewer)
                 .FirstOrDefaultAsync(g => g.GameId == id);
 
-            if (game == null) {
+            if (game == null)
+            {
                 return NotFound();
             }
 
             return Ok(game);
         }
 
-
         // PUT: api/Games/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGame(int id, Game game) {
-            if (id != game.GameId) {
+        public async Task<IActionResult> PutGame(int id, Game game)
+        {
+            if (id != game.GameId)
+            {
                 return BadRequest();
             }
 
             _context.Entry(game).State = EntityState.Modified;
 
-            try {
+            try
+            {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException) {
-                if (!GameExists(id)) {
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!GameExists(id))
+                {
                     return NotFound();
-                } else {
+                }
+                else
+                {
                     throw;
                 }
             }
 
             return NoContent();
         }
-
         /// <summary>
-        /// This Post method accepts input from a form in frontend and adds the game to the database. 
+        /// Adds a game to the database. Currently it needs refactoring, we no longer allow the user to type 
+        /// the category input. It is choosen from a multiselect dropdown menu in frontend based on the db
         /// </summary>
         /// <param name="gameInput"></param>
         /// <returns></returns>
         [HttpPost("add-game")]
-        public IActionResult AddGame([FromBody] GameInputDTO gameInput) {
-            if (!ModelState.IsValid) {
+        public IActionResult AddGame([FromBody] GameInputDTO gameInput)
+        {
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
             // Log values for debugging
             Console.WriteLine($"Received Game Input: {JsonConvert.SerializeObject(gameInput)}");
 
-            // Check if the category already exists
-            var category = _context.Categories.FirstOrDefault(c => c.Name == gameInput.CategoryName);
-
-            if (category == null) {
-                // If category does not exist, create it
-                category = new Category { Name = gameInput.CategoryName };
-                _context.Categories.Add(category); // Add the new category to the context
-                _context.SaveChanges(); // Save changes to get the generated CategoryId
-
-                // Log the newly created category for debugging
-                Console.WriteLine($"New Category Created: {JsonConvert.SerializeObject(category)}");
-            } else {
-                // Log existing category for debugging
-                Console.WriteLine($"Existing Category Found: {JsonConvert.SerializeObject(category)}");
-            }
-
             // Create game entity without setting GameId manually
-            var game = new Game {
+            var game = new Game
+            {
                 Title = gameInput.Title,
                 ReleaseDate = gameInput.ReleaseDate,
                 PGRating = gameInput.PGRating,
-                GameCategories = new List<GameCategory>
-        {
-            new GameCategory
-            {
-                Category = category
-            }
-        }
-                // Add other properties if needed
+                GameGenres = new List<GameGenre>()
             };
+
+            foreach (var genreName in gameInput.Genres) // Updated variable name
+            {
+                // Assuming the genres provided already exist in the database
+                var genre = _context.Genres.FirstOrDefault(g => g.Name == genreName); // Updated variable name
+
+                if (genre != null)
+                {
+                    // Add the genre to the game
+                    game.GameGenres.Add(new GameGenre { Genre = genre }); // Updated variable name
+                }
+                // Log a warning if the genre is not found (this can be adjusted based on your needs)
+                else
+                {
+                    Console.WriteLine($"Warning: Genre '{genreName}' not found in the database."); // Updated variable name
+                }
+            }
 
             // Log the new game for debugging
             Console.WriteLine($"New Game Created: {JsonConvert.SerializeObject(game)}");
 
-            try {
+            try
+            {
                 // Save the new game to the database
                 _context.Games.Add(game);
                 _context.SaveChanges();
@@ -152,7 +168,8 @@ namespace GameReviewer_WebApp.Controllers {
 
                 return Ok("Game added successfully");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 // Log exception details for debugging
                 Console.WriteLine($"Error adding game: {ex.Message}");
                 return StatusCode(500, "Internal Server Error");
@@ -161,15 +178,14 @@ namespace GameReviewer_WebApp.Controllers {
 
 
 
-
-
-
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         // DELETE: api/Games/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGame(int id) {
+        public async Task<IActionResult> DeleteGame(int id)
+        {
             var game = await _context.Games.FindAsync(id);
-            if (game == null) {
+            if (game == null)
+            {
                 return NotFound();
             }
 
@@ -179,7 +195,8 @@ namespace GameReviewer_WebApp.Controllers {
             return NoContent();
         }
 
-        private bool GameExists(int id) {
+        private bool GameExists(int id)
+        {
             return _context.Games.Any(e => e.GameId == id);
         }
     }
