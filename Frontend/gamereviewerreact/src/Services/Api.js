@@ -10,8 +10,9 @@ export const getGame = (id) => api.get(`/games/${id}`);                         
 export const getGames = () => api.get('/games');                                 //GameListComponent.js
 export const createGame = (newGame) => api.post('/games/add-game', newGame);     //GameForm.js
 export const getGenres = () =>api.get('/genres');                                //GameCategoryComponent.js
-export const createUser = (userData) => api.post('/account/register', userData); // RegistrationForm
-export const loginUser = (loginData) => api.post('/account/login', loginData);   // LoginForm
+export const createUser = (userData) => api.post('/account/register', userData); // RegistrationForm.js
+export const loginUser = (loginData) => api.post('/account/login', loginData);   // LoginForm.js
+export const logoutUser = () => api.post('/account/logout');                     //AuthContext.js
 
 
 // Add more API calls as needed

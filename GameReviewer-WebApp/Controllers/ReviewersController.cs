@@ -77,4 +77,16 @@ public class AccountController : ControllerBase
 
         return Unauthorized();
     }
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        // Sign out the user
+        await _signInManager.SignOutAsync();
+
+        // You may want to perform additional logout logic here, such as invalidating any tokens
+
+        // Return a successful response
+        return Ok();
+    }
+
 }
