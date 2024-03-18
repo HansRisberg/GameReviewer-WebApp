@@ -52,7 +52,7 @@ namespace GameReviewer_WebApp.Controllers
                 Title = game.Title,
                 ReleaseDate = game.ReleaseDate,
                 PgRating = game.PGRating.ToString(),
-                Categories = game.GameGenres.Select(gc => gc.Genre.Name).ToList()
+                Genres = game.GameGenres.Select(gc => gc.Genre.Name).ToList()
             });
 
             return Ok(gameDtos);
