@@ -26,7 +26,7 @@ namespace GameReviewer_WebApp.Controllers
             return Ok(availablePGRatings);
         }
         /// <summary>
-        /// This Get method is used to render a list of games. 
+        /// This Get method is used to render a list of games based on the query parameter. 
         /// </summary>
         /// <returns></returns>
         //GET: api/Games
