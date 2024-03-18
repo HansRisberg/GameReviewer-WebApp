@@ -9,7 +9,7 @@ namespace GameReviewer.DataAccess
         public static void Initialize()
         {
             // Seed data for the categories, games, reviewers, game reviews, and game categories
-            var categories = new List<Genre>
+            var genres = new List<Genre>
         {
             new Genre { Name = "Action" },
             new Genre { Name = "Adventure" },
@@ -43,9 +43,9 @@ namespace GameReviewer.DataAccess
 
             var gameCategories = new List<GameGenre>
         {
-            new GameGenre { Game = games[0], Genre = categories[0] },
-            new GameGenre { Game = games[0], Genre = categories[1] },
-            new GameGenre { Game = games[1], Genre = categories[2] },
+            new GameGenre { Game = games[0], Genre = genres[0] },
+            new GameGenre { Game = games[0], Genre = genres[1] },
+            new GameGenre { Game = games[1], Genre = genres[2] },
             
             // Add more game categories as needed
         };
@@ -54,7 +54,7 @@ namespace GameReviewer.DataAccess
             using (var db = new GameReviewerDbContext())
             {
                 EfMethods.ClearAllData(); //Remeber to remove later, this is just for testing purposes
-                db.Genres.AddRange(categories);
+                db.Genres.AddRange(genres);
                 db.Games.AddRange(games);
                 db.Reviewers.AddRange(reviewers);
                 db.GameReviews.AddRange(gameReviews);
@@ -62,8 +62,8 @@ namespace GameReviewer.DataAccess
 
                 // Restart IDENTITY counting at 1 for tables with auto-incrementing PKs
                 db.ResetIdentityStartingValue("Games");
-                db.ResetIdentityStartingValue("Categories");
-                db.ResetIdentityStartingValue("GameCategories");
+                db.ResetIdentityStartingValue("Genres");
+                db.ResetIdentityStartingValue("GameGenres");
                 db.ResetIdentityStartingValue("GameReviews");
                 db.ResetIdentityStartingValue("Reviewers");
 
