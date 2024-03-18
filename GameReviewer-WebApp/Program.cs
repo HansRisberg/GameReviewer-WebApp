@@ -1,3 +1,4 @@
+using GameReviewer.DataAccess;
 using GameReviewer.DataAccess.Authentication;
 using GameReviewer.DataAccess.GameDbContext;
 using GameReviewer.DataAccess.Models;
@@ -10,6 +11,8 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        //Reseed the database
+        SeedData.Initialize();
         // Configure CORS
         builder.Services.AddCors(options =>
         {

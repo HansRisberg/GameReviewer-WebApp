@@ -137,20 +137,20 @@ namespace GameReviewer_WebApp.Controllers
                 GameGenres = new List<GameGenre>()
             };
 
-            foreach (var genreName in gameInput.Genres) // Updated variable name
+            foreach (var genreName in gameInput.Genres)
             {
                 // Assuming the genres provided already exist in the database
-                var genre = _context.Genres.FirstOrDefault(g => g.Name == genreName); // Updated variable name
+                var genre = _context.Genres.FirstOrDefault(g => g.Name == genreName);
 
                 if (genre != null)
                 {
                     // Add the genre to the game
-                    game.GameGenres.Add(new GameGenre { Genre = genre }); // Updated variable name
+                    game.GameGenres.Add(new GameGenre { Genre = genre });
                 }
                 // Log a warning if the genre is not found (this can be adjusted based on your needs)
                 else
                 {
-                    Console.WriteLine($"Warning: Genre '{genreName}' not found in the database."); // Updated variable name
+                    Console.WriteLine($"Warning: Genre '{genreName}' not found in the database.");
                 }
             }
 
