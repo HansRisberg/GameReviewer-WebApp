@@ -3,17 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameReviewer-WebApp", "GameReviewer-WebApp\GameReviewer-WebApp.csproj", "{8CE46926-FB96-4867-AD8C-C1B441A0717B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameReviewer-WebApp", "GameReviewer-WebApp\GameReviewer-WebApp.csproj", "{8CE46926-FB96-4867-AD8C-C1B441A0717B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F6447A6A-8897-4A59-98E2-5E9028737A99} = {F6447A6A-8897-4A59-98E2-5E9028737A99}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameReviewer.DataAccess", "GameReviewer.DataAccess\GameReviewer.DataAccess.csproj", "{F6447A6A-8897-4A59-98E2-5E9028737A99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameReviewer.DataAccess", "GameReviewer.DataAccess\GameReviewer.DataAccess.csproj", "{F6447A6A-8897-4A59-98E2-5E9028737A99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameReviewer.NUnitTest", "GameReviewer.NUnitTest\GameReviewer.NUnitTest.csproj", "{8381B46B-93E9-4B8F-AC60-0759F84C7784}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F6447A6A-8897-4A59-98E2-5E9028737A99} = {F6447A6A-8897-4A59-98E2-5E9028737A99}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameReviewer.Tests", "GameReviewer.Tests\GameReviewer.Tests.csproj", "{00DA0ABC-589E-4F4E-A444-8197BAB5169E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +26,10 @@ Global
 		{F6447A6A-8897-4A59-98E2-5E9028737A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6447A6A-8897-4A59-98E2-5E9028737A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6447A6A-8897-4A59-98E2-5E9028737A99}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8381B46B-93E9-4B8F-AC60-0759F84C7784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8381B46B-93E9-4B8F-AC60-0759F84C7784}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8381B46B-93E9-4B8F-AC60-0759F84C7784}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8381B46B-93E9-4B8F-AC60-0759F84C7784}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00DA0ABC-589E-4F4E-A444-8197BAB5169E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00DA0ABC-589E-4F4E-A444-8197BAB5169E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00DA0ABC-589E-4F4E-A444-8197BAB5169E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00DA0ABC-589E-4F4E-A444-8197BAB5169E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
