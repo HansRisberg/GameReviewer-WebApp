@@ -6,23 +6,19 @@ using System.Net;
 using System.Text;
 
 
-namespace GameReviewer.Tests.Controllers
-{
-    public class GamesControllerTests : IClassFixture<WebApplicationFactory<Program>>
-    {
+namespace GameReviewer.Tests.Controllers {
+    [Collection("Sequential")]
+    public class GamesControllerTests : IClassFixture<WebApplicationFactory<Program>> {
         private readonly WebApplicationFactory<Program> _factory;
 
-        public GamesControllerTests(WebApplicationFactory<Program> factory)
-        {
+        public GamesControllerTests(WebApplicationFactory<Program> factory) {
             _factory = factory;
         }
 
         [Fact]
-        public async Task AddGame_ValidInput_ReturnsSuccessStatusCode()
-        {
+        public async Task AddGame_ValidInput_ReturnsSuccessStatusCode() {
             // Arrange
-            var gameInput = new GameInputDTO
-            {
+            var gameInput = new GameInputDTO {
                 Title = "Test Game2",
                 ReleaseDate = DateTime.Now,
                 PGRating = PGRating.PG, // Assign a single value from the PGRating enum
@@ -42,8 +38,7 @@ namespace GameReviewer.Tests.Controllers
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
         [Fact]
-        public async Task GetAvailablePGRatings_ReturnsOk()
-        {
+        public async Task GetAvailablePGRatings_ReturnsOk() {
             // Arrange
             var client = _factory.CreateClient();
 
@@ -56,8 +51,7 @@ namespace GameReviewer.Tests.Controllers
         }
 
         [Fact]
-        public async Task GetGames_ReturnsOk()
-        {
+        public async Task GetGames_ReturnsOk() {
             // Arrange
             var client = _factory.CreateClient();
 
@@ -70,8 +64,7 @@ namespace GameReviewer.Tests.Controllers
         }
 
         [Fact]
-        public async Task GetGameById_ReturnsOk()
-        {
+        public async Task GetGameById_ReturnsOk() {
             // Arrange
             var client = _factory.CreateClient();
 
@@ -85,5 +78,7 @@ namespace GameReviewer.Tests.Controllers
             response.EnsureSuccessStatusCode(); // Status Code 200-299
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
+
+
     }
 }

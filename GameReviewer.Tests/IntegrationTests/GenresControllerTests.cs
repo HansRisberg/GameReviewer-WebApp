@@ -1,20 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 
-namespace GameReviewer.Tests.Controllers
-{
-    public class GenresControllerTests : IClassFixture<WebApplicationFactory<Program>>
-    {
+namespace GameReviewer.Tests.Controllers {
+    [Collection("Sequential")]
+    public class GenresControllerTests : IClassFixture<WebApplicationFactory<Program>> {
         private readonly WebApplicationFactory<Program> _factory;
 
-        public GenresControllerTests(WebApplicationFactory<Program> factory)
-        {
+        public GenresControllerTests(WebApplicationFactory<Program> factory) {
             _factory = factory;
         }
 
         [Fact]
-        public async Task GetGenres_ReturnsOk()
-        {
+        public async Task GetGenres_ReturnsOk() {
             // Arrange
             var client = _factory.CreateClient();
 
@@ -27,8 +24,7 @@ namespace GameReviewer.Tests.Controllers
         }
 
         [Fact]
-        public async Task GetGenreById_ReturnsOk()
-        {
+        public async Task GetGenreById_ReturnsOk() {
             // Arrange
             var client = _factory.CreateClient();
 
@@ -36,11 +32,11 @@ namespace GameReviewer.Tests.Controllers
             var genreId = 1;
 
             // Act
-            var response = await client.GetAsync($"/api/Genres/{genreId}");
+            var response1 = await client.GetAsync($"/api/Genres/{genreId}");
 
             // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            response1.EnsureSuccessStatusCode(); // Status Code 200-299
+            Assert.Equal(HttpStatusCode.OK, response1.StatusCode);
         }
 
         // Add similar test methods for other endpoints like PutGenre, PostGenre, DeleteGenre, etc.
