@@ -1,25 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../Contexts/AuthContext';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';
 
 const ProfileIcon = () => {
   const { isLoggedIn, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate(); // Use useNavigate hook instead of useHistory
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Close the dropdown when the user logs in
+    if (isLoggedIn) {
+      setIsOpen(false);
+    }
+  }, [isLoggedIn]);
 
   const handleLogout = () => {
     logout();
-    // Implement any additional logout logic here
+  };
+
+  const handleProfileIconClick = () => {
+    setIsOpen(!isOpen); // Toggle the isOpen state
   };
 
   const handleLoginClick = () => {
-    // Redirect to login page when not logged in
-    navigate('/login'); // Use navigate function instead of history.push
+    navigate('/login');
   };
 
   return (
     <div style={{ position: 'relative' }}>
-      <div onClick={isLoggedIn ? () => setIsOpen(true) : handleLoginClick} style={{ cursor: 'pointer' }}>
+      <div onClick={isLoggedIn ? handleProfileIconClick : handleLoginClick} style={{ cursor: 'pointer' }}>
         <img src="Assets/profile-user.png" alt="Profile" style={{ width: '30px', height: '30px', borderRadius: '50%' }} />
       </div>
       {isOpen && isLoggedIn && (
@@ -30,12 +39,7 @@ const ProfileIcon = () => {
                 Logout
               </button>
             </li>
-            {/* Add more dropdown options as needed */}
           </ul>
-        </div>
-      )}
-      {!isLoggedIn && isOpen && (
-        <div style={{ position: 'absolute', top: '40px', right: '0', backgroundColor: 'white', border: '1px solid black' }}>         
         </div>
       )}
     </div>
@@ -43,3 +47,4 @@ const ProfileIcon = () => {
 };
 
 export default ProfileIcon;
+
