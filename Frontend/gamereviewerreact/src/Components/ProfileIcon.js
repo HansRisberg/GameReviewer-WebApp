@@ -26,6 +26,11 @@ const ProfileIcon = () => {
     navigate('/login');
   };
 
+  const handleProfileClick = () => {
+    navigate('profile');
+    setIsOpen(false);
+  }
+
   return (
     <div style={{ position: 'relative' }}>
       <div onClick={isLoggedIn ? handleProfileIconClick : handleLoginClick} style={{ cursor: 'pointer' }}>
@@ -34,10 +39,11 @@ const ProfileIcon = () => {
       {isOpen && isLoggedIn && (
         <div style={{ position: 'absolute', top: '40px', right: '0', backgroundColor: 'white', border: '1px solid black' }}>
           <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
-            <li>
-              <button onClick={handleLogout} style={{ border: 'none', backgroundColor: 'transparent', padding: '5px 10px', cursor: 'pointer' }}>
-                Logout
-              </button>
+            <li style={{ display: 'inline-block', marginRight: '10px' }}>
+              <button onClick={handleLogout} style={{ border: 'none', backgroundColor: 'transparent', padding: '5px 8px', cursor: 'pointer' }}>Logout</button>
+            </li>
+            <li style={{ display: 'inline-block' }}>
+              <button onClick={handleProfileClick} style={{ border: 'none', backgroundColor: 'transparent', padding: '5px 8px', cursor: 'pointer' }}>Profile</button>
             </li>
           </ul>
         </div>

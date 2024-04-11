@@ -2,8 +2,8 @@ using GameReviewer.DataAccess;
 using GameReviewer.DataAccess.Authentication;
 using GameReviewer.DataAccess.GameDbContext;
 using GameReviewer.DataAccess.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 
 public class Program
 {
@@ -11,8 +11,9 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        //Reseed the database
+        // Reseed the database
         SeedData.Initialize();
+
         // Configure CORS
         builder.Services.AddCors(options =>
         {
@@ -43,8 +44,11 @@ public class Program
         });
 
         // Configure Identity
-        builder.Services.AddDefaultIdentity<Reviewer>(options => options.SignIn.RequireConfirmedAccount = false)
-            .AddEntityFrameworkStores<GameReviewerDbContext>();
+        builder.Services.AddIdentity<Reviewer, IdentityRole>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = false;
+        })
+        .AddEntityFrameworkStores<GameReviewerDbContext>();
 
         // Retrieve jwtSecret from configuration
         var jwtSecret = builder.Configuration.GetSection("Jwt")["SecretKey"];
@@ -54,19 +58,36 @@ public class Program
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
-        app.UseCors("AllowAny");
-
+        // Configure the HTTP request pipeline
         if (app.Environment.IsDevelopment())
         {
+            app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        else
+        {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+        }
 
         app.UseHttpsRedirection();
-        app.UseAuthentication(); // Add this line to enable authentication
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        // Enable CORS
+        app.UseCors("AllowAny");
+
+        // Authentication and Authorization
+        app.UseAuthentication();
         app.UseAuthorization();
+
         app.MapControllers();
+
         app.Run();
     }
 }
+
+
+

@@ -1,6 +1,7 @@
 ﻿using GameReviewer.DataAccess.Authentication;
 using GameReviewer.DataAccess.DTOs;
 using GameReviewer.DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,97 @@ public class AccountController : ControllerBase
         _signInManager = signInManager;
         _jwtTokenGenerator = jwtTokenGenerator;
     }
+    [Authorize]
+    [HttpGet("profile")]
+    public async Task<IActionResult> GetProfile()
+    {
+        var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+        Console.WriteLine("Received token in GetProfile endpoint:", token);
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return NotFound(); // User not found
+        }
+
+        var profileData = new
+        {
+            user.Id,
+            user.UserName,
+            user.Email,
+            user.Name
+        };
+        return Ok(profileData);
+    }
+    //}
+    //[HttpGet("profile")]
+    //public async Task<IActionResult> GetProfile()
+    //{
+    //    // Get the current user's ID
+    //    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+    //    // Retrieve the user from the database using the user ID
+    //    var user = await _userManager.FindByIdAsync(userId);
+
+    //    if (user == null)
+    //    {
+    //        return NotFound(); // User not found
+    //    }
+
+    //    // Return user information including the ID
+    //    var profileData = new
+    //    {
+    //        user.Id,
+    //        user.UserName,
+    //        user.Email,
+    //        user.Name
+    //        // Add other properties as needed
+    //    };
+
+    //    return Ok(profileData);
+    //}
+
+
+    //[Authorize]
+    //[HttpPut("profile")]
+    //public async Task<IActionResult> UpdateProfile([FromBody] UserProfileUpdateDTO profileUpdate)
+    //{
+    //    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+    //    if (userId == null)
+    //    {
+    //        return Unauthorized(); // User not authenticated
+    //    }
+
+    //    var user = await _userManager.FindByIdAsync(userId);
+
+    //    if (user == null)
+    //    {
+    //        return NotFound(); // User not found
+    //    }
+
+    //    // Check if the authenticated user is the owner of the profile
+    //    if (userId != profileUpdate.UserId)
+    //    {
+    //        return Forbid(); // User is not allowed to update another user's profile
+    //    }
+
+    //    // Update user profile information
+    //    user.Name = profileUpdate.Name;
+    //    // Update other properties as needed
+
+    //    var result = await _userManager.UpdateAsync(user);
+
+    //    if (result.Succeeded)
+    //    {
+    //        return Ok(); // Profile updated successfully
+    //    }
+    //    else
+    //    {
+    //        return BadRequest(result.Errors); // Error occurred while updating profile
+    //    }
+
+
 
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequestDTO registerRequest)
