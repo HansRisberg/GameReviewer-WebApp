@@ -2,8 +2,10 @@ using GameReviewer.DataAccess;
 using GameReviewer.DataAccess.Authentication;
 using GameReviewer.DataAccess.GameDbContext;
 using GameReviewer.DataAccess.Models;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 public class Program
 {
@@ -44,17 +46,43 @@ public class Program
         });
 
         // Configure Identity
-        builder.Services.AddIdentity<Reviewer, IdentityRole>(options =>
+        builder.Services.AddIdentityApiEndpoints<Reviewer>(options =>
         {
-            options.SignIn.RequireConfirmedAccount = false;
+            options.SignIn.RequireConfirmedAccount = false; // Disable email confirmation
         })
         .AddEntityFrameworkStores<GameReviewerDbContext>();
 
         // Retrieve jwtSecret from configuration
-        var jwtSecret = builder.Configuration.GetSection("Jwt")["SecretKey"];
+        var jwtAudience = builder.Configuration.GetSection("Jwt:Audience").Get<string>();
+        var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
+        var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
 
         // Register JwtTokenGenerator with jwtSecret value
         builder.Services.AddScoped<JwtTokenGenerator>(_ => new JwtTokenGenerator(builder.Configuration));
+
+        // Configure Authentication
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            //Configure JWT authentication parameters
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtIssuer,
+                ValidAudience = jwtAudience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtKey))
+                // Configure other parameters as needed
+            };
+
+        });
+
 
         var app = builder.Build();
 
@@ -83,11 +111,11 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
+        // Map Identity API endpoints
+        app.MapIdentityApi<Reviewer>();
+
         app.MapControllers();
 
         app.Run();
     }
 }
-
-
-
