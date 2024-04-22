@@ -1,8 +1,14 @@
 ﻿using GameReviewer.DataAccess.Authentication;
 using GameReviewer.DataAccess.DTOs;
 using GameReviewer.DataAccess.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -12,11 +18,13 @@ public class AccountController : ControllerBase
     private readonly SignInManager<Reviewer> _signInManager;
     private readonly JwtTokenGenerator _jwtTokenGenerator;
 
+
     public AccountController(UserManager<Reviewer> userManager, SignInManager<Reviewer> signInManager, JwtTokenGenerator jwtTokenGenerator)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _jwtTokenGenerator = jwtTokenGenerator;
+
     }
 
     [HttpPost("register")]
@@ -62,6 +70,83 @@ public class AccountController : ControllerBase
         // Return a 400 Bad Request response with the validation errors
         return BadRequest(ModelState);
     }
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("profile")]
+    public async Task<IActionResult> GetProfile([FromServices] IConfiguration configuration)
+    {
+        // Retrieve the JWT secret key from the configuration
+        var jwtKey = configuration["Jwt:SecretKey"];
+        var jwtIssuer = configuration["Jwt:Issuer"];
+        var jwtAudience = configuration["Jwt:Audience"];
+
+        // Set up token validation parameters
+        var tokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtKey))
+        };
+
+        // Extract token from the Authorization header
+        var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+        Console.WriteLine("Received token in GetProfile endpoint:" + token);
+
+        // Decode and validate the token
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var claimsPrincipal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
+
+        // Verify the issuer
+        bool isIssuerValid = validatedToken.Issuer.Equals(jwtIssuer, StringComparison.InvariantCultureIgnoreCase);
+        Console.WriteLine($"Issuer is valid: {isIssuerValid}");
+
+        // Verify the audience
+        bool isAudienceValid = ((validatedToken as JwtSecurityToken)?.Audiences?.Any(a => a.Equals(jwtAudience, StringComparison.InvariantCultureIgnoreCase)) ?? false);
+        Console.WriteLine($"Audience is valid: {isAudienceValid}");
+
+        // Verify the expiration time
+        bool isTokenValid = validatedToken.ValidTo > DateTime.UtcNow;
+        Console.WriteLine($"Token expiration is valid: {isTokenValid}");
+
+        // Check if any of the verification steps failed
+        if (!isIssuerValid || !isAudienceValid || !isTokenValid)
+        {
+            return Unauthorized("Invalid token");
+        }
+
+        // Check if any of the verification steps failed
+        if (!isIssuerValid || !isAudienceValid || !isTokenValid)
+        {
+            return Unauthorized("Invalid token");
+        }
+
+        // Extract email address from the token claims
+        var email = claimsPrincipal.FindFirst(ClaimTypes.Email)?.Value;
+        Console.WriteLine("The claim email is :" + email);
+
+        // Retrieve the user by email
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user == null)
+        {
+            return NotFound(); // User not found
+        }
+
+        var profileData = new
+        {
+            user.Id,
+            user.UserName,
+            user.Email,
+            user.Name
+        };
+        return Ok(profileData);
+    }
+
+
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequestDTO loginRequest)
     {
@@ -77,4 +162,16 @@ public class AccountController : ControllerBase
 
         return Unauthorized();
     }
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        // Sign out the user
+        await _signInManager.SignOutAsync();
+
+        // TODO: Invalidate the JWT on logout
+
+
+        return Ok();
+    }
+
 }

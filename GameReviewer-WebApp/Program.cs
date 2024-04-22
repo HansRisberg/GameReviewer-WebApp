@@ -2,17 +2,23 @@ using GameReviewer.DataAccess;
 using GameReviewer.DataAccess.Authentication;
 using GameReviewer.DataAccess.GameDbContext;
 using GameReviewer.DataAccess.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
-
-internal class Program {
-    public static void Main(string[] args) {
+public class Program
+{
+    public static void Main(string[] args)
+    {
         var builder = WebApplication.CreateBuilder(args);
 
-        //Reseed the database
+        // Reseed the database
         SeedData.Initialize();
+
         // Configure CORS
-        builder.Services.AddCors(options => {
+        builder.Services.AddCors(options =>
+        {
             options.AddPolicy("AllowAny",
                 builder => builder
                     .AllowAnyOrigin()
@@ -21,7 +27,8 @@ internal class Program {
         });
 
         builder.Services.AddControllers()
-            .AddJsonOptions(options => {
+            .AddJsonOptions(options =>
+            {
                 options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
                 options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
             });
@@ -30,7 +37,8 @@ internal class Program {
         builder.Services.AddSwaggerGen();
 
         // Add the DbContext to the DI container
-        builder.Services.AddDbContext<GameReviewerDbContext>(options => {
+        builder.Services.AddDbContext<GameReviewerDbContext>(options =>
+        {
             options.UseSqlServer(
                 @"Server=(localdb)\MSSQLLocalDB;" +
                 "Database=GameReviewerDBWebApp;" +
@@ -38,29 +46,76 @@ internal class Program {
         });
 
         // Configure Identity
-        builder.Services.AddDefaultIdentity<Reviewer>(options => options.SignIn.RequireConfirmedAccount = false)
-            .AddEntityFrameworkStores<GameReviewerDbContext>();
+        builder.Services.AddIdentityApiEndpoints<Reviewer>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = false; // Disable email confirmation
+        })
+        .AddEntityFrameworkStores<GameReviewerDbContext>();
 
         // Retrieve jwtSecret from configuration
-        var jwtSecret = builder.Configuration.GetSection("Jwt")["SecretKey"];
+        var jwtAudience = builder.Configuration.GetSection("Jwt:Audience").Get<string>();
+        var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
+        var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
 
         // Register JwtTokenGenerator with jwtSecret value
         builder.Services.AddScoped<JwtTokenGenerator>(_ => new JwtTokenGenerator(builder.Configuration));
 
+        // Configure Authentication
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            //Configure JWT authentication parameters
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtIssuer,
+                ValidAudience = jwtAudience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtKey))
+                // Configure other parameters as needed
+            };
+
+        });
+
+
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
-        app.UseCors("AllowAny");
-
-        if (app.Environment.IsDevelopment()) {
+        // Configure the HTTP request pipeline
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        else
+        {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+        }
 
         app.UseHttpsRedirection();
-        app.UseAuthentication(); // Add this line to enable authentication
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        // Enable CORS
+        app.UseCors("AllowAny");
+
+        // Authentication and Authorization
+        app.UseAuthentication();
         app.UseAuthorization();
+
+        // Map Identity API endpoints
+        app.MapIdentityApi<Reviewer>();
+
         app.MapControllers();
+
         app.Run();
     }
 }

@@ -43,7 +43,7 @@ const GameForm = () => {
       title: title,
       releaseDate: releaseDate,
       pgRating: selectedPgRating,
-      genres: selectedGenres, // Updated variable name
+      genres: selectedGenres, 
     };
 
     try {
@@ -52,7 +52,7 @@ const GameForm = () => {
       setTitle('');
       setReleaseDate('');
       setSelectedPgRating('');
-      setSelectedGenres([]); // Updated variable name
+      setSelectedGenres([]); 
     } catch (error) {
       console.error('Error adding game:', error);
     }

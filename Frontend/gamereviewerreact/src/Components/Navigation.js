@@ -1,32 +1,33 @@
-// Navigation.js
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import ProfileIcon from './ProfileIcon';
 
 const Navigation = () => {
-  const location = useLocation();
-
   return (
-    <nav style={{ position: 'sticky', top: 0, backgroundColor: 'black', zIndex: 1000 }}>
+    <nav style={{ position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1000 }}>
       <ul style={{ display: 'flex', justifyContent: 'space-around', listStyle: 'none' }}>
-        <li style={{ display: location.pathname === '/' ? 'none' : 'block' }}>
-          <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
+        <li>
+          <Link to="/" style={{ color: 'black', textDecoration: 'none' }}>
             Home
           </Link>
         </li>
-        <li style={{ display: location.pathname === '/gamesview' ? 'none' : 'block' }}>
-          <Link to="/gamesview" style={{ color: 'white', textDecoration: 'none' }}>
+        <li>
+          <Link to="/gamesview" style={{ color: 'black', textDecoration: 'none' }}>
             Games
           </Link>
         </li>
-        <li style={{ display: location.pathname === '/reviewsview' ? 'none' : 'block' }}>
-          <Link to="/reviewsview" style={{ color: 'white', textDecoration: 'none' }}>
+        <li>
+          <Link to="/reviewsview" style={{ color: 'black', textDecoration: 'none' }}>
             Reviews
           </Link>
         </li>
-        <li style={{ display: location.pathname === '/addgameview' ? 'none' : 'block' }}>
-          <Link to="/addgameview" style={{ color: 'white', textDecoration: 'none' }}>
+        <li>
+          <Link to="/addgameview" style={{ color: 'black', textDecoration: 'none' }}>
             Add Game
           </Link>
+        </li>
+        <li>
+          <ProfileIcon /> 
         </li>
         {/* Add more links as needed */}
       </ul>
@@ -35,4 +36,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-

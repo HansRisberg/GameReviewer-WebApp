@@ -8,6 +8,9 @@ import GamesView from './Views/GamesView';
 import GameDetailView from './Views/GameDetailView';
 import AddGameView from './Views/AddGameView';
 import { ThemeProviderWrapper } from './Styles/GameFormStyles';
+import LoginView from './Views/LogIn';
+import RegisterView from './Views/Registration';
+import ProfileView from './Views/Profile';
 
 const App = () => {
   return (
@@ -15,13 +18,15 @@ const App = () => {
       <Router>
         <div>
           <Navigation />
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/gamesview" element={<GamesView />} />
             <Route path="/reviewsview" element={<ReviewsView />} />
             <Route path="/gamesview/:id" element={<GameDetailView />} />
             <Route path="/addgameview/" element={<AddGameView />} />
+            <Route path="/login" element={<LoginView />} />
+            <Route path="/registration" element={<RegisterView />} />
+            <Route path="/profile" element={<ProfileView/>}/>
             {/* Add more routes as needed */}
           </Routes>
         </div>
