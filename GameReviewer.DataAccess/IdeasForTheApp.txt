@@ -1,0 +1,14 @@
+﻿This is a document for typing out ideas for the app, and to see what structure and functions I need to make it work. 
+
+I want a way to let users favourit games, which show up on their profile. (Perhaps even rate them 1-5 stars or something)
+
+I want users to look at other users profile. 
+
+I want a user to be able to update their profile info. 
+
+I want a user to send friends request, add/join groups with other users. 
+
+I want a user to be able to write a review of a game. Perhaps show their reviews on their profile, and on the gamedetail page. 
+Maybe sort the reviews on the gamedetail page based on "upvotes/downvotes" 
+
+I want a user to be able to "Follow" other users. 
