@@ -12,3 +12,5 @@ I want a user to be able to write a review of a game. Perhaps show their reviews
 Maybe sort the reviews on the gamedetail page based on "upvotes/downvotes" 
 
 I want a user to be able to "Follow" other users. 
+
+Perhaps a role system, where only Admins can add games to the database? Or open it to the public and have a system for not getting duplicate games or bad actor inputs? 
