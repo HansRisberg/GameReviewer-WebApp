@@ -27,7 +27,7 @@ public class ReviewsController : ControllerBase
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost("add")]
-    public async Task<IActionResult> AddReview([FromBody] AddReviewRequestDTO request)
+    public async Task<IActionResult> AddReview([FromBody] AddReviewRequestDTO request, IConfiguration configuration)
     {
         // Check for valid review content
         if (string.IsNullOrWhiteSpace(request.ReviewContent))
@@ -42,41 +42,66 @@ public class ReviewsController : ControllerBase
             return Unauthorized("Token is missing.");
         }
 
-        var jwtKey = _configuration["Jwt:SecretKey"];
-        var tokenHandler = new JwtSecurityTokenHandler();
+        // Retrieve the JWT secret key from the configuration
+        var jwtKey = configuration["Jwt:SecretKey"];
+        var jwtIssuer = configuration["Jwt:Issuer"];
+        var jwtAudience = configuration["Jwt:Audience"];
+
+        // Set up token validation parameters
         var tokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtKey)),
-            ValidateLifetime = true,
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidIssuer = _configuration["Jwt:Issuer"],
-            ValidAudience = _configuration["Jwt:Audience"]
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtKey))
         };
 
-        // Validate the JWT token and retrieve the claims principal
-        var claimsPrincipal = tokenHandler.ValidateToken(token, tokenValidationParameters, out _);
+        // Decode and validate the token
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var claimsPrincipal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
 
-        // Extract the email claim from the token
-        var emailClaim = claimsPrincipal.FindFirst(ClaimTypes.Email)?.Value;
-        if (emailClaim == null)
+        // Verify the issuer
+        bool isIssuerValid = validatedToken.Issuer.Equals(jwtIssuer, StringComparison.InvariantCultureIgnoreCase);
+        Console.WriteLine($"Issuer is valid: {isIssuerValid}");
+
+        // Verify the audience
+        bool isAudienceValid = ((validatedToken as JwtSecurityToken)?.Audiences?.Any(a => a.Equals(jwtAudience, StringComparison.InvariantCultureIgnoreCase)) ?? false);
+        Console.WriteLine($"Audience is valid: {isAudienceValid}");
+
+        // Verify the expiration time
+        bool isTokenValid = validatedToken.ValidTo > DateTime.UtcNow;
+        Console.WriteLine($"Token expiration is valid: {isTokenValid}");
+
+        // Check if any of the verification steps failed
+        if (!isIssuerValid || !isAudienceValid || !isTokenValid)
         {
-            return Unauthorized("Invalid token: Email claim not found.");
+            return Unauthorized("Invalid token");
         }
 
-        // Retrieve the reviewer using the email claim
-        var reviewer = await _userManager.FindByEmailAsync(emailClaim);
-        if (reviewer == null)
+        // Check if any of the verification steps failed
+        if (!isIssuerValid || !isAudienceValid || !isTokenValid)
         {
-            return NotFound("Reviewer not found.");
+            return Unauthorized("Invalid token");
         }
+
+        // Extract email address from the token claims
+        var email = claimsPrincipal.FindFirst(ClaimTypes.Email)?.Value;
+        Console.WriteLine("The claim email is :" + email);
 
         // Check if the game exists
         var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.GameId == request.GameId);
         if (game == null)
         {
             return NotFound("Game not found.");
+        }
+        // Retrieve the reviewer using the email claim
+        var reviewer = await _userManager.FindByEmailAsync(email);
+        if (reviewer == null)
+        {
+            return NotFound("Reviewer not found.");
         }
 
         // Create the new review
