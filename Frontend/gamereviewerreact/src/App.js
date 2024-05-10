@@ -11,6 +11,7 @@ import { ThemeProviderWrapper } from './Styles/GameFormStyles';
 import LoginView from './Views/LogIn';
 import RegisterView from './Views/Registration';
 import ProfileView from './Views/Profile';
+import Footer from './Components/Footer';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/profile" element={<ProfileView/>}/>
             {/* Add more routes as needed */}
           </Routes>
+          <Footer />
         </div>
       </Router>
     </ThemeProviderWrapper>

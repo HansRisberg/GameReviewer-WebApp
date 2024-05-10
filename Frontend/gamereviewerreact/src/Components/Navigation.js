@@ -1,35 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
+import '../CSS/Navigation.css'; // Import a CSS file for consistent styling
 
 const Navigation = () => {
   return (
-    <nav style={{ position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1000 }}>
-      <ul style={{ display: 'flex', justifyContent: 'space-around', listStyle: 'none' }}>
-        <li>
-          <Link to="/" style={{ color: 'black', textDecoration: 'none' }}>
-            Home
-          </Link>
+    <nav className="navbar"> {/* Apply a class for styling */}
+      <ul className="nav-list"> {/* Use a class for the list */}
+        <li className="nav-item"> {/* Use a class for each item */}
+          <Link to="/" className="nav-link">Home</Link>
         </li>
-        <li>
-          <Link to="/gamesview" style={{ color: 'black', textDecoration: 'none' }}>
-            Games
-          </Link>
+        <li className="nav-item">
+          <Link to="/gamesview" className="nav-link">Games</Link>
         </li>
-        <li>
-          <Link to="/reviewsview" style={{ color: 'black', textDecoration: 'none' }}>
-            Reviews
-          </Link>
+        <li className="nav-item">
+          <Link to="/reviewsview" className="nav-link">Reviews</Link>
         </li>
-        <li>
-          <Link to="/addgameview" style={{ color: 'black', textDecoration: 'none' }}>
-            Add Game
-          </Link>
+        <li className="nav-item">
+          <Link to="/addgameview" className="nav-link">Add Game</Link>
         </li>
-        <li>
-          <ProfileIcon /> 
+        <li className="nav-item">
+          <ProfileIcon /> {/* Profile icon */}
         </li>
-        {/* Add more links as needed */}
       </ul>
     </nav>
   );

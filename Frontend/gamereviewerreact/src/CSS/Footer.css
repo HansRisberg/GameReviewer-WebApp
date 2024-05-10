@@ -1,0 +1,11 @@
+.footer {
+    background-color: #333; /* Dark background color */
+    color: white; /* White text */
+    text-align: center; /* Center-align the text */
+    padding: 20px; /* Padding for the footer */
+  }
+  
+  .footer p {
+    margin: 0; /* No extra margin */
+  }
+  

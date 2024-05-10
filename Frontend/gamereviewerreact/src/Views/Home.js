@@ -1,15 +1,18 @@
-// Home.js (VIEW)
-
 import React from 'react';
 import GameCarousel from '../Components/GameCarousel';
+import '../CSS/Home.css'; /* Apply a CSS file for styling */
 
-
-const home = () => {
+const Home = () => {
   return (
-    <div>  
-      <GameCarousel /> {/* Render the component here */}
+    <div className="home-container"> {/* Apply a class for styling */}
+      <GameCarousel /> {/* Render the carousel component */}
+
+      <div className="home-section"> {/* Section for explanatory text */}
+        <h2>Welcome to Game Reviewer</h2> {/* Example heading */}
+        <p>Discover the latest and greatest games, read reviews, and share your opinions with our community.</p> {/* Example paragraph */}
+      </div>
     </div>
   );
 };
 
-export default home;
+export default Home;

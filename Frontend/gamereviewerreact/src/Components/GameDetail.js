@@ -56,7 +56,7 @@ const GameDetail = () => {
       {game.gameReviews && game.gameReviews.$values.map(review => (
         <div key={review.gameReviewId}>
           <p>Reviewer: {review.reviewer.name}</p>
-          <p>Email: {review.reviewer.eMail}</p>
+          <p>Email: {review.reviewer.email}</p>
           <p>Comment: {review.reviewContent}</p>
           {/* Add more details as needed */}
         </div>

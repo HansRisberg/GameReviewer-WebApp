@@ -1,0 +1,20 @@
+.home-container {
+    padding: 10px; /* Reduce padding */
+    margin: 0; /* Ensure no extra margins */
+  }
+  
+  .home-section {
+    text-align: center; /* Center-align text */
+    margin-top: 10px; /* Ensure enough space between sections */
+  }
+  
+  .home-section h2 {
+    font-size: 1.5em; /* Reduce the heading size */
+    color: #1976d2; /* Text color */
+  }
+  
+  .home-section p {
+    font-size: 1em; /* Default paragraph size */
+    line-height: 1.5; /* Ensure readability */
+  }
+  
