@@ -1,22 +1,3 @@
-// // GameDetailView.js (VIEW)
-// import React from 'react';
-// import GameDetail from '../Components/GameDetail'; // Adjust the path as needed
-// import AddReview from '../Components/AddReview';
-
-// const GameDetailView = () => {
-//   return (
-//     <div>
-//       <h1>Game Detail View</h1>
-//       <p>This is where you can view detailed information about a game.</p>
-//       <GameDetail /> {/* Render the GameDetail component */}
-//       <p>This is where you can write a review</p>
-//       <AddReview />
-//     </div>
-//   );
-// };
-
-// export default GameDetailView;
-
 import React from 'react';
 import { useParams } from 'react-router-dom'; // Use useParams to get route parameters
 import GameDetail from '../Components/GameDetail'; // Adjust the path as needed

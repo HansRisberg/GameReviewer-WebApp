@@ -8,7 +8,7 @@ const ProfilePage = () => {
     // Call getProfile() to fetch user profile data
     getProfile()
       .then(response => {
-        // Assuming response.data contains user information
+        console.log('Profile response:', response.data);
         setUserInfo(response.data);
         console.log('User Info:', response.data); // Log the user info
       })

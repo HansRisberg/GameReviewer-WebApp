@@ -25,22 +25,21 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post('https://localhost:7168/api/account/login', formData);
       console.log('Login successful:', response.data);
-      
+  
       // Extract the token from the response data
       const token = response.data.token;
       console.log('Login successful. Received token:', token);
-      // Store the token securely (e.g., in local storage)
+  
+      // Store the token in localStorage
       localStorage.setItem('token', token);
-      
-      login(); // Call the login function from the useAuth hook
-      // You can handle success, e.g., redirect the user to another page
+  
+      login(token); // Pass the token to the login function
     } catch (error) {
       console.error('Login failed:', error.response.data);
-      // You can handle errors, e.g., display error messages to the user
     }
   };
 

@@ -7,6 +7,7 @@ import {
   StyledTextField,
   StyledButton,
 } from '../Styles/GameFormStyles';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -16,17 +17,21 @@ const RegistrationForm = () => {
     name: '',
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try {
       const response = await axios.post('https://localhost:7168/api/account/register', formData);
       console.log('Registration successful:', response.data);
+      navigate('/login');
+      
       // You can handle success, e.g., redirect the user to a login page
     } catch (error) {
       console.error('Registration failed:', error.response.data);
