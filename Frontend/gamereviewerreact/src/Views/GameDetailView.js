@@ -15,7 +15,7 @@ const GameDetailView = () => {
       {/* Pass the gameId to GameDetail */}
       <GameDetail gameId={gameId} />
       
-      <p>This is where you can write a review</p>
+      <p>This is where you can write a review, you must be logged in</p>
       
       {/* Pass the gameId to AddReview */}
       <AddReview gameId={gameId} />

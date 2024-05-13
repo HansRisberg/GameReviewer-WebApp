@@ -75,6 +75,7 @@ namespace GameReviewer.DataAccess.Authentication
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+        // TODO: Add a method to handle token validation
     }
 }
 

@@ -1,2 +1,1 @@
-﻿1.Somehting wrong with the JWT Local storage. It feels like you are loggen in when you are not. 
-2. Leaving a review when not logged in crashes the page because when we try to get the reviews after refreshing the page. The reviewer is undefined. 
+﻿Clear 
