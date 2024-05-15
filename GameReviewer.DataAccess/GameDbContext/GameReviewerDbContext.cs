@@ -3,22 +3,23 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 namespace GameReviewer.DataAccess.GameDbContext
 {
     public class GameReviewerDbContext : IdentityDbContext<Reviewer>
     {
+        private readonly IConfiguration _configuration;
         /// <summary>
         /// A constructor for SeedData to work.
         /// </summary>
-        public GameReviewerDbContext()
+        public GameReviewerDbContext(DbContextOptions<GameReviewerDbContext> options, IConfiguration configuration)
+        : base(options)
         {
+            _configuration = configuration;
+        }
 
-        }
-        public GameReviewerDbContext(DbContextOptions<GameReviewerDbContext> options) : base(options)
-        {
-        }
         public DbSet<Game> Games => Set<Game>();
         public DbSet<Genre> Genres => Set<Genre>();
         public DbSet<GameGenre> GameGenres => Set<GameGenre>();
@@ -27,11 +28,12 @@ namespace GameReviewer.DataAccess.GameDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(
-                 @"Server = (localdb)\MSSQLLocalDB; " +
-                 "Database = GameReviewerDBWebApp; " +
-                "Trusted_Connection = True;",
-                 b => b.MigrationsAssembly("GameReviewer.DataAccess")); // Specify the migrations assembly here
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(
+                    _configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("GameReviewer.DataAccess")); // Specify the migrations assembly here
+            }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

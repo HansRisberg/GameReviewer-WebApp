@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameReviewer.DataAccess.Migrations
 {
     [DbContext(typeof(GameReviewerDbContext))]
-    [Migration("20240316100628_initialcreate")]
-    partial class initialcreate
+    [Migration("20240515101338_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

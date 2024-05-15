@@ -1,4 +1,3 @@
-using GameReviewer.DataAccess;
 using GameReviewer.DataAccess.Authentication;
 using GameReviewer.DataAccess.GameDbContext;
 using GameReviewer.DataAccess.Models;
@@ -13,8 +12,8 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Reseed the database
-        SeedData.Initialize();
+        //// Reseed the database
+        //SeedData.Initialize();
 
         // Configure CORS
         builder.Services.AddCors(options =>
@@ -37,12 +36,12 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         // Add the DbContext to the DI container
+
         builder.Services.AddDbContext<GameReviewerDbContext>(options =>
         {
             options.UseSqlServer(
-                @"Server=(localdb)\MSSQLLocalDB;" +
-                "Database=GameReviewerDBWebApp;" +
-                "Trusted_Connection=True;");
+                builder.Configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly("GameReviewer.DataAccess")); // Specify the migrations assembly here
         });
 
         // Configure Identity
