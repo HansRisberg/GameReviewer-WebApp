@@ -1,6 +1,7 @@
-@GameReviewer_WebApp_HostAddress = http://localhost:5155
+@GameReviewer_WebApp_HostAddress = https://gamereviewer.azurewebsites.net
 
-GET {{GameReviewer_WebApp_HostAddress}}/weatherforecast/
+
+GET {{GameReviewer_WebApp_HostAddress}}
 Accept: application/json
 
 ###
