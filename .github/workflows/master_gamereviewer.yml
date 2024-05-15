@@ -1,5 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# .github/workflows/master_gamereviewer.yml
 
 name: Build and deploy ASP.Net Core app to Azure Web App - GameReviewer
 
@@ -62,5 +61,12 @@ jobs:
         with:
           app-name: 'GameReviewer'
           slot-name: 'Production'
-          package: .
-          
+          package: ./GameReviewer.DataAccess   # Path to your DataAccess project
+
+      - name: Deploy frontend to Azure
+        uses: Azure/webapps-deploy@v2
+        with:
+          app-name: 'GameReviewer'  # Azure Web App name
+          slot-name: 'Production'   # (Optional) Slot name
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Azure Web App publish profile
+          package: ./Frontend/gamereviewerreact  # Path to your frontend project
