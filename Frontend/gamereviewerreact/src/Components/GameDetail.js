@@ -14,7 +14,7 @@ const GameDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const gameResponse = await axios.get(`https://gamereviewerbackend.azurewebsites.net/api/Games/${id}`);
+        const gameResponse = await axios.get(`https://localhost:7168/api/Games/${id}`);
         console.log('Game Detail Response:', gameResponse.data);
         setGame(gameResponse.data);
 
