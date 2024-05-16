@@ -8,7 +8,8 @@ const GameDetail = () => {
   const [trailerId, setTrailerId] = useState(null);
   const { id } = useParams();
 
-  const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY || 'defaultApiKey';
+  // const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY || 'defaultApiKey';
+     const apiKey = "AIzaSyBwk6hFypoetkux-GtMIA7WgsQ8lR7mROc";
 
   useEffect(() => {
     const fetchData = async () => {
