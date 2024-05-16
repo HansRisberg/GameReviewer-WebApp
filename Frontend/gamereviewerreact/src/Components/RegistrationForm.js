@@ -28,7 +28,7 @@ const RegistrationForm = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('https://localhost:7168/api/account/register', formData);
+      const response = await axios.post('https://gamereviewerbackend.azurewebsites.net/api/account/register', formData);
       console.log('Registration successful:', response.data);
       navigate('/login');
       

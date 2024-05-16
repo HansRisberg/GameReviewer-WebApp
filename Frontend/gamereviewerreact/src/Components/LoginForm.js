@@ -27,7 +27,7 @@ const LoginForm = () => {
     e.preventDefault();
   
     try {
-      const response = await axios.post('https://localhost:7168/api/account/login', formData);
+      const response = await axios.post('https://gamereviewerbackend.azurewebsites.net/api/account/login', formData);
       console.log('Login successful:', response.data);
   
       // Extract the token from the response data

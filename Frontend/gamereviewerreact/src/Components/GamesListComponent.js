@@ -9,8 +9,8 @@ const GamesListComponent = ({ selectedGenre }) => {
     const fetchData = async () => {
       try {
         const url = selectedGenre === 'All genres'
-          ? 'https://localhost:7168/api/Games/'
-          : `https://localhost:7168/api/Games?genre=${encodeURIComponent(selectedGenre)}`;
+          ? 'https://gamereviewerbackend.azurewebsites.net/api/Games/'
+          : `https://gamereviewerbackend.azurewebsites.net/api/Games?genre=${encodeURIComponent(selectedGenre)}`;
 
         console.log('API Request URL:', url);
 
