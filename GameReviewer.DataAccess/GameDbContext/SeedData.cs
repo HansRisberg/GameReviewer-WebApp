@@ -10,7 +10,7 @@
             //    //EfMethods.ClearAllData(); //Remeber to remove later, this is just for testing purposes
             //    var genres = new List<Genre>
             //    {
-            //        new Genre { Name = "Action" },
+            //new Genre { Name = "Action" },
             //        new Genre { Name = "Adventure" },
             //        new Genre { Name = "Battle Royale" },
             //        new Genre { Name = "Card Game" },
