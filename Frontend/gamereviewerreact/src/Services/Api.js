@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base URL for the API. Adjust for production and development environments as needed.
-const BASE_URL = 'https://gamereviewer.azurewebsites.net/api';
+const BASE_URL = 'https://localhost:7168/api';
 
 // Create an Axios instance with a base URL
 const api = axios.create({
