@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('https://localhost:7168/api/account/logout');
+      await axios.post('https://gamereviewerbackend.azurewebsites.net/api/account/logout');
       localStorage.removeItem('token');
       setAuthToken(null);
       setIsLoggedIn(false);
