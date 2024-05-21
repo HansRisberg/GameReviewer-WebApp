@@ -6,6 +6,7 @@ import '../CSS/Carousel.css';
 const gamesData = [
   { title: 'Baldurs Gate 3', imageUrl: '/Assets/bg3.webp' },
   { title: 'Warhammer40k Darktide', imageUrl: '/Assets/darktide2.webp' },
+  { title: 'Enshrouded', imageUrl: '/Assets/enshrouded.webp' },
   // Add more images as needed
 ];
 

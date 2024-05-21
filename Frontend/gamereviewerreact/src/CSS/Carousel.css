@@ -3,7 +3,7 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically (if needed) */
     margin: 10px auto; /* Center with margin */
-    width: 100%; /* Ensure full width for centering */
+    width: 70%; /* Ensure full width for centering */
   }
   
   .carousel-container {
@@ -13,7 +13,7 @@
   
   .carousel-image {
     width: 100%; /* Ensure image fills its container */
-    height: 925px; /* Maintain aspect ratio */
+    height: 100%; /* Maintain aspect ratio */
     border-radius: 10px; /* Rounded corners */
   }
   

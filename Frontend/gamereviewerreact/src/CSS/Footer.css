@@ -1,11 +1,21 @@
 .footer {
-    background-color: #333; /* Dark background color */
-    color: white; /* White text */
-    text-align: center; /* Center-align the text */
-    padding: 20px; /* Padding for the footer */
-  }
-  
-  .footer p {
-    margin: 0; /* No extra margin */
-  }
-  
+  position: fixed;
+  bottom: 0;
+  /* Align to the bottom of the viewport */
+  width: 100%;
+  /* Stretch across the full width */
+  z-index: 1000;
+  background-color: #333;
+  /* Dark background color */
+  color: white;
+  /* White text */
+  text-align: center;
+  /* Center-align the text */
+  padding: 20px;
+  /* Padding for the footer */
+}
+
+.footer p {
+  margin: 0;
+  /* No extra margin */
+}

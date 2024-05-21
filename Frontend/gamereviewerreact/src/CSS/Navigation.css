@@ -2,7 +2,7 @@
     position: sticky; /* Keep the navbar at the top */
     top: 0;
     background-color: white; /* Background color */
-    zIndex: 1000; /* Ensure it appears on top */
+    z-Index: 1000;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
   }
   
