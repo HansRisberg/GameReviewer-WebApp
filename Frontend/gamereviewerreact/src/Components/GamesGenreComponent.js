@@ -9,7 +9,7 @@ const GamesGenreComponent = ({ onGenreChange }) => {
     const fetchData = async () => {
       try {
         // Fetch the list of genres
-        const genresResponse = await axios.get('https://gamereviewerbackendapi.azurewebsites.net/api/Genres/');
+        const genresResponse = await axios.get('https://localhost:7168/api/Genres/');
         console.log('Genres API Response:', genresResponse.data);
 
         // Extract unique genres from the genres data
