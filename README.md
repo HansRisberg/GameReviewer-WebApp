@@ -5,6 +5,7 @@ In GameDetail.js I have a hidden api key:
 const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY || 'defaultApiKey';
 
 To create a key go to https://console.cloud.google.com and set up a key, adding this library:  YouTube Data API v3 
+If you are trying to view a game from the list and no video shows up, then the daily query limit has been reached. 
 
 This is a work in progress where I wanted to expand my knowledge in web-app creation. Because of this I wanted to have my own database instead of getting all the game information from an API like RAWG or IGDB.
 It has a function for adding games to the database and sorting them based on their categories from a multiselect window. A user can log in to view their profile page and leave reviews on a game. 
