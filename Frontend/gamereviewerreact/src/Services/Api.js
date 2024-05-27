@@ -25,7 +25,7 @@ api.interceptors.request.use(
 export const getGame = (id) => api.get(`/games/${id}`); // For GameDetail
 export const getGames = () => api.get('/games'); // For GameListComponent
 export const createGame = (newGame) => api.post('/games/add-game', newGame); // For GameForm
-export const getGenres = () => api.get('/genres'); // For GameCategoryComponent
+export const getGenres = () => api.get('/genres'); // For GameGenresComponent
 export const createUser = (userData) => api.post('/account/register', userData); // For RegistrationForm
 
 export const loginUser = async (loginData) => {

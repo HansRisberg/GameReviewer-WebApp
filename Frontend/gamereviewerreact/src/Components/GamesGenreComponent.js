@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { getGenres } from '../Services/Api.js'
 
 const GamesGenreComponent = ({ onGenreChange }) => {
   const [availableGenres, setAvailableGenres] = useState(['All genres']);
@@ -9,7 +10,8 @@ const GamesGenreComponent = ({ onGenreChange }) => {
     const fetchData = async () => {
       try {
         // Fetch the list of genres
-        const genresResponse = await axios.get('https://gamereviewerbackendapi.azurewebsites.net/api/Genres/');
+        const genresResponse = await getGenres();
+        // const genresResponse = await axios.get('https://gamereviewerbackendapi.azurewebsites.net/api/Genres/');
         console.log('Genres API Response:', genresResponse.data);
 
         // Extract unique genres from the genres data
