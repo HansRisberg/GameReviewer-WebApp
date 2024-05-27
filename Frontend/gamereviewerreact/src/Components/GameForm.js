@@ -97,7 +97,7 @@ const GameForm = () => {
         </FormControl>
 
         <FormControl fullWidth>
-          <StyledLabel>Genres</StyledLabel> {/* Updated label */}
+          <StyledLabel>Genres - Multiple Genres can be selected</StyledLabel> {/* Updated label */}
           <StyledSelect
             multiple
             value={selectedGenres} // Updated variable name
