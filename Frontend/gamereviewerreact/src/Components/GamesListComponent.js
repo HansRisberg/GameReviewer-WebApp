@@ -27,7 +27,8 @@ const GamesListComponent = ({ selectedGenre }) => {
           return [game];
         });
 
-        // Set games without sorting
+        //Sorting list
+        flatGames.sort((a, b) => a.title.localeCompare(b.title));
         setGames(flatGames);
         console.log('Games Response:', gamesResponse.data);
       } catch (error) {

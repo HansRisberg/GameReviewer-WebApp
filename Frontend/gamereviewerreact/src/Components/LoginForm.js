@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
+import { loginUser } from '../Services/Api';
 import { Link } from 'react-router-dom'; 
 import { FormControl } from '@mui/material';
 import { useAuth } from '../Contexts/AuthContext'; 
@@ -28,7 +29,8 @@ const LoginForm = () => {
     e.preventDefault();
   
     try {
-      const response = await axios.post('https://gamereviewerbackendapi.azurewebsites.net/api/account/login', formData);
+      //const response = await axios.post('https://gamereviewerbackendapi.azurewebsites.net/api/account/login', formData);
+      const response = await loginUser(formData);
       console.log('Login successful:', response.data);
   
       // Extract the token from the response data

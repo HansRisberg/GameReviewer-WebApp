@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { FormControl } from '@mui/material';
 import {
   StyledFormContainer,
@@ -8,6 +8,7 @@ import {
   StyledButton,
 } from '../Styles/GameFormStyles';
 import { useNavigate } from 'react-router-dom';
+import { createUser } from '../Services/Api';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +29,8 @@ const RegistrationForm = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('https://gamereviewerbackendapi.azurewebsites.net/api/account/register', formData);
+      const response = await createUser(formData);
+      //const response = await axios.post('https://gamereviewerbackendapi.azurewebsites.net/api/account/register', formData);
       console.log('Registration successful:', response.data);
       navigate('/login');
       

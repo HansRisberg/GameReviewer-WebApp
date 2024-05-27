@@ -13,12 +13,14 @@ import RegisterView from './Views/Registration';
 import ProfileView from './Views/Profile';
 import Footer from './Components/Footer';
 import { AuthProvider } from './Contexts/AuthContext';
+import { ScrollToTop } from './Components/ScrollToTop';
 
 const App = () => {
   return (
     <AuthProvider>
       <ThemeProviderWrapper>
         <Router>
+        <ScrollToTop />
           <div>
             <Navigation />
             <Routes>

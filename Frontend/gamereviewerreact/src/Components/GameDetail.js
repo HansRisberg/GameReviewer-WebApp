@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+//import axios from 'axios';
 import fetchYouTubeTrailer from '../Services/youtubeApi';
+import { getGame } from '../Services/Api';
 
 const GameDetail = () => {
   const [game, setGame] = useState([]);
@@ -14,7 +15,8 @@ const GameDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const gameResponse = await axios.get(`https://gamereviewerbackendapi.azurewebsites.net/api/Games/${id}`);
+        //const gameResponse = await axios.get(`https://gamereviewerbackendapi.azurewebsites.net/api/Games/${id}`);
+        const gameResponse = await getGame(id);
         console.log('Game Detail Response:', gameResponse.data);
         setGame(gameResponse.data);
 
