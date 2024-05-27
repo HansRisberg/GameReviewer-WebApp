@@ -8,47 +8,11 @@ I want a user to be able to update their profile info.
 
 I want a user to send friends request, add/join groups with other users. 
 
-I want a user to be able to write a review of a game. Perhaps show their reviews on their profile, and on the gamedetail page. 
+Display user reviews on their profile, and on the gamedetail page? 
 Maybe sort the reviews on the gamedetail page based on "upvotes/downvotes" 
 
 I want a user to be able to "Follow" other users. 
 
 Perhaps a role system, where only Admins can add games to the database? Or open it to the public and have a system for not getting duplicate games or bad actor inputs? 
 
-    Prepare your application for deployment:
-        Ensure your application is fully functional and tested locally.
-        Update any configuration settings that may need to change when deployed (e.g., connection strings, environment variables).
 
-    Create an Azure account:
-        If you don't already have one, sign up for an Azure account at https://azure.microsoft.com/.
-
-    Set up Azure Blob Storage:
-        Log in to the Azure portal.
-        Create a new Blob Storage account.
-        Set up containers within your storage account to store user-uploaded images.
-
-    Deploy your backend:
-        Publish your ASP.NET Core Web API project to Azure App Service.
-        Configure your App Service with the necessary environment variables and settings.
-        Ensure your database (MS SQL) is accessible from Azure (you might need to deploy it to Azure SQL Database).
-
-    Deploy your frontend:
-        Build your React application for production.
-        Host your frontend assets (HTML, CSS, JavaScript) on Azure App Service, Azure Blob Storage, or Azure CDN.
-
-    Integrate image upload functionality:
-        Update your frontend and backend code to handle image uploads from users.
-        Ensure that uploaded images are stored in Azure Blob Storage.
-
-    Update your application code:
-        Update your application code to use Azure Blob Storage URLs for serving images.
-
-    Test your deployed application:
-        Once deployed, thoroughly test your application to ensure everything is working as expected.
-
-    Set up custom domain (optional):
-        If you have a custom domain, configure it to point to your Azure resources.
-
-    Monitor and maintain your application:
-        Set up monitoring and logging to track application performance and errors.
-        Regularly update and maintain your application as needed.

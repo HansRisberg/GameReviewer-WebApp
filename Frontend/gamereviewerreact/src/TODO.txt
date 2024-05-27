@@ -1,0 +1,3 @@
+Style the various pages and fix what content is displayed. 
+
+Render reviews on the reviews page. 
