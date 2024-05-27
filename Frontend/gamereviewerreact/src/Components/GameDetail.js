@@ -51,8 +51,18 @@ const GameDetail = () => {
         : 'No genres'}</p>
 
       <p>Release Date: {formattedReleaseDate}</p>
-
-      {/* Display Reviews */}
+  
+      {/* Embed YouTube trailer if available */}
+      {trailerId && (
+        <iframe
+        width="560"
+        height="315"
+        src={`https://www.youtube.com/embed/${trailerId}`}
+        title="YouTube Trailer"
+        frameBorder="0"
+        allowFullScreen
+        ></iframe>
+      )}
       <h3>Reviews:</h3>
       {game.gameReviews && game.gameReviews.$values.map(review => (
         <div key={review.gameReviewId}>
@@ -62,19 +72,6 @@ const GameDetail = () => {
           {/* Add more details as needed */}
         </div>
       ))}
-
-      {/* Embed YouTube trailer if available */}
-      {trailerId && (
-        <iframe
-          width="560"
-          height="315"
-          src={`https://www.youtube.com/embed/${trailerId}`}
-          title="YouTube Trailer"
-          frameBorder="0"
-          allowFullScreen
-        ></iframe>
-      )}
-      {/* Add more details as needed */}
     </div>
   );
 };
