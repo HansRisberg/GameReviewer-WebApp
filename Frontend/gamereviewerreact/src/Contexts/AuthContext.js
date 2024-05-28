@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import { logoutUser } from '../Services/Api';
 
 const AuthContext = createContext();
 
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('https://gamereviewerbackendapi.azurewebsites.net/api/account/logout');
+      await logoutUser();
       localStorage.removeItem('token');
       setAuthToken(null);
       setIsLoggedIn(false);

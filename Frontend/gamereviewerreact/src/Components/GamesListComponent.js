@@ -8,7 +8,10 @@ const GamesListComponent = ({ selectedGenre }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = selectedGenre === 'All genres'
+        // const url = selectedGenre === 'All genres'
+        //   ? 'https://localhost:7168/api/Games/'
+        //   : `https://localhost:7168/api/Games?genre=${encodeURIComponent(selectedGenre)}`;
+          const url = selectedGenre === 'All genres'
           ? 'https://gamereviewerbackendapi.azurewebsites.net/api/Games/'
           : `https://gamereviewerbackendapi.azurewebsites.net/api/Games?genre=${encodeURIComponent(selectedGenre)}`;
 

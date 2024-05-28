@@ -119,4 +119,34 @@ public class ReviewsController : ControllerBase
 
         return Created($"api/Reviews/{newReview.GameReviewId}", newReview); // Return the created review
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetReviews()
+    {
+        try
+        {
+            var reviews = await _dbContext.GameReviews
+                .Include(r => r.Reviewer) // Include reviewer details
+                .Include(r => r.Game) // Include game details
+                .ToListAsync();
+
+            var reviewDtos = reviews.Select(r => new ReviewDTO
+            {
+                GameReviewId = r.GameReviewId,
+                ReviewContent = r.ReviewContent,
+                ReviewerName = r.Reviewer.UserName,
+                ReviewerEmail = r.Reviewer.Email,
+                GameTitle = r.Game.Title,
+                CreatedAt = r.CreatedAt
+            }).ToList();
+
+            return Ok(reviewDtos);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching reviews: {ex.Message}");
+            return StatusCode(500, "Internal server error");
+        }
+    }
 }
+
