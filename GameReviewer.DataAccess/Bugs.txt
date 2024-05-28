@@ -1,1 +1,29 @@
-﻿Clear 
+﻿SQL template to delete duplicate entries in the database: 
+
+SELECT Title, COUNT(*)
+FROM Games
+GROUP BY Title
+HAVING COUNT(*) > 1;
+
+-- Step 2: Select duplicates to retain
+WITH CTE_Duplicates AS (
+    SELECT GameId, Title,
+           ROW_NUMBER() OVER (PARTITION BY Title ORDER BY GameId) AS RowNum
+    FROM Games
+)
+SELECT GameId
+FROM CTE_Duplicates
+WHERE RowNum = 1;
+
+-- Step 3: Delete the other duplicates
+WITH CTE_Duplicates AS (
+    SELECT GameId,
+           ROW_NUMBER() OVER (PARTITION BY Title ORDER BY GameId) AS RowNum
+    FROM Games
+)
+DELETE FROM Games
+WHERE GameId IN (
+    SELECT GameId
+    FROM CTE_Duplicates
+    WHERE RowNum > 1
+);
