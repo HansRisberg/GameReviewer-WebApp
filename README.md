@@ -17,3 +17,5 @@ I still have some work to do with the functions of the app, there are things I w
 
 The app might take 30 seconds to load up because of the service plan being used in Azure. Once the server is pinged, the app will function normally. After 20 min of inactivity it will go dormant again. 
 ![image](https://github.com/HansRisberg/GameReviewer-WebApp/assets/123938027/893199a0-7b0a-4f03-84f1-d40da1f988e4)
+
+PS: There is a lot of technical debt currently. I have done this somewhat purposely, so that I can simulate a "spring cleaning/refactoring" later! :D 
