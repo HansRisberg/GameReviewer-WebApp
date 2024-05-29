@@ -137,6 +137,7 @@ public class ReviewsController : ControllerBase
                 ReviewerName = r.Reviewer.UserName,
                 ReviewerEmail = r.Reviewer.Email,
                 GameTitle = r.Game.Title,
+                GameId = r.GameId,
                 CreatedAt = r.CreatedAt
             }).ToList();
 

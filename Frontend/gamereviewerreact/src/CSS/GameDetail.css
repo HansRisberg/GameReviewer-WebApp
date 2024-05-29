@@ -1,0 +1,66 @@
+/* GameDetail.css */
+
+.game-detail-container {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .game-detail-container h2 {
+    font-size: 2.5em;
+    color: #00ff00;
+    text-shadow: 2px 2px 5px #000000;
+    margin-bottom: 10px;
+  }
+  
+  .game-detail-container p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .game-detail-container .trailer-container {
+    margin: 20px 0;
+  }
+  
+  .game-detail-container iframe {
+    width: 100%;
+    max-width: 560px;
+    height: 315px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .reviews-container {
+    margin-top: 30px;
+  }
+  
+  .reviews-container h3 {
+    font-size: 2em;
+    color: #00ff00;
+    text-shadow: 2px 2px 5px #000000;
+    margin-bottom: 10px;
+  }
+  
+  .review-card {
+    background-color: #2e2e2e;
+    color: #ffffff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .review-card h3 {
+    font-size: 1.8em;
+    color: #00ff00;
+    margin-bottom: 5px;
+  }
+  
+  .review-card p {
+    font-size: 1.1em;
+  }
+  

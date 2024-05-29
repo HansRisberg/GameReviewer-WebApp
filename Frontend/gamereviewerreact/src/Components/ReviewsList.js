@@ -1,11 +1,9 @@
-// import React, { useEffect, useState } from 'react';
-import { getAllReviews } from '../Services/Api';
 import ReviewCard from './ReviewCard'; // Import the ReviewCard component
 import '../CSS/ReviewsList.css'; // Import the CSS file for flexbox layout
 import React, { useEffect, useState } from 'react';
+import { getAllReviews } from '../Services/Api';
 
-
-export const ReviewsList = () => {
+export const ReviewsList = ({ gameId }) => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
@@ -13,14 +11,15 @@ export const ReviewsList = () => {
       try {
         const response = await getAllReviews();
         const reviewsData = response.data.$values;
-        setReviews(reviewsData);
+        const filteredReviews = reviewsData.filter(review => review.gameId === gameId);
+        setReviews(filteredReviews);
       } catch (error) {
         console.error('Error fetching reviews:', error);
       }
     };
 
     fetchReviews();
-  }, []);
+  }, [gameId]);
 
   return (
     <div>
@@ -38,4 +37,3 @@ export const ReviewsList = () => {
   );
 };
 
-export default ReviewsList;

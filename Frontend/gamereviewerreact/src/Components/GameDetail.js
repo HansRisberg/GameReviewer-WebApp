@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import fetchYouTubeTrailer from '../Services/youtubeApi';
 import { getGame } from '../Services/Api';
+import { ReviewsList } from './ReviewsList';
+import '../CSS/GameDetail.css'; // Import the new CSS file
 
 const GameDetail = () => {
   const [game, setGame] = useState([]);
@@ -43,26 +45,27 @@ const GameDetail = () => {
   const formattedReleaseDate = new Date(game.releaseDate).toLocaleDateString('en-GB');
 
   return (
-    <div>
+    <div className="game-detail-container">
       <h2>{game.title}</h2>
-      <p>ID: {game.gameId}</p>
       <p>Genres: {game.gameGenres && game.gameGenres.$values
         ? game.gameGenres.$values.map(genre => genre.genre ? genre.genre.name : 'Unknown').join(', ')
         : 'No genres'}</p>
-
       <p>Release Date: {formattedReleaseDate}</p>
   
       {/* Embed YouTube trailer if available */}
+      <p style={{ color: 'red' }}>If the game trailer is not displaying, then the query limit for the API has been reached for today</p>
       {trailerId && (
-        <iframe
-          width="560"
-          height="315"
-          src={`https://www.youtube.com/embed/${trailerId}`}
-          title="YouTube Trailer"
-          frameBorder="0"
-          allowFullScreen
-        ></iframe>
+        <div className="trailer-container">
+          <iframe
+            src={`https://www.youtube.com/embed/${trailerId}`}
+            title="YouTube Trailer"
+            allowFullScreen
+          ></iframe>
+        </div>
       )}
+      <div>
+        <ReviewsList gameId={game.gameId} />
+      </div>
     </div>
   );
 };

@@ -14,9 +14,6 @@ const Navigation = () => {
           <Link to="/gamesview" className="nav-link">Games</Link>
         </li>
         <li className="nav-item">
-          <Link to="/reviewsview" className="nav-link">Reviews</Link>
-        </li>
-        <li className="nav-item">
           <Link to="/addgameview" className="nav-link">Add Game</Link>
         </li>
         <li className="nav-item">
