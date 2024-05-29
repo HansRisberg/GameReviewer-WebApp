@@ -56,74 +56,82 @@ const GameForm = () => {
     <div className="form-container">
       <h1>Add Game</h1>
       <form onSubmit={handleAddGame}>
-        <FormControl fullWidth className="form-control">
-          <InputLabel htmlFor="game-title">Game Title</InputLabel>
-          <OutlinedInput
-            id="game-title"
-            label="Game Title"
-            type="text"
-            className="text-field"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </FormControl>
+        <Box marginBottom={2}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="game-title">Game Title</InputLabel>
+            <OutlinedInput
+              id="game-title"
+              label="Game Title"
+              type="text"
+              className="text-field"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </FormControl>
+        </Box>
 
-        <FormControl fullWidth className="form-control">
-          <InputLabel htmlFor="release-date">Release Date</InputLabel>
-          <OutlinedInput
-            id="release-date"
-            label="Release Date"
-            type="date"
-            className="text-field"
-            value={releaseDate}
-            onChange={(e) => setReleaseDate(e.target.value)}
-          />
-        </FormControl>
+        <Box marginBottom={2}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="release-date"></InputLabel>
+            <OutlinedInput
+              id="release-date"
+              label="Release Date"
+              type="date"
+              className="text-field"
+              value={releaseDate}
+              onChange={(e) => setReleaseDate(e.target.value)}
+            />
+          </FormControl>
+        </Box>
 
-        <FormControl fullWidth className="form-control">
-          <InputLabel htmlFor="pg-rating">PG Rating</InputLabel>
-          <Select
-            id="pg-rating"
-            value={selectedPgRating}
-            onChange={(e) => setSelectedPgRating(e.target.value)}
-            label="PG Rating"
-          >
-            <MenuItem value="">Select PG Rating</MenuItem>
-            <MenuItem value="G">G</MenuItem>
-            <MenuItem value="PG">PG</MenuItem>
-            <MenuItem value="M">M</MenuItem>
-            <MenuItem value="R13">R13</MenuItem>
-            <MenuItem value="R16">R16</MenuItem>
-            <MenuItem value="R18">R18</MenuItem>
-          </Select>
-        </FormControl>
+        <Box marginBottom={2}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="pg-rating">PG Rating</InputLabel>
+            <Select
+              id="pg-rating"
+              value={selectedPgRating}
+              onChange={(e) => setSelectedPgRating(e.target.value)}
+              label="PG Rating"
+            >
+              <MenuItem value="">Select PG Rating</MenuItem>
+              <MenuItem value="G">G</MenuItem>
+              <MenuItem value="PG">PG</MenuItem>
+              <MenuItem value="M">M</MenuItem>
+              <MenuItem value="R13">R13</MenuItem>
+              <MenuItem value="R16">R16</MenuItem>
+              <MenuItem value="R18">R18</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
-        <FormControl fullWidth className="form-control">
-          <InputLabel htmlFor="genres">
-            Genres - Multiple Genres can be selected
-          </InputLabel>
-          <Select
-            labelId="genres-label"
-            id="genres"
-            multiple
-            value={selectedGenres}
-            onChange={(e) => setSelectedGenres(e.target.value)}
-            input={<OutlinedInput label="Genres - Multiple Genres can be selected" />}
-            renderValue={(selected) => (
-              <Box className="chips">
-                {selected.map((value) => (
-                  <Chip key={value} label={value} className="chip" />
-                ))}
-              </Box>
-            )}
-          >
-            {genres.map((genre) => ( // Updated variable name
-              <MenuItem key={genre.genreId} value={genre.name}> {/* Updated variable name */}
-                {genre.name} {/* Updated variable name */}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Box marginBottom={2}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="genres">
+              Genres - Multiple Genres can be selected
+            </InputLabel>
+            <Select
+              labelId="genres-label"
+              id="genres"
+              multiple
+              value={selectedGenres}
+              onChange={(e) => setSelectedGenres(e.target.value)}
+              input={<OutlinedInput label="Genres - Multiple Genres can be selected" />}
+              renderValue={(selected) => (
+                <Box className="chips">
+                  {selected.map((value) => (
+                    <Chip key={value} label={value} className="chip" />
+                  ))}
+                </Box>
+              )}
+            >
+              {genres.map((genre) => ( // Updated variable name
+                <MenuItem key={genre.genreId} value={genre.name}> {/* Updated variable name */}
+                  {genre.name} {/* Updated variable name */}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
 
         <button type="submit" className="submit-button">Add Game</button>
       </form>

@@ -6,7 +6,7 @@ import Home from './Views/Home';
 import GamesView from './Views/GamesView';
 import GameDetailView from './Views/GameDetailView';
 import AddGameView from './Views/AddGameView';
-import { ThemeProviderWrapper } from './Styles/GameFormStyles';
+
 import LoginView from './Views/LogIn';
 import RegisterView from './Views/Registration';
 import ProfileView from './Views/Profile';
@@ -17,7 +17,7 @@ import { ScrollToTop } from './Components/ScrollToTop';
 const App = () => {
   return (
     <AuthProvider>
-      <ThemeProviderWrapper>
+     
         <Router>
         <ScrollToTop />
           <div>
@@ -35,7 +35,7 @@ const App = () => {
             <Footer />
           </div>
         </Router>
-      </ThemeProviderWrapper>
+     
     </AuthProvider>
   );
 };
