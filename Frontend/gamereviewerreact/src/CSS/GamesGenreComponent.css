@@ -1,0 +1,38 @@
+/* GamesGenreComponent.css */
+
+.genre-selector-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .genre-selector-container label {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #00ff00;
+    text-shadow: 1px 1px 3px #000000;
+  }
+  
+  .genre-selector-container select {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1em;
+    transition: border-color 0.2s;
+  }
+  
+  .genre-selector-container select:hover {
+    border-color: #00ff00;
+  }
+  
+  .genre-selector-container select:focus {
+    outline: none;
+    border-color: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+  }
+  

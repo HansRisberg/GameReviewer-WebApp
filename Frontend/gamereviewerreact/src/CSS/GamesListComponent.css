@@ -1,34 +1,57 @@
 /* GamesListComponent.css */
 
 .games-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .games-section {
-    margin: 10px 0;
-  }
-  
-  .games-list {
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .game-item {
-    margin: 5px 0;
-  }
-  
-  .game-item a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  .game-item a:hover {
-    color: #007BFF;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-family: 'Roboto', sans-serif;
+}
+
+.games-section {
+  margin: 10px 0;
+}
+
+.games-section h2 {
+  font-size: 2em;
+  color: #00ff00;
+  text-shadow: 2px 2px 5px #000000;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.games-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.game-card {
+  background-color: #2c2c2c;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  transition: transform 0.2s;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.game-card a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.game-card a:hover {
+  color: #00ff00;
+}

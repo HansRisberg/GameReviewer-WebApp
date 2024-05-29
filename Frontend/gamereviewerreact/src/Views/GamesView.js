@@ -12,9 +12,7 @@ const GamesView = () => {
 
   return (
     <div>
-      <h2>Welcome to the Games View!</h2>
       <h3 style={{ color: 'red' }}>!! If the App has been dormant for 20 min, It needs about 20-30 seconds to start up. This is because of Azures free hosting policy</h3>
-      <p>This is where you can view the list of games.</p>
       <GamesGenreComponent onGenreChange={handleGenreChange} /> 
       <GamesListComponent selectedGenre={selectedGenre} /> 
     </div>

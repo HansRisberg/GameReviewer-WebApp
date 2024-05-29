@@ -41,9 +41,18 @@ export const StyledButton = styled('button')(({ theme }) => ({
 
 export const StyledSelect = styled(Select)(({ theme }) => ({
   height: '25px',
+  '&.Mui-focused': { // Add custom styles when the input is focused
+    '& .MuiOutlinedInput-notchedOutline': {
+      padding: '14px', // Adjust the padding as needed
+    },
+  },
 }));
 
 export const ThemeProviderWrapper = ({ children }) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>
 );
+
+// GameFormStyles.js
+
+
 

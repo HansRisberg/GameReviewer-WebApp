@@ -1,0 +1,26 @@
+/* AddGameView.css */
+
+.add-game-view-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #181616;
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .add-game-view-container h2 {
+    text-align: center;
+    color: #00ff00;
+    text-shadow: 2px 2px 5px #000000;
+    margin-bottom: 20px;
+  }
+  
+  .add-game-view-container p {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  

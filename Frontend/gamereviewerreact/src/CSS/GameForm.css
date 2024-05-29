@@ -1,0 +1,57 @@
+/* GameForm.css */
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .form-container h1 {
+    text-align: center;
+    color: #00ff00;
+    text-shadow: 2px 2px 5px #000000;
+    margin-bottom: 20px;
+  }
+  
+  .form-control {
+    margin-bottom: 15px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+  }
+  
+  .text-field,
+  .select-field {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 1em;
+    margin-top: 5px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00ff00;
+    color: #000000;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #00cc00;
+  }
+  

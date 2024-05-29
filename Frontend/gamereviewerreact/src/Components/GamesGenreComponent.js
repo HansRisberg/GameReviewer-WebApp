@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-import { getGenres } from '../Services/Api.js'
+import { getGenres } from '../Services/Api.js';
+import '../CSS/GamesGenreComponent.css'; // Import the CSS file
 
 const GamesGenreComponent = ({ onGenreChange }) => {
   const [availableGenres, setAvailableGenres] = useState(['All genres']);
@@ -9,17 +9,14 @@ const GamesGenreComponent = ({ onGenreChange }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch the list of genres
         const genresResponse = await getGenres();
-        // const genresResponse = await axios.get('https://gamereviewerbackendapi.azurewebsites.net/api/Genres/');
         console.log('Genres API Response:', genresResponse.data);
 
-        // Extract unique genres from the genres data
         const genresArray = genresResponse.data["$values"] || genresResponse.data;
         const genres = Array.isArray(genresArray) ? genresArray.map((genre) => genre.name) : [];
 
         console.log('Available Genres:', genres);
-        setAvailableGenres(['All genres', ...genres]); // Update state with initial and fetched genres
+        setAvailableGenres(['All genres', ...genres]);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -28,20 +25,15 @@ const GamesGenreComponent = ({ onGenreChange }) => {
     fetchData();
   }, []);
 
-  // Function to handle genre selection
   const handleGenreChange = (event) => {
     const selectedGenre = event.target.value;
     console.log('Selected Genre:', selectedGenre);
-
-    // Update state with the selected genre
     setSelectedGenre(selectedGenre);
-
-    // Notify the parent component about the genre change
     onGenreChange(selectedGenre);
   };
 
   return (
-    <div>
+    <div className="genre-selector-container">
       <label htmlFor="genre">Select a genre: </label>
       <select id="genre" value={selectedGenre} onChange={handleGenreChange}>
         {availableGenres.map((genre) => (

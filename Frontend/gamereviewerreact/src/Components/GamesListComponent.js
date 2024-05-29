@@ -53,24 +53,21 @@ const GamesListComponent = ({ selectedGenre }) => {
   }, {});
 
   return (
-    <div>
-      <h1>Games List</h1>
-      <div className="games-container">
-        {Object.keys(groupedGames).sort().map((letter) => (
-          <div key={letter} className="games-section">
-            <h2>{letter}</h2>
-            <div className="games-list">
-              {groupedGames[letter].map((game) => (
-                <div key={game.gameId} className="game-card">
-                  <Link to={`/gamesview/${game.gameId}`} onClick={() => console.log('Clicked Game:', game.gameId)}>
-                    {game.title}
-                  </Link>
-                </div>
-              ))}
-            </div>
+    <div className="games-container">
+      {Object.keys(groupedGames).sort().map((letter) => (
+        <div key={letter} className="games-section">
+          <h2>{letter}</h2>
+          <div className="games-list">
+            {groupedGames[letter].map((game) => (
+              <div key={game.gameId} className="game-card">
+                <Link to={`/gamesview/${game.gameId}`} onClick={() => console.log('Clicked Game:', game.gameId)}>
+                  {game.title}
+                </Link>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };
