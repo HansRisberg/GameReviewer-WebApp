@@ -142,6 +142,36 @@ public class ReviewsController : ControllerBase
             return StatusCode(500, "Internal server error");
         }
     }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetReviewsByGameId(int id)
+    {
+        try
+        {
+            var reviews = await _dbContext.GameReviews
+                .Include(r => r.Reviewer) // Include reviewer details
+                .Include(r => r.Game) // Include game details
+                .Where(r => r.GameId == id)
+                .ToListAsync();
+
+            var reviewDtos = reviews.Select(r => new ReviewDTO
+            {
+                GameReviewId = r.GameReviewId,
+                ReviewContent = r.ReviewContent,
+                ReviewerName = r.Reviewer.Name,
+                ReviewerEmail = r.Reviewer.Email,
+                GameTitle = r.Game.Title,
+                GameId = r.GameId,
+                CreatedAt = r.CreatedAt
+            }).ToList();
+
+            return Ok(reviewDtos);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching reviews: {ex.Message}");
+            return StatusCode(500, "Internal server error");
+        }
+    }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("user-reviews")]

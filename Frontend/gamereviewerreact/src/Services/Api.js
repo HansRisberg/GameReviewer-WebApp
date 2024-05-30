@@ -28,6 +28,7 @@ export const createGame = (newGame) => api.post('/games/add-game', newGame); // 
 export const getGenres = () => api.get('/genres'); // For GameGenresComponent
 export const createUser = (userData) => api.post('/account/register', userData); // For RegistrationForm
 export const getAllReviews = () => api.get('/reviews');
+export const getAllReviewsFromGameId = (id) => api.get(`/reviews/${id}`)
 // export const fetchUserReviews = (id) => api.get(`/reviews/${id}`)
 export const fetchUserReviews = () => api.get('/reviews/user-reviews');
 

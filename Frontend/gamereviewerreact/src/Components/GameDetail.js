@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import fetchYouTubeTrailer from '../Services/youtubeApi';
 import { getGame } from '../Services/Api';
-import { ReviewsList } from './ReviewsList';
+import { ReviewsListByGameId } from './ReviewsList';
 import '../CSS/GameDetail.css'; // Import the new CSS file
 
 const GameDetail = () => {
@@ -64,7 +64,7 @@ const GameDetail = () => {
         </div>
       )}
       <div>
-        <ReviewsList gameId={game.gameId} />
+        <ReviewsListByGameId gameId={game.gameId} />
       </div>
     </div>
   );
