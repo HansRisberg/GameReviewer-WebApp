@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // Base URL for the API. Adjust for production and development environments as needed.
- const BASE_URL = 'https://localhost:7168/api';
-//  const BASE_URL = 'https://gamereviewerbackendapi.azurewebsites.net/api';
+//  const BASE_URL = 'https://localhost:7168/api';
+ const BASE_URL = 'https://gamereviewerbackendapi.azurewebsites.net/api';
 
 // Create an Axios instance with a base URL
 const api = axios.create({
@@ -28,6 +28,8 @@ export const createGame = (newGame) => api.post('/games/add-game', newGame); // 
 export const getGenres = () => api.get('/genres'); // For GameGenresComponent
 export const createUser = (userData) => api.post('/account/register', userData); // For RegistrationForm
 export const getAllReviews = () => api.get('/reviews');
+// export const fetchUserReviews = (id) => api.get(`/reviews/${id}`)
+export const fetchUserReviews = () => api.get('/reviews/user-reviews');
 
 export const loginUser = async (loginData) => {
   const response = await api.post('/account/login', loginData); // Use the correct Axios instance

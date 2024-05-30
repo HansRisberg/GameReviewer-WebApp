@@ -25,27 +25,19 @@ public class ReviewsController : ControllerBase
         _userManager = userManager;
     }
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpPost("add")]
-    public async Task<IActionResult> AddReview([FromBody] AddReviewRequestDTO request, IConfiguration configuration)
+    private async Task<Reviewer> GetAuthenticatedUserAsync()
     {
-        // Check for valid review content
-        if (string.IsNullOrWhiteSpace(request.ReviewContent))
-        {
-            return BadRequest("Review content cannot be empty.");
-        }
-
         // Retrieve the JWT token from the Authorization header
         var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
         if (token == null)
         {
-            return Unauthorized("Token is missing.");
+            return null;
         }
 
         // Retrieve the JWT secret key from the configuration
-        var jwtKey = configuration["Jwt:SecretKey"];
-        var jwtIssuer = configuration["Jwt:Issuer"];
-        var jwtAudience = configuration["Jwt:Audience"];
+        var jwtKey = _configuration["Jwt:SecretKey"];
+        var jwtIssuer = _configuration["Jwt:Issuer"];
+        var jwtAudience = _configuration["Jwt:Audience"];
 
         // Set up token validation parameters
         var tokenValidationParameters = new TokenValidationParameters
@@ -59,49 +51,50 @@ public class ReviewsController : ControllerBase
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtKey))
         };
 
-        // Decode and validate the token
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var claimsPrincipal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
+        try
+        {
+            // Decode and validate the token
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var claimsPrincipal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
 
-        // Verify the issuer
-        bool isIssuerValid = validatedToken.Issuer.Equals(jwtIssuer, StringComparison.InvariantCultureIgnoreCase);
-        Console.WriteLine($"Issuer is valid: {isIssuerValid}");
+            // Extract email address from the token claims
+            var email = claimsPrincipal.FindFirst(ClaimTypes.Email)?.Value;
+            if (string.IsNullOrEmpty(email))
+            {
+                return null;
+            }
 
-        // Verify the audience
-        bool isAudienceValid = ((validatedToken as JwtSecurityToken)?.Audiences?.Any(a => a.Equals(jwtAudience, StringComparison.InvariantCultureIgnoreCase)) ?? false);
-        Console.WriteLine($"Audience is valid: {isAudienceValid}");
+            // Retrieve the reviewer using the email claim
+            return await _userManager.FindByEmailAsync(email);
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
-        // Verify the expiration time
-        bool isTokenValid = validatedToken.ValidTo > DateTime.UtcNow;
-        Console.WriteLine($"Token expiration is valid: {isTokenValid}");
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpPost("add")]
+    public async Task<IActionResult> AddReview([FromBody] AddReviewRequestDTO request)
+    {
+        // Check for valid review content
+        if (string.IsNullOrWhiteSpace(request.ReviewContent))
+        {
+            return BadRequest("Review content cannot be empty.");
+        }
 
-        // Check if any of the verification steps failed
-        if (!isIssuerValid || !isAudienceValid || !isTokenValid)
+        // Retrieve the authenticated user
+        var reviewer = await GetAuthenticatedUserAsync();
+        if (reviewer == null)
         {
             return Unauthorized("Invalid token");
         }
-
-        // Check if any of the verification steps failed
-        if (!isIssuerValid || !isAudienceValid || !isTokenValid)
-        {
-            return Unauthorized("Invalid token");
-        }
-
-        // Extract email address from the token claims
-        var email = claimsPrincipal.FindFirst(ClaimTypes.Email)?.Value;
-        Console.WriteLine("The claim email is :" + email);
 
         // Check if the game exists
         var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.GameId == request.GameId);
         if (game == null)
         {
             return NotFound("Game not found.");
-        }
-        // Retrieve the reviewer using the email claim
-        var reviewer = await _userManager.FindByEmailAsync(email);
-        if (reviewer == null)
-        {
-            return NotFound("Reviewer not found.");
         }
 
         // Create the new review
@@ -149,5 +142,42 @@ public class ReviewsController : ControllerBase
             return StatusCode(500, "Internal server error");
         }
     }
-}
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("user-reviews")]
+    public async Task<IActionResult> GetUserReviews()
+    {
+        try
+        {
+            var user = await GetAuthenticatedUserAsync();
+            if (user == null)
+            {
+                return Unauthorized("Invalid token");
+            }
+
+            var reviews = await _dbContext.GameReviews
+                .Where(r => r.ReviewerId == user.Id) // Filter by current user's ID
+                .Include(r => r.Reviewer) // Include reviewer details
+                .Include(r => r.Game) // Include game details
+                .ToListAsync();
+
+            var reviewDtos = reviews.Select(r => new ReviewDTO
+            {
+                GameReviewId = r.GameReviewId,
+                ReviewContent = r.ReviewContent,
+                ReviewerName = r.Reviewer.UserName,
+                ReviewerEmail = r.Reviewer.Email,
+                GameTitle = r.Game.Title,
+                GameId = r.GameId,
+                CreatedAt = r.CreatedAt
+            }).ToList();
+
+            return Ok(reviewDtos);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching user reviews: {ex.Message}");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+}

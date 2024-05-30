@@ -1,0 +1,75 @@
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .profile-container h1 {
+    text-align: center;
+    color: #3f51b5;
+  }
+  
+  .profile-info {
+    text-align: left;
+    margin-top: 20px;
+  }
+  
+  .profile-image {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+  
+  .fetch-reviews-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #3f51b5;
+    color: #ffffff;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .fetch-reviews-button:hover {
+    background-color: #303f9f;
+  }
+  
+  .reviews {
+    margin-top: 20px;
+  }
+  
+  .reviews h2 {
+    margin-bottom: 10px;
+  }
+  
+  .reviews ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .reviews li {
+    display: inline-block;
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  .reviews-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
