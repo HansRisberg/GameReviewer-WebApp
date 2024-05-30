@@ -13,11 +13,12 @@ import ProfileView from './Views/Profile';
 import Footer from './Components/Footer';
 import { AuthProvider } from './Contexts/AuthContext';
 import { ScrollToTop } from './Components/ScrollToTop';
+import { ThemeProviderWrapper } from './Styles/GameFormStyles';
 
 const App = () => {
   return (
     <AuthProvider>
-     
+     <ThemeProviderWrapper>
         <Router>
         <ScrollToTop />
           <div>
@@ -35,7 +36,7 @@ const App = () => {
             <Footer />
           </div>
         </Router>
-     
+        </ThemeProviderWrapper>
     </AuthProvider>
   );
 };
