@@ -127,7 +127,7 @@ public class ReviewsController : ControllerBase
             {
                 GameReviewId = r.GameReviewId,
                 ReviewContent = r.ReviewContent,
-                ReviewerName = r.Reviewer.UserName,
+                ReviewerName = r.Reviewer.Name,
                 ReviewerEmail = r.Reviewer.Email,
                 GameTitle = r.Game.Title,
                 GameId = r.GameId,
@@ -165,7 +165,7 @@ public class ReviewsController : ControllerBase
             {
                 GameReviewId = r.GameReviewId,
                 ReviewContent = r.ReviewContent,
-                ReviewerName = r.Reviewer.UserName,
+                ReviewerName = r.Reviewer.Name,
                 ReviewerEmail = r.Reviewer.Email,
                 GameTitle = r.Game.Title,
                 GameId = r.GameId,

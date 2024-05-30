@@ -7,7 +7,7 @@ const ReviewCard = ({ review }) => {
     <div className="review-card">
       <h3>{review.gameTitle}</h3>
       <p><strong>Reviewer:</strong> {review.reviewerName}</p>
-      <p><strong>Email:</strong> {review.reviewerEmail}</p>
+      {/* <p><strong>Email:</strong> {review.reviewerEmail}</p> */}
       <p><strong>Comment:</strong> {review.reviewContent}</p>
       <p><strong>Date:</strong> {new Date(review.createdAt).toLocaleString()}</p>
     </div>
