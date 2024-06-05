@@ -41,4 +41,17 @@ public class IgdbService
 
         return await response.Content.ReadAsStringAsync();
     }
+    public async Task<string> SearchGamesAsync(string query)
+    {
+        var token = await GetAccessTokenAsync();
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://api.igdb.com/v4/search");
+        request.Headers.Add("Client-ID", _configuration["Igdb:ClientId"]);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        request.Content = new StringContent($"fields *; search \"{query}\"; limit 5;", System.Text.Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        return await response.Content.ReadAsStringAsync();
+    }
 }

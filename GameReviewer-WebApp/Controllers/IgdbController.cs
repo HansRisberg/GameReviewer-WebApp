@@ -24,4 +24,18 @@ public class IgdbController : ControllerBase
             return StatusCode(500, new { message = ex.Message });
         }
     }
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchGames([FromQuery] string query)
+    {
+        try
+        {
+            var games = await _igdbService.SearchGamesAsync(query);
+            return Ok(games);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, new { message = ex.Message });
+        }
+    }
+
 }
