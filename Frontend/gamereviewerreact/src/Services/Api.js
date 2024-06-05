@@ -1,8 +1,9 @@
 import axios from 'axios';
 
+
 // Base URL for the API. Adjust for production and development environments as needed.
-//  const BASE_URL = 'https://localhost:7168/api';
- const BASE_URL = 'https://gamereviewerbackendapi.azurewebsites.net/api';
+ const BASE_URL = 'https://localhost:7168/api';
+//  const BASE_URL = 'https://gamereviewerbackendapi.azurewebsites.net/api';
 
 // Create an Axios instance with a base URL
 const api = axios.create({
@@ -20,6 +21,15 @@ api.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
+export const fetchGames = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/igdb/games`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching games:', error);
+    throw error;
+  }
+};
 
 // Export CRUD operations for different components
 export const getGame = (id) => api.get(`/games/${id}`); // For GameDetail

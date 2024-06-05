@@ -18,7 +18,7 @@ namespace GameReviewer.Tests.Controllers {
         [Fact]
         public async Task AddGame_ValidInput_ReturnsSuccessStatusCode() {
             // Arrange
-            var gameInput = new GameInputDTO {
+            var gameInput = new AddGameDTO {
                 Title = "Test Game2",
                 ReleaseDate = DateTime.Now,
                 PGRating = PGRating.PG, // Assign a single value from the PGRating enum
