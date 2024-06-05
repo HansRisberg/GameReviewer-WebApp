@@ -11,6 +11,13 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        var clientId = Environment.GetEnvironmentVariable("Igdb:ClientId");
+        var clientSecret = Environment.GetEnvironmentVariable("Igdb:ClientSecret");
+        var secretKey = Environment.GetEnvironmentVariable("Jwt:SecretKey");
+        Console.WriteLine("This is the clientId : " + clientId);
+        Console.WriteLine("This is the clientSecret: " + clientSecret);
+        Console.WriteLine("This is the JwtSecretkey: " + secretKey);
+
 
         //// Reseed the database
         //SeedData.Initialize();
