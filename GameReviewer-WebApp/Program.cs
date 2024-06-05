@@ -36,7 +36,6 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         // Add the DbContext to the DI container
-
         builder.Services.AddDbContext<GameReviewerDbContext>(options =>
         {
             options.UseSqlServer(
@@ -82,6 +81,11 @@ public class Program
 
         });
 
+        // Register HttpClient
+        builder.Services.AddHttpClient();
+
+        // Configure the IGDB service
+        builder.Services.AddScoped<IgdbService>();
 
         var app = builder.Build();
 
@@ -113,8 +117,19 @@ public class Program
         // Map Identity API endpoints
         app.MapIdentityApi<Reviewer>();
 
+        // Map IGDB API endpoint
+        app.Map("/api/igdb", IgdbEndpoint);
+
         app.MapControllers();
 
         app.Run();
+    }
+
+    private static void IgdbEndpoint(IApplicationBuilder app)
+    {
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
     }
 }

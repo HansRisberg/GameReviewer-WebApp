@@ -31,7 +31,7 @@ namespace GameReviewer_WebApp.Controllers
         /// <returns></returns>
         //GET: api/Games
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GameDTO>>> GetGames([FromQuery] string genre = "All genres")
+        public async Task<ActionResult<IEnumerable<GetGameDTO>>> GetGames([FromQuery] string genre = "All genres")
         {
             var queryable = _context.Games
                 .Include(g => g.GameGenres)
@@ -46,7 +46,7 @@ namespace GameReviewer_WebApp.Controllers
 
             var games = await queryable.ToListAsync();
 
-            var gameDtos = games.Select(game => new GameDTO
+            var gameDtos = games.Select(game => new GetGameDTO
             {
                 GameId = game.GameId,
                 Title = game.Title,
@@ -118,7 +118,7 @@ namespace GameReviewer_WebApp.Controllers
         /// <param name="gameInput"></param>
         /// <returns></returns>
         [HttpPost("add-game")]
-        public IActionResult AddGame([FromBody] GameInputDTO gameInput)
+        public IActionResult AddGame([FromBody] AddGameDTO gameInput)
         {
             if (!ModelState.IsValid)
             {

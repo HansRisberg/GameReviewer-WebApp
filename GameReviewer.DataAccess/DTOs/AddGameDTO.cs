@@ -2,7 +2,7 @@
 
 namespace GameReviewer.DataAccess.DTOs
 {
-    public class GameInputDTO
+    public class AddGameDTO
     {
         public string Title { get; set; }
         public DateTime ReleaseDate { get; set; }

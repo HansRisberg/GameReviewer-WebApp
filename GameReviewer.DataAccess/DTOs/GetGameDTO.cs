@@ -1,6 +1,6 @@
 ﻿namespace GameReviewer.DataAccess.DTOs
 {
-    public class GameDTO
+    public class GetGameDTO
     {
         public int GameId { get; set; }
         public string Title { get; set; }

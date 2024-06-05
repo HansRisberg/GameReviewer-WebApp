@@ -2,6 +2,7 @@ import React from 'react';
 import GameCarousel from '../Components/GameCarousel';
 import '../CSS/Home.css'; /* Apply a CSS file for styling */
 import { ReviewsList } from '../Components/ReviewsList';
+import IGDB from '../Components/IgdbTestComponent';
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
         <h2>Welcome to Game Reviewer</h2> {/* Example heading */}
         <p>Discover the latest and greatest games, read reviews, and share your opinions with our community.</p> {/* Example paragraph */}
         <ReviewsList />
+        <IGDB />
       </div>
     </div>
   );
