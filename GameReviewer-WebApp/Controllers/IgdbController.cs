@@ -37,5 +37,26 @@ public class IgdbController : ControllerBase
             return StatusCode(500, new { message = ex.Message });
         }
     }
+    [HttpGet("game-detail/{id}")]
+    public async Task<IActionResult> GetGameDetail(int id)
+    {
+        try
+        {
+            var gameDetail = await _igdbService.FetchGameDetailAsync(id);
+            return Ok(gameDetail);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, new { message = ex.Message });
+        }
+    }
+
+
+
+    public class GameDetailRequest
+    {
+        public int Id { get; set; }
+    }
+
 
 }

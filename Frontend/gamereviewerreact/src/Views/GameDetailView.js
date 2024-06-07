@@ -10,8 +10,7 @@ const GameDetailView = () => {
   return (
     <div>
       <h1>Game Detail View</h1>
-      <p>This is where you can view detailed information about a game.</p>
-      
+      <p>This is where you can view detailed information about a game.</p>   
       <p>This is where you can write a review, you must be logged in</p>
       {/* Pass the gameId to AddReview */}
       <AddReview gameId={gameId} />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { searchGames } from '../Services/Api'
+import { Link } from 'react-router-dom';
 
 const GameSearch = () => {
     const [query, setQuery] = useState('');
@@ -32,9 +33,10 @@ const GameSearch = () => {
                     <ul>
                         {results.map((game, index) => (
                             <li key={index}>
-                                <h3>{game.name}</h3>
+                                <Link to={`/gamedetailigdbview/${game.game}`}>
+                                    <h3>{game.name}</h3>
+                                </Link>
                                 {game.summary && <p>{game.summary}</p>}
-                                {/* Add more fields as needed */}
                             </li>
                         ))}
                     </ul>
@@ -45,3 +47,4 @@ const GameSearch = () => {
 };
 
 export default GameSearch;
+

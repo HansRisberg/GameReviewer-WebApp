@@ -54,4 +54,38 @@ public class IgdbService
 
         return await response.Content.ReadAsStringAsync();
     }
+
+    public async Task<string> FetchGameDetailAsync(int gameId)
+    {
+        var token = await GetAccessTokenAsync();
+        var apiUrl = "https://api.igdb.com/v4/games"; // Endpoint to fetch all information for a specific game
+        var requestData = $"fields *; where id = {gameId};"; // Specify the fields and the game's ID
+
+        var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
+        request.Headers.Add("Client-ID", _configuration["Igdb:ClientId"]);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        request.Content = new StringContent(requestData, System.Text.Encoding.UTF8, "application/json");
+
+        Console.WriteLine("Sending request to IGDB API: " + requestData); // Log the request data
+
+        var response = await _httpClient.SendAsync(request);
+
+        // Ensure the response is successful
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine("Failed to fetch data from IGDB API. Status: " + response.StatusCode);
+            response.EnsureSuccessStatusCode();
+        }
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        Console.WriteLine("Received response from IGDB API: " + responseContent); // Log the response content
+
+        return responseContent;
+    }
+
+
+
+
+
+
 }

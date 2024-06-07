@@ -43,6 +43,20 @@ export const searchGames = async (query) => {
   }
 };
 
+export const fetchGameDetail = async (id) => {
+  try {
+    const response = await api.get(`/igdb/game-detail/${id}`);
+    if (!response.status === 200) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = response.data;
+    console.log('Fetched Game Detail:', data); // Log the fetched data
+    return data[0];
+  } catch (error) {
+    console.error('Error fetching game detail:', error);
+    throw error;
+  }
+};
 // Export CRUD operations for different components
 export const getGame = (id) => api.get(`/games/${id}`); // For GameDetail
 export const getGames = () => api.get('/games'); // For GameListComponent

@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navigation from './Components/Navigation';
 import Home from './Views/Home';
 import GamesView from './Views/GamesView';
-import GameDetailView from './Views/GameDetailView';
 import AddGameView from './Views/AddGameView';
+import GameDetailView from './Views/GameDetailView';
+import GameDetailIgdbView from './Views/GameDetailIgdbView';
 
 import LoginView from './Views/LogIn';
 import RegisterView from './Views/Registration';
@@ -27,10 +28,12 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/gamesview" element={<GamesView />} />
               <Route path="/gamesview/:id" element={<GameDetailView />} />
+              <Route path="/gamedetailigdbview/:id" element={<GameDetailIgdbView />} />
               <Route path="/addgameview/" element={<AddGameView />} />
               <Route path="/login" element={<LoginView />} />
               <Route path="/registration" element={<RegisterView />} />
               <Route path="/profile" element={<ProfileView />} />
+            
               {/* Add more routes as needed */}
             </Routes>
             <Footer />
