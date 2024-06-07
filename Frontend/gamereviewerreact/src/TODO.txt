@@ -1,3 +1,4 @@
 Style the various pages and fix what content is displayed. 
 
-Render reviews on the reviews page. 
+Exclude R-rated games from the search function? 
+Add validation to check if the property exists in the IGDB database to handle errors that might occure due to data not being present

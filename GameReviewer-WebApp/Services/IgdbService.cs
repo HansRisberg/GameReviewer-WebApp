@@ -59,7 +59,8 @@ public class IgdbService
     {
         var token = await GetAccessTokenAsync();
         var apiUrl = "https://api.igdb.com/v4/games"; // Endpoint to fetch all information for a specific game
-        var requestData = $"fields *; where id = {gameId};"; // Specify the fields and the game's ID
+        //var requestData = $"fields *, genres.name, keywords.name, screenshots.*; where id = {gameId};"; // Specify the fields and the game's ID
+        var requestData = $"fields *, genres.name, keywords.name, screenshots.*, involved_companies.*, involved_companies.company.name; where id = {gameId};";
 
         var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
         request.Headers.Add("Client-ID", _configuration["Igdb:ClientId"]);

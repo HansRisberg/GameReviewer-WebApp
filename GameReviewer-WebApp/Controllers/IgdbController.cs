@@ -51,12 +51,4 @@ public class IgdbController : ControllerBase
         }
     }
 
-
-
-    public class GameDetailRequest
-    {
-        public int Id { get; set; }
-    }
-
-
 }
