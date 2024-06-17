@@ -22,14 +22,14 @@ export const ReviewsList = () => {
 
   return (
     <div>
-      <h3>All Reviews:</h3>
+      <h3>Latest reviews:</h3>
       <div className="reviews-container">
-        {reviews.length > 0 ? (
-          reviews.map(review => (
+      {reviews.length > 0 ? (
+          reviews.slice().reverse().map(review => (
             <ReviewCard key={review.gameReviewId} review={review} />
           ))
         ) : (
-          <p>No reviews available.</p>
+          <p>Loading...</p>
         )}
       </div>
     </div>
@@ -55,14 +55,14 @@ export const ReviewsListByGameId = ({ gameId }) => {
 
   return (
     <div>
-      <h3>Reviews for Game ID: {gameId}</h3>
+      <h3>Latest reviews:</h3>
       <div className="reviews-container">
         {reviews.length > 0 ? (
-          reviews.map(review => (
+          reviews.slice().reverse().map(review => (
             <ReviewCard key={review.gameReviewId} review={review} />
           ))
         ) : (
-          <p>No reviews available for this game.</p>
+          <p>Loading...</p>
         )}
       </div>
     </div>

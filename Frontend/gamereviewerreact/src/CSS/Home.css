@@ -1,7 +1,55 @@
 .home-container {
+ 
     padding: 10px; /* Reduce padding */
     margin: 0; /* Ensure no extra margins */
   }
+  .carousel_infoCard-container{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .info-container1{
+    height: 50%;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;  /* Use relative units for better responsiveness */
+    padding: 30px;
+    color: blanchedalmond;
+    background-color: black;
+    max-width: 15%; /* Adjust to a percentage for better responsiveness */
+    white-space: pre-line;
+    float: left;
+    line-height: 1.5;
+  }
+  .info-container2 {
+    height: 50%;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;  /* Use relative units for better responsiveness */
+    padding: 30px;
+    color: blanchedalmond;
+    background-color: black;
+    max-width: 15%; /* Adjust to a percentage for better responsiveness */
+    white-space: pre-line;
+    float: left;
+    line-height: 1.5;
+   
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 768px) {
+    .info-container2 {
+      font-size: 0.8em;  /* Adjust font size for smaller screens */
+      max-width: 90vw;  /* Adjust container width for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .info-container2 {
+      font-size: 0.7em;  /* Further adjust font size for very small screens */
+      max-width: 95vw;  /* Further adjust container width for very small screens */
+    }
+  }
+  
   
   .home-section {
     text-align: center; /* Center-align text */

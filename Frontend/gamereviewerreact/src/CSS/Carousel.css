@@ -1,19 +1,19 @@
 .outer-carousel-container {
-    display: flex; /* Use Flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically (if needed) */
-    margin: 10px auto; /* Center with margin */
-    width: 70%; /* Ensure full width for centering */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 10px auto; 
+    width: 70%; 
   }
   
   .carousel-container {
-    width: 80%; /* Limit the width of the carousel */
-    padding: 10px; /* Internal padding */
+    width: 80%; 
+    padding: 10px; 
   }
   
   .carousel-image {
-    width: 100%; /* Ensure image fills its container */
-    height: 100%; /* Maintain aspect ratio */
-    border-radius: 10px; /* Rounded corners */
+    width: 100%; 
+    height: 100%; 
+    border-radius: 10px; 
   }
   

@@ -1,7 +1,7 @@
 .navbar {
     position: sticky; /* Keep the navbar at the top */
     top: 0;
-    background-color: white; /* Background color */
+    background-color: black; /* Background color */
     z-Index: 1000;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
   }
@@ -18,7 +18,7 @@
   }
   
   .nav-link {
-    color: black; /* Default text color */
+    color: blanchedalmond; /* Default text color */
     text-decoration: none; /* Remove underline */
     font-weight: bold; /* Bold text */
     transition: color 0.3s; /* Smooth transition on hover */

@@ -11,7 +11,7 @@
   
   .form-container h1 {
     text-align: center;
-    color: #00ff00;
+    color: blanchedalmond;
     text-shadow: 2px 2px 5px #000000;
   }
   
@@ -38,7 +38,7 @@
   .submit-button {
     width: 100%;
     padding: 10px;
-    background-color: #00ff00;
+    color: blanchedalmond;
     color: #000000;
     font-size: 1.2em;
     border: none;
@@ -48,6 +48,6 @@
   }
   
   .submit-button:hover {
-    background-color: #00cc00;
+    color: blanchedalmond;
   }
   
