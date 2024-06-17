@@ -21,6 +21,7 @@ const GameSearch = () => {
 
     return (
         <div>
+                <p>Here you can search the IGDB for games and game related content</p>
             <form onSubmit={handleSearch}>
                 <input
                     type="text"
@@ -30,6 +31,7 @@ const GameSearch = () => {
                     placeholder="Search the Internett Game Database(IGDB)"
                 />
                 <button type="submit">Search</button>
+                <p>Or you can filter this database based on genre, click the game to view details about it and leave reviews</p>
             </form>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 {results.length > 0 && (

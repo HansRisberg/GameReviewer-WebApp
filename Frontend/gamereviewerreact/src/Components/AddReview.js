@@ -37,15 +37,16 @@ const AddReview = ({ gameId }) => {
   };
 
   return (
-    <div>
+    <div style={{paddingBottom: 10}}>
       {!showInputField ? (
-        <button onClick={handleShowInputField}>Write Review</button>
+        <button  onClick={handleShowInputField}>Write Review</button>
       ) : (
         <div>
           <textarea
             value={reviewContent}
             onChange={handleReviewChange}
             placeholder="Write your review here..."
+            style={{ width: '15%', height: '200px', padding: '10px', fontSize: '16px' }}
           />
           <button onClick={handleSubmitReview}>Submit Review</button>
           <button onClick={() => setShowInputField(false)}>Cancel</button>
