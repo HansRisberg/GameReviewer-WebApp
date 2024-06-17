@@ -24,9 +24,10 @@ const GameSearch = () => {
             <form onSubmit={handleSearch}>
                 <input
                     type="text"
+                    style={{ width: '10%'}}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search for a game..."
+                    placeholder="Search the Internett Game Database(IGDB)"
                 />
                 <button type="submit">Search</button>
             </form>

@@ -71,5 +71,5 @@
   .reviews-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
   }
