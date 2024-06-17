@@ -47,7 +47,7 @@ public class IgdbService
         var request = new HttpRequestMessage(HttpMethod.Post, "https://api.igdb.com/v4/search");
         request.Headers.Add("Client-ID", _configuration["Igdb:ClientId"]);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        request.Content = new StringContent($"fields *; search \"{query}\"; limit 5;", System.Text.Encoding.UTF8, "application/json");
+        request.Content = new StringContent($"fields *; search \"{query}\"; limit 250;", System.Text.Encoding.UTF8, "application/json");
 
         var response = await _httpClient.SendAsync(request);
         response.EnsureSuccessStatusCode();
@@ -59,8 +59,7 @@ public class IgdbService
     {
         var token = await GetAccessTokenAsync();
         var apiUrl = "https://api.igdb.com/v4/games"; // Endpoint to fetch all information for a specific game
-        //var requestData = $"fields *, genres.name, keywords.name, screenshots.*; where id = {gameId};"; // Specify the fields and the game's ID
-        var requestData = $"fields *, genres.name, keywords.name, screenshots.*, involved_companies.*, involved_companies.company.name; where id = {gameId};";
+        var requestData = $"fields *, genres.name, keywords.name, screenshots.*, involved_companies.company.name, similar_games.name, game_modes.name; where id = {gameId};";
 
         var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
         request.Headers.Add("Client-ID", _configuration["Igdb:ClientId"]);

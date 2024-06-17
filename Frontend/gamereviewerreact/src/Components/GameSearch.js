@@ -11,7 +11,9 @@ const GameSearch = () => {
 
         try {
             const response = await searchGames(query);
-            setResults(response);
+           
+            const sortedResults = response.sort((a, b) => a.name.localeCompare(b.name));
+            setResults(sortedResults);
         } catch (error) {
             console.error('Error fetching search results:', error);
         }
@@ -28,23 +30,23 @@ const GameSearch = () => {
                 />
                 <button type="submit">Search</button>
             </form>
-            <div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 {results.length > 0 && (
-                    <ul>
-                        {results.map((game, index) => (
-                            <li key={index}>
-                                <Link to={`/gamedetailigdbview/${game.game}`}>
-                                    <h3>{game.name}</h3>
-                                </Link>
-                                {game.summary && <p>{game.summary}</p>}
-                            </li>
-                        ))}
-                    </ul>
+                    results.map((game, index) => (
+                        <div key={index} style={{ width: '10%', margin: '10px', boxShadow: '0 0 5px rgba(0, 0, 0, 0.2)', borderRadius: '5px', padding: '10px' }}>
+                            <Link to={`/gamedetailigdbview/${game.game}`}>
+                                <h3>{game.name}</h3>
+                            </Link>
+                            {game.summary && <p>{game.summary}</p>}
+                        </div>
+                    ))
                 )}
             </div>
         </div>
     );
 };
+
+
 
 export default GameSearch;
 

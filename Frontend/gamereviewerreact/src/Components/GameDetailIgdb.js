@@ -31,22 +31,21 @@ const GameDetailIgdb = () => {
       <h1>{game.name}</h1>
       <p>{game.summary}</p>
       <p><strong>Storyline:</strong> {game.storyline}</p>
-      <p><strong>Category:</strong> {game.category}</p>
-      <p><strong>First Release Date:</strong> {new Date(game.first_release_date * 1000).toDateString()}</p>
       {game.genres && <p><strong>Genres:</strong> {game.genres.map(genre => genre.name).join(', ')}</p>}
-      {game.platforms && <p><strong>Platforms:</strong> {game.platforms.join(', ')}</p>}
-      {game.game_modes && <p><strong>Game Modes:</strong> {game.game_modes.join(', ')}</p>}
-      {game.similar_games && <p><strong>Similar Games:</strong> {game.similar_games.join(', ')}</p>}
+      {game.game_modes && (
+        <p><strong>Game Modes:</strong> {game.game_modes.map(gameMode => gameMode.name).join(', ')}</p>
+      )}
+      {game.similar_games && (
+        <p><strong>Similar Games:</strong> {game.similar_games.map(similarGame => similarGame.name).join(', ')}</p>
+      )}
       {game.involved_companies && (
         <p><strong>Involved Companies:</strong> {game.involved_companies.map(company => company.company.name).join(', ')}</p>
       )}
-      {game.external_games && <p><strong>External Games:</strong> {game.external_games.join(', ')}</p>}
-      {game.tags && <p><strong>Tags:</strong> {game.tags.join(', ')}</p>}
       {game.keywords && <p><strong>Keywords:</strong> {game.keywords.map(keyword => keyword.name).join(', ')}</p>}
       {game.url && <p><strong>Website:</strong> <a href={game.url} target="_blank" rel="noopener noreferrer">{game.url}</a></p>}
       <p><strong>Updated At:</strong> {new Date(game.updated_at * 1000).toDateString()}</p>
       <div>
-          <ScreenshotCarousel screenshots={game.screenshots || []} /> {/* Pass the screenshots array */}
+        <ScreenshotCarousel screenshots={game.screenshots || []} /> {/* Pass the screenshots array */}
       </div>
     </div>
   );
