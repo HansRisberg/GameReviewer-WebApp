@@ -7,9 +7,9 @@ const theme = createTheme({
     primary: {
       main: '#3f51b5',
     },
-    // Add other color options if needed
+    
   },
-  // Add other theme configurations as needed
+  
 });
 
 export const StyledFormContainer = styled('div')(({ theme }) => ({

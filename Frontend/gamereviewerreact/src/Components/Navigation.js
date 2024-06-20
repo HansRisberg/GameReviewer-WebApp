@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
-import '../CSS/Navigation.css'; // Import a CSS file for consistent styling
+import '../CSS/Navigation.css'; 
 
 const Navigation = () => {
   return (
-    <nav className="navbar"> {/* Apply a class for styling */}
-      <ul className="nav-list"> {/* Use a class for the list */}
-        <li className="nav-item"> {/* Use a class for each item */}
+    <nav className="navbar"> 
+      <ul className="nav-list"> 
+        <li className="nav-item"> 
           <Link to="/" className="nav-link">Home</Link>
         </li>
         <li className="nav-item">

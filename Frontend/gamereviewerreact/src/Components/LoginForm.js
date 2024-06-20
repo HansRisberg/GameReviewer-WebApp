@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import axios from 'axios';
 import { loginUser } from '../Services/Api';
 import { Link } from 'react-router-dom'; 
 import { FormControl } from '@mui/material';
@@ -16,7 +15,7 @@ const LoginForm = () => {
     email: '',
     password: '',
   });
-  const [successMessage, setSuccessMessage] = useState(''); // Add state for success message
+  const [successMessage, setSuccessMessage] = useState(''); 
 
   const { login } = useAuth(); // Use the useAuth hook to get the login function
 

@@ -13,12 +13,12 @@ const GameForm = () => {
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        const response = await getGenres(); // Updated function name
+        const response = await getGenres(); 
         const genresData = response.data?.$values || [];
-        console.log('Fetched Genres:', genresData); // Updated log message
+        console.log('Fetched Genres:', genresData); 
         setGenres(genresData);
       } catch (error) {
-        console.error('Error fetching genres:', error); // Updated log message
+        console.error('Error fetching genres:', error); 
       }
     };
 
@@ -28,8 +28,8 @@ const GameForm = () => {
   const handleAddGame = async (e) => {
     e.preventDefault();
 
-    if (!title.trim() || selectedGenres.length === 0) { // Updated variable name
-      alert('Game Title and at least one Genre are required'); // Updated alert message
+    if (!title.trim() || selectedGenres.length === 0) { 
+      alert('Game Title and at least one Genre are required'); 
       return;
     }
 
@@ -124,9 +124,9 @@ const GameForm = () => {
                 </Box>
               )}
             >
-              {genres.map((genre) => ( // Updated variable name
-                <MenuItem key={genre.genreId} value={genre.name}> {/* Updated variable name */}
-                  {genre.name} {/* Updated variable name */}
+              {genres.map((genre) => ( 
+                <MenuItem key={genre.genreId} value={genre.name}> 
+                  {genre.name} 
                 </MenuItem>
               ))}
             </Select>

@@ -66,15 +66,15 @@ const ScreenshotCarousel = ({ screenshots }) => {
   }
 
   return (
-    <div className="outer-carousel-container"> {/* Outer container to ensure centering */}
-      <div className="carousel-container"> {/* Inner container for carousel */}
+    <div className="outer-carousel-container"> 
+      <div className="carousel-container"> 
         <Carousel cycleNavigation>
           {screenshots.map((screenshot) => (
             <Paper key={screenshot.id} style={{ display: imagesLoaded === screenshots.length ? 'block' : 'none' }}>
               <img
                 src={`https:${screenshot.url.replace('t_thumb', 't_screenshot_big')}`}
                 alt="Screenshot"
-                className="carousel-image" /* Styling for the carousel image */
+                className="carousel-image"
                 onLoad={handleImageLoad}
               />
             </Paper>

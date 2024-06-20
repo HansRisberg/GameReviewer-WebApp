@@ -1,7 +1,7 @@
 import ReviewCard from './ReviewCard';
 import '../CSS/ReviewsList.css';
 import React, { useEffect, useState } from 'react';
-import { getAllReviews, getAllReviewsFromGameId } from '../Services/Api'; // Import the API function for fetching all reviews
+import { getAllReviews, getAllReviewsFromGameId } from '../Services/Api'; 
 
 export const ReviewsList = () => {
   const [reviews, setReviews] = useState([]);

@@ -7,7 +7,7 @@ const GamesView = () => {
   const [selectedGenre, setSelectedGenre] = useState('All genres'); 
 
   const handleGenreChange = (genre) => { 
-    // Update the selected genre in the parent component
+    
     setSelectedGenre(genre); 
   };
 

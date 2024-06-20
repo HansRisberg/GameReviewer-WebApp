@@ -1,7 +1,7 @@
 .home-container {
  
-    padding: 10px; /* Reduce padding */
-    margin: 0; /* Ensure no extra margins */
+    padding: 10px; 
+    margin: 0; 
   }
   .carousel_infoCard-container{
     display: flex;
@@ -11,11 +11,11 @@
     height: 50%;
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.2em;  /* Use relative units for better responsiveness */
+    font-size: 1.2em;  
     padding: 30px;
     color: blanchedalmond;
     background-color: black;
-    max-width: 15%; /* Adjust to a percentage for better responsiveness */
+    max-width: 15%; 
     white-space: pre-line;
     float: left;
     line-height: 1.5;
@@ -24,11 +24,11 @@
     height: 50%;
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.2em;  /* Use relative units for better responsiveness */
+    font-size: 1.2em;  
     padding: 30px;
     color: blanchedalmond;
     background-color: black;
-    max-width: 15%; /* Adjust to a percentage for better responsiveness */
+    max-width: 15%; 
     white-space: pre-line;
     float: left;
     line-height: 1.5;
@@ -38,31 +38,31 @@
   /* Media queries for responsiveness */
   @media (max-width: 768px) {
     .info-container2 {
-      font-size: 0.8em;  /* Adjust font size for smaller screens */
-      max-width: 90vw;  /* Adjust container width for smaller screens */
+      font-size: 0.8em; 
+      max-width: 90vw; 
     }
   }
   
   @media (max-width: 480px) {
     .info-container2 {
-      font-size: 0.7em;  /* Further adjust font size for very small screens */
-      max-width: 95vw;  /* Further adjust container width for very small screens */
+      font-size: 0.7em;  
+      max-width: 95vw;  
     }
   }
   
   
   .home-section {
-    text-align: center; /* Center-align text */
-    margin-top: 10px; /* Ensure enough space between sections */
+    text-align: center; 
+    margin-top: 10px; 
   }
   
   .home-section h2 {
-    font-size: 1.5em; /* Reduce the heading size */
-    color: #1976d2; /* Text color */
+    font-size: 1.5em; 
+    color: #1976d2; 
   }
   
   .home-section p {
-    font-size: 1em; /* Default paragraph size */
-    line-height: 1.5; /* Ensure readability */
+    font-size: 1em; 
+    line-height: 1.5; 
   }
   
