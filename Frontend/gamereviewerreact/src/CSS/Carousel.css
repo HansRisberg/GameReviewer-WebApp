@@ -1,20 +1,40 @@
 .outer-carousel-container {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    margin: 10px auto; 
-    width: 70%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  width: 70%;
+  flex: 3; /* Allow the carousel to take more space */
+}
+
+.carousel-container {
+  width: 100%;
+  padding: 10px;
+  background-color: blanchedalmond;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+  .outer-carousel-container {
+    width: 100%; /* Full width on smaller screens */
+    flex: none; /* Remove flex grow and shrink */
   }
-  
+}
+
+@media (max-width: 768px) {
   .carousel-container {
-    width: 80%; 
-    padding: 10px; 
-    background-color: blanchedalmond;
+    padding: 5px; /* Reduce padding for smaller screens */
   }
-  
-  .carousel-image {
-    width: 100%; 
-    height: 100%; 
-    border-radius: 10px; 
+}
+
+@media (max-width: 480px) {
+  .carousel-container {
+    padding: 3px; /* Further reduce padding for very small screens */
   }
-  
+}

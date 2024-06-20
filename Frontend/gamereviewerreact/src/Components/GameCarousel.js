@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
-import '../CSS/Carousel.css';
+import'../CSS/Home.css';
 
 const gamesData = [
   { title: 'Baldurs Gate 3', imageUrl: '/Assets/bg3.webp' },
