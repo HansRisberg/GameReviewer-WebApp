@@ -46,9 +46,9 @@ const ProfileIcon = () => {
         />
       </div>
       {isOpen && isLoggedIn && (
-        <div style={{ position: 'absolute', top: '40px', right: '0', backgroundColor: 'white', border: '1px solid white' }}>
+        <div style={{ position: 'absolute', top: '40px', right: '0'}}>
           <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
-            <li style={{ display: 'inline-block', marginRight: '10px' }}>
+            <li style={{ display: 'inline-block'}}>
               <button onClick={handleLogout} style={{ border: 'none',  padding: '5px 8px', cursor: 'pointer' }}>Logout</button>
             </li>
             <li style={{ display: 'inline-block' }}>

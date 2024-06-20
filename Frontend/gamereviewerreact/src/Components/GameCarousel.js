@@ -22,7 +22,7 @@ const GameCarousel = () => {
       <div className="carousel-container"> 
         <Carousel cycleNavigation>
           {gamesData.map((game) => (
-            <Paper key={game.title} style={{ display: imagesLoaded === gamesData.length ? 'block' : 'none' }}>
+            <Paper key={game.title} style={{display: imagesLoaded === gamesData.length ? 'block' : 'none', boxShadow : 0, backgroundColor:'blanchedalmond' }}>
               <img
                 src={game.imageUrl}
                 alt={game.title}

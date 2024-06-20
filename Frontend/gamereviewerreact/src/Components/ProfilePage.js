@@ -61,7 +61,7 @@ const ProfilePage = () => {
             <p><strong>UserName:</strong> {userInfo.userName}</p>
             <p><strong>Name:</strong> {userInfo.name}</p>
             <p><strong>Email:</strong> {userInfo.email}</p>
-            <button className="fetch-reviews-button" onClick={handleFetchReviews}>
+            <button className="fetch-reviews-button" onClick={handleFetchReviews}style={{ color: 'white' }}>
               Fetch Reviews
             </button>
           </div>

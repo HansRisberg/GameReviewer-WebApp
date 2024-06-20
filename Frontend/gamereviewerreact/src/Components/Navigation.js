@@ -17,7 +17,7 @@ const Navigation = () => {
           <Link to="/addgameview" className="nav-link">Add Game</Link>
         </li>
         <li className="nav-item">
-          <ProfileIcon /> {/* Profile icon */}
+          <ProfileIcon /> 
         </li>
       </ul>
     </nav>
